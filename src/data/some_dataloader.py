@@ -13,7 +13,8 @@ class RedditDataset(Dataset):
     def __init__(self, data_path):
         super().__init__()
         self.data_path = data_path
-        self.data = pd.read_csv(data_path, sep='\t', header=0) # Read TSV file
+        self.data = pd.read_csv(data_path, sep='\t', header=0)# Read TSV file
+        self.data['TIMESTAMP'] = pd.to_datetime(self.data['TIMESTAMP'])# Convert time
     
     def __len__(self):
         return len(self.data)
