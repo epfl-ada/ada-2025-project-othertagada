@@ -10,11 +10,19 @@ class RedditDataset(Dataset):
         - __getitem__ (returns a sample from the dataset at the given index idx)
     """
 
-    def __init__(self, data_path):
+    def __init__(self, data_path_title = "data/soc-redditHyperlinks-title.tsv", data_path_body = "data/soc-redditHyperlinks-body.tsv"):
         super().__init__()
-        self.data_path = data_path
-        self.data = pd.read_csv(data_path, sep='\t', header=0)# Read TSV file
-        self.data['TIMESTAMP'] = pd.to_datetime(self.data['TIMESTAMP'])# Convert time
+
+        self.data_path_title = data_path_title  
+        self.data_path_body = data_path_body
+
+        self.data_title = pd.read_csv(data_path_title, sep='\t', header=0) # Read TSV file
+        self.data_body = pd.read_csv(data_path_body, sep='\t', header=0) # Read TSV file
+
+        self.data_title['TIMESTAMP'] = pd.to_datetime(self.data_title['TIMESTAMP']) # Convert time
+        self.data_body['TIMESTAMP'] = pd.to_datetime(self.data_body['TIMESTAMP']) # Convert time
+
+        self.data = pd.merge(self.data_title, self.data_body, on=['SOURCE_SUBREDDIT', 'TARGET_SUBREDDIT', 'POST_ID', 'TIMESTAMP', 'LINK_SENTIMENT', 'PROPERTIES'], how='outer', suffixes=('_title', '_body'))
     
     def __len__(self):
         return len(self.data)
