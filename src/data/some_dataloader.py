@@ -22,7 +22,10 @@ class RedditDataset(Dataset):
         self.data_title['TIMESTAMP'] = pd.to_datetime(self.data_title['TIMESTAMP']) # Convert time
         self.data_body['TIMESTAMP'] = pd.to_datetime(self.data_body['TIMESTAMP']) # Convert time
 
-        self.data = pd.merge(self.data_title, self.data_body, on=['SOURCE_SUBREDDIT', 'TARGET_SUBREDDIT', 'POST_ID', 'TIMESTAMP', 'LINK_SENTIMENT', 'PROPERTIES'], how='outer', suffixes=('_title', '_body'))
+        self.data_title['PROPERTIES'] = self.data_title['PROPERTIES'].str.split(',')
+        self.data_body['PROPERTIES'] = self.data_body['PROPERTIES'].str.split(',')
+
+        self.data = pd.concat([self.data_title, self.data_body], ignore_index=True, sort=False)
     
     def __len__(self):
         return len(self.data)
@@ -40,7 +43,7 @@ class RedditDataset(Dataset):
         post_id = row.get('POST_ID') if 'POST_ID' in self.data.columns else None
         timestamp = row.get('TIMESTAMP') if 'TIMESTAMP' in self.data.columns else None
         link_sentiment = row.get('LINK_SENTIMENT') if 'LINK_SENTIMENT' in self.data.columns else None
-        properties = row.get('PROPERTIES').split(',') if 'PROPERTIES' in self.data.columns else None
+        properties = row.get('PROPERTIES') if 'PROPERTIES' in self.data.columns else None
 
         sample = {
             'source_subreddit': source,
