@@ -1,11 +1,15 @@
 import plotly.graph_objects as go
 import networkx as nx
 import plotly.io as pio
-from src.data.some_dataloader import RedditDataset
-import numpy as np
-import matplotlib.pyplot as plt
 
 def write_html_spring_graph_n_nodes(data, avg_df, n):
+    """ Create a networkX graph of the dataframe ... COMPLETE DESCRIPTION!!!!!!!
+
+    Args:
+        data (df): reddit dataframe
+        avg_df (df): dataframe of source subreddits and average outgoing link sentiment
+        n (int): number of top source subreddit to get from avg_df for plotting graph
+    """
 
     n_avg_df = avg_df.head(n)
 
@@ -46,6 +50,8 @@ def write_html_spring_graph_n_nodes(data, avg_df, n):
         hoverinfo="none"
     )
 
+    # NEED TO ADD COLOR OF EDGES DEPENDING ON NEG OR POS VALUE
+
     # Node coordinates & colors
     node_x = []
     node_y = []
@@ -67,7 +73,7 @@ def write_html_spring_graph_n_nodes(data, avg_df, n):
         else:
             node_colors.append("gray")
 
-        # >>> ADDED: build hover tooltip with avg sentiment
+        # hoover tool
         avg_val = avg_sent_dict.get(node, None)
         if avg_val is None:
             hover_text = f"<b>{node}</b><br>Avg sentiment: N/A"
@@ -80,7 +86,7 @@ def write_html_spring_graph_n_nodes(data, avg_df, n):
         x=node_x, y=node_y,
         mode="markers+text",
         textposition="top center",
-        hovertemplate="%{hovertext}<extra></extra>",  # >>> ADDED
+        hovertemplate="%{hovertext}<extra></extra>",
         hovertext=node_hover,
         marker=dict(
             size=12,

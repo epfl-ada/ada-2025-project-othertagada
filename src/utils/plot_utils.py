@@ -1,11 +1,11 @@
-import plotly.graph_objects as go
-import networkx as nx
-import plotly.io as pio
-from src.data.some_dataloader import RedditDataset
-import numpy as np
 import matplotlib.pyplot as plt
 
 def plot_mean_sentiment_per_month(data):
+    """ Plots a bar plot of the mean sentiment link per month
+
+    Args:
+        data (df): dataframe to plot
+    """
 
     monthly_mean = data.groupby('year_month')['LINK_SENTIMENT'].mean()
 

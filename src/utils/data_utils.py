@@ -1,9 +1,4 @@
-import plotly.graph_objects as go
-import networkx as nx
-import plotly.io as pio
-from src.data.some_dataloader import RedditDataset
-import numpy as np
-import matplotlib.pyplot as plt
+from datetime import datetime
 
 def get_sorted_subreddits_by_avg_sentiment(data, direction, min_count=500, ascending=True):
     """Sorts the subreddits by average sentiment of outgoing or incomming links
@@ -19,7 +14,7 @@ def get_sorted_subreddits_by_avg_sentiment(data, direction, min_count=500, ascen
     Returns:
         avg_sentiment_by_subreddit (df): sorted subreddits with average link sentiment
     """
-    
+
     if (direction != 'SOURCE_SUBREDDIT') and (direction != 'TARGET_SUBREDDIT'):
         raise ValueError('Direction should be SOURCE_SUBREDDIT or TARGET_SUBREDDIT')
 
@@ -37,3 +32,24 @@ def get_sorted_subreddits_by_avg_sentiment(data, direction, min_count=500, ascen
 
     return avg_sentiment_by_subreddit.reset_index().rename(columns={'LINK_SENTIMENT': 'avg_sentiment'})
 
+
+def get_df_time_window(df, from_date, to_date):
+    """ Get dataframe of rows for which TIMESTAMP is in time window [from_date, to_date)
+
+    Args:
+        df (df): dataframe containing 'TIMESTAMP'
+        from_date (str): 'YYYY-MM-DD' Start date included
+        to_date (str): 'YYYY-MM-DD' End date excluded
+
+    Returns:
+        window_df (df): dataframe with only the rows over time window given
+    """
+
+    for date in (from_date, to_date):
+        try:
+            datetime.strptime(date, "%Y-%m-%d")
+        except ValueError:
+            raise ValueError(f"Invalid date format: '{date}'. Expected 'YYYY-MM-DD'.")
+
+    window_df = df[(df['TIMESTAMP'] >= from_date) & (df['TIMESTAMP'] < to_date)]
+    return window_df

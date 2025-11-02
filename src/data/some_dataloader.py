@@ -22,8 +22,8 @@ class RedditDataset(Dataset):
         self.data_title['TIMESTAMP'] = pd.to_datetime(self.data_title['TIMESTAMP']) # Convert time
         self.data_body['TIMESTAMP'] = pd.to_datetime(self.data_body['TIMESTAMP']) # Convert time
 
-        self.data_title['PROPERTIES'] = self.data_title['PROPERTIES'].str.split(',')
-        self.data_body['PROPERTIES'] = self.data_body['PROPERTIES'].str.split(',')
+        self.data_title['PROPERTIES'] = self.data_title['PROPERTIES'].apply(lambda x: [float(i) for i in str(x).split(',')])
+        self.data_body['PROPERTIES'] = self.data_body['PROPERTIES'].apply(lambda x: [float(i) for i in str(x).split(',')])
 
         self.data = pd.concat([self.data_title, self.data_body], ignore_index=True, sort=False)
     
