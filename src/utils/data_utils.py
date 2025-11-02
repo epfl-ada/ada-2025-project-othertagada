@@ -1,4 +1,6 @@
 from datetime import datetime
+import pandas as pd
+import networkx as nx
 
 def get_sorted_subreddits_by_avg_sentiment(data, direction, min_count=500, ascending=True):
     """Sorts the subreddits by average sentiment of outgoing or incomming links
@@ -53,3 +55,45 @@ def get_df_time_window(df, from_date, to_date):
 
     window_df = df[(df['TIMESTAMP'] >= from_date) & (df['TIMESTAMP'] < to_date)]
     return window_df
+
+
+def compute_core_subgraph(dataframe: pd.DataFrame, k: int = 10):
+    """
+    Plot a subreddit interaction subgraph.
+    
+    Parameters
+    ----------
+    G : networkx.DiGraph
+        Graph to plot.
+    title : str
+        Plot title.
+    edge_scale : int
+        Divides edge weights to adjust thickness.
+    """
+
+    # === Build weighted directed graph ===
+    edges = (
+        dataframe.groupby(["SOURCE_SUBREDDIT", "TARGET_SUBREDDIT"])
+        .size()
+        .reset_index(name="weight")
+    )
+    G_full = nx.from_pandas_edgelist(
+        edges, "SOURCE_SUBREDDIT", "TARGET_SUBREDDIT", edge_attr="weight", create_using=nx.DiGraph()
+    )
+
+    # === Convert to undirected for core analysis ===
+    G_undirected = G_full.to_undirected()
+
+    # === Compute core numbers ===
+    core_numbers = nx.core_number(G_undirected)
+    core_sorted = sorted(core_numbers.items(), key=lambda x: x[1], reverse=True)
+    top_subs = [node for node, core in core_sorted[:k]]
+
+    # === Extract subgraph of top subreddits ===
+    G_core = G_full.subgraph(top_subs)
+
+    print(f"Top {k} subreddits by graph core density:")
+    print(top_subs)
+    print(f"Nodes: {G_core.number_of_nodes()}, Edges: {G_core.number_of_edges()}")
+
+    return G_core

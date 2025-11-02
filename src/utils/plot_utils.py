@@ -1,4 +1,6 @@
 import matplotlib.pyplot as plt
+import networkx as nx
+
 
 def plot_mean_sentiment_per_month(data):
     """ Plots a bar plot of the mean sentiment link per month
@@ -36,4 +38,34 @@ def plot_sorted_subreddits(sorted_subreddits,n, direction, title ):
     plt.xlabel(direction)
     plt.ylabel('Average Sentiment')
     plt.tight_layout()
+    plt.show()
+
+def plot_subreddit_graph(G: nx.DiGraph, title: str, edge_scale: int = 100):
+    """
+    Plot a subreddit interaction subgraph.
+    
+    Parameters
+    ----------
+    G : networkx.DiGraph
+        Graph to plot.
+    title : str
+        Plot title.
+    edge_scale : int
+        Divides edge weights to adjust thickness.
+    """
+    # === Plot ===
+    plt.figure(figsize=(10, 8))
+    pos = nx.spring_layout(G, k=0.5, seed=42)
+    nx.draw(
+        G, pos,
+        with_labels=True,
+        node_size=1200,
+        node_color="lightgreen",
+        font_size=10,
+        font_weight="bold",
+        arrowsize=15
+    )
+    weights = [G[u][v]['weight'] for u, v in G.edges()]
+    nx.draw_networkx_edges(G, pos, width=[w/100 for w in weights])
+    plt.title(title)
     plt.show()
