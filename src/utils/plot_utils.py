@@ -1,6 +1,29 @@
 import matplotlib.pyplot as plt
 import networkx as nx
+import numpy as np
+from data_utils import *
 
+def plot_distribution_nb_appearance_subreddits(data):
+    """ Plots the distribution of the number of appearances of source and target subreddits
+
+    Args:
+        data (df): dataframe to plot
+    """
+     
+    # Counts number of appearances for each subreddit
+    source_counts = data['SOURCE_SUBREDDIT'].value_counts()
+    target_counts = data['TARGET_SUBREDDIT'].value_counts()
+
+    plt.figure(figsize=(10, 6))
+    plt.hist(source_counts, bins=10000, alpha=0.6, label="Source subreddits")
+    plt.hist(target_counts, bins=10000, alpha=0.6, label="Target subreddits")
+    plt.xscale('log')
+    plt.yscale('log')
+    plt.title("Distribution of Subreddit Appearances")
+    plt.xlabel("Number of appearances")
+    plt.ylabel("Number of subreddits")
+    plt.legend()
+    plt.show()
 
 def plot_mean_sentiment_per_month(data):
     """ Plots a bar plot of the mean sentiment link per month
@@ -8,7 +31,9 @@ def plot_mean_sentiment_per_month(data):
     Args:
         data (df): dataframe to plot
     """
-
+    data = get_df_time_window(data, '2015-01-01', '2017-05-01') # select full months
+    print('hello in plot mean per month')
+    data['year_month'] = data['TIMESTAMP'].dt.to_period('M').astype(str)
     monthly_mean = data.groupby('year_month')['LINK_SENTIMENT'].mean()
 
     monthly_mean.plot(kind='bar')
