@@ -2,6 +2,8 @@ import statsmodels.formula.api as smf
 import pickle
 import pandas as pd
 from src.utils.data_utils import *
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
 
 def train_logit_link_sentiment_timewindow(df, properties, save_path, from_date, to_date):
     """ Train logistic regression model over properties features to classify link sentiment of post
@@ -59,3 +61,34 @@ def train_logit_link_sentiment(df, properties, save_path):
 
     print(f"Model saved to {save_path}")
     print(model.summary())
+
+
+def kmeans_cluster_graph_features(features, n_clusters=10):
+    """
+    Perform KMeans clustering on extracted graph features and add cluster labels.
+
+    Parameters
+    ----------
+    features : pandas.DataFrame
+        The node-level features computed by `extract_graph_features`.
+    n_clusters : int, optional
+        Number of clusters for KMeans (default is 10).
+
+    Returns
+    -------
+    features_with_clusters : pandas.DataFrame
+        Same as input, but with an extra column: 'cluster'.
+    kmeans : sklearn.cluster.KMeans
+        The trained KMeans model (for later analysis or visualization).
+    """
+
+
+    # Normalize features
+    X = features[['degree', 'in_degree', 'out_degree', 'clustering', 'pagerank', 'betweenness','closeness']]
+    X_scaled = StandardScaler().fit_transform(X)
+
+    # Cluster subreddits
+    kmeans = KMeans(n_clusters=n_clusters, random_state=42)
+    features['cluster'] = kmeans.fit_predict(X_scaled)
+
+    return features, kmeans

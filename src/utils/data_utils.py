@@ -97,3 +97,42 @@ def compute_core_subgraph(dataframe: pd.DataFrame, k: int = 10):
     print(f"Nodes: {G_core.number_of_nodes()}, Edges: {G_core.number_of_edges()}")
 
     return G_core
+
+def extract_graph_features(G):
+    """
+    Compute graph-based structural features for each node (subreddit).
+
+    Parameters
+    ----------
+    G : networkx.Graph or networkx.DiGraph
+        The graph representing subreddit interactions (edges may carry sentiment).
+        
+    Returns
+    -------
+    features : pandas.DataFrame
+        A DataFrame containing one row per node and columns:
+        ['subreddit', 'degree', 'in_degree', 'out_degree',
+         'clustering', 'pagerank', 'betweenness', 'closeness']
+    """
+
+
+    # Precompute metrics only once
+    pagerank_dict = nx.pagerank(G)
+    clustering_dict = nx.clustering(G.to_undirected())
+    betweenness_centrality_dict = nx.betweenness_centrality(G)
+    closeness_centrality_dict = nx.closeness_centrality(G)
+
+    # Build features efficiently
+    features = pd.DataFrame({
+        'subreddit': list(G.nodes()),
+        'degree': [G.degree(n) for n in G.nodes()],
+        'in_degree': [G.in_degree(n) for n in G.nodes()],
+        'out_degree': [G.out_degree(n) for n in G.nodes()],
+        'clustering': [clustering_dict[n] for n in G.nodes()],
+        'pagerank': [pagerank_dict[n] for n in G.nodes()],
+        'betweenness': [betweenness_centrality_dict[n] for n in G.nodes()],
+        'closeness': [closeness_centrality_dict[n] for n in G.nodes()],
+    })
+
+    return features
+

@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import networkx as nx
+import seaborn as sns
 
 
 def plot_mean_sentiment_per_month(data):
@@ -68,4 +69,23 @@ def plot_subreddit_graph(G: nx.DiGraph, title: str, edge_scale: int = 100):
     weights = [G[u][v]['weight'] for u, v in G.edges()]
     nx.draw_networkx_edges(G, pos, width=[w/100 for w in weights])
     plt.title(title)
+    plt.show()
+
+# Visualize average sentiment per cluster with standard deviation
+def plot_average_sentiment_per_cluster(features) :
+    """
+    Visualize the average sentiment of subreddits within each cluster.
+
+    Parameters
+    ----------
+    features : pandas.DataFrame
+        A DataFrame containing at least the following columns:
+        - 'cluster': numeric or categorical cluster labels (e.g., from KMeans)
+        - 'mean_sentiment': average sentiment score per subreddit
+          (e.g., mean of LINK_SENTIMENT values for that subreddit)
+    """
+
+    plt.figure(figsize=(8,5))
+    sns.barplot(data=features, x='cluster', y='mean_sentiment', ci='sd', palette='viridis')
+    plt.title('Average subreddit sentiment per cluster')
     plt.show()
