@@ -2,3 +2,5 @@
 *.tsv
 *.csv
 *.pyc
+*.pkl
+*.html
