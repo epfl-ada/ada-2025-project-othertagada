@@ -8,7 +8,7 @@
 ## What can we learn about conflicts and friendships from analyzing the dynamics that occur within a frequently interacting set of groups ?
 
 <p align="center">
-  <img src="subreddit_2015_weekly.gif" alt="Subreddit core network evolution per week (2015)" width="400">
+  <img src="subreddit_2015_weekly.gif" alt="Subreddit core network evolution per week (2015)" width="600">
   <br>
   <em>Weekly evolution of subreddit interactions during 2015.</em>
 </p>
@@ -19,23 +19,23 @@ ou on met ça idk:
 Ultimately, this study seeks to provide a deeper understanding of how communities on Reddit organize, influence one another, and evolve through cycles of cooperation and conflict within the broader ecosystem of online discourse.
 
 # Specific questions and methods
-Q° : What seems to bring these subreddits together ? Are they closely related or completely different ?
+Q° : What seems to bring these subreddits together ? Are they closely related or completely different ?  
 -> subreddit embeddings
 
-Q° : Can we identify "troublemakers" within the population ?
--> time analysis of the initiators : find the first negative links sent that trigger a series of events
+Q° : Can we identify "troublemakers" within the population ?  
+-> time analysis of the initiators : find the first negative links sent that trigger a series of events  
     Do they have similatities (in size, graph-based structure, topic etc.)?
 
-Q° : Are alliances made to coordonate/face attacks ? Are they temporary or long lasting friendships ?
+Q° : Are alliances made to coordonate/face attacks ? Are they temporary or long lasting friendships ?  
 -> graph analysis  ??
 
-Q° : How long does it take for an attack to be forgiven by the receiving end ? Meaning that they start interacting positively together again.
+Q° : How long does it take for an attack to be forgiven by the receiving end ? Meaning that they start interacting positively together again.  
 -> temporal analysis of the sentiment of individual subreddits for other subreddits that attacked them
 
-Q° : Can we find mechanisms that group conflicts follow that are similar to the ones in conflicts between individuals ? (peut etre too far haha)
+Q° : Can we find mechanisms that group conflicts follow that are similar to the ones in conflicts between individuals ? (peut etre too far haha)  
 ->
 
-Q° : Can conflicts within the population spark seemingly unrelated conflicts between other members ??
+Q° : Can conflicts within the population spark seemingly unrelated conflicts between other members ??  
 ->
 
 # Proposed timeline
