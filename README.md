@@ -34,7 +34,7 @@ Q° : Can conflicts within the population spark seemingly unrelated conflicts be
 
 # Proposed timeline
 | **Week** |**Dates**| **Tasks** |
-| ------ | ------ | ------ |
+| :------: | :------: | ------ |
 |**1** |6.11-12.11| <ul><li>Find target population for deeper analysis </li><li> Make more utils for time analysis, plotting and other general functionalities needed for the project</li></lu>|
 |**2** |13.11-19.11| <ul><li>Start in-depth time analysis of our target population </li><li> Define attack/interaction window (to be able to relate interactions between two subreddits)</li></lu>|
 |**3** |20.11-26.11|<ul><li>Start work on the datastory (probably with a github.io website) </li><li> Use a classifier to try to create groups for our target population (by topic, size, other metrics...) </li><li> Continue working on analyzing the target population with focus on "troublemakers" </li></lu> |
