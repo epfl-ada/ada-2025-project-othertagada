@@ -1,7 +1,7 @@
 # GROUP DYNAMICS SOMETHING ? 
 ## The aim of this analysis will be to visualize the dialogues that take place within a frequently communicating portion of subreddits, by unraveling causes, consequences, attacks and responses between these groups that oftenly interact together.
 # Research question
-General question ? 
+## What can we learn about conflicts and friendships from analyzing the dynamics that occur within a frequently interacting set of groups ?
 
 
 # Specific questions and methods
