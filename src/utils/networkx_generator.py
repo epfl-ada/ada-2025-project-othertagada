@@ -7,17 +7,13 @@ from termcolor import colored, cprint
 from typing import NamedTuple
 from dataclasses import dataclass, fields
 from collections import Counter
+from collections import defaultdict
 
 # Installing infomap using the default g++14 compiler on my system, the script excited with c++ error.
 # So I had to manually force the usage of g++12 for installation with the command below.
 # CC=/usr/bin/gcc-12 CXX=/usr/bin/g++-12 pip install infomap --no-cache-dir --force-reinstall
 from infomap import Infomap
 import tqdm
-
-class GraphWithData(NamedTuple):
-    graph: nx.DiGraph
-    infomap: dict[str, int]
-    louvain: dict[str, int]
 
 @dataclass()
 class Graphs():
@@ -42,13 +38,6 @@ class Graphs():
     positive: nx.DiGraph
     negative: nx.DiGraph
 
-    infomap_full: dict[str, int]
-    infomap_pos: dict[str, int]
-    infomap_neg: dict[str, int]
-    louvain_full: dict[str, int]
-    louvain_pos: dict[str, int]
-    louvain_neg: dict[str, int]
-
     def __iter__(self):
         yield self.full
         yield self.positive
@@ -56,19 +45,6 @@ class Graphs():
 
     def withNames(self):
         return [(self.full, "G_full"), (self.positive, "G_positive"), (self.negative, "G_negative")]
-    
-    def withData(self):
-        return [
-            GraphWithData(self.full, self.infomap_full, self.louvain_full),
-            GraphWithData(self.positive, self.infomap_pos, self.louvain_pos),
-            GraphWithData(self.negative, self.infomap_neg, self.louvain_neg)
-            ]
-    
-    @classmethod
-    def fromGraphWithData(cls, data: list[GraphWithData]):
-        if len(data) != 3:
-            raise ValueError("List must be of length 3")
-        return cls(data[0].graph, data[1].graph, data[2].graph, data[0].infomap, data[1].infomap, data[2].infomap, data[0].louvain, data[1].louvain, data[2].louvain)
     
     def exportAsGexf(self):
         for G, name in self.withNames():
@@ -90,6 +66,18 @@ def print_connected(G: nx.DiGraph) -> float:
 
 
 def infomap_community_detection(G: nx.DiGraph) -> dict:
+    """ Run the infomap community detection algorithm on graph G. Return a dict[nodeID, communityID]
+
+    Parameters
+    ----------
+    G : networkx.DiGraph
+        The subreddit interaction graph.
+
+    Returns
+    -------
+    communities : dict[str, int]
+        Returns the dict[nodeID, communityID]
+    """
 
     # Necessary mappings as addlink expects integer ids
     node_to_id = {node: i for i, node in enumerate(G.nodes())}
@@ -110,8 +98,20 @@ def infomap_community_detection(G: nx.DiGraph) -> dict:
     return res
 
 def extract_main_components(gs: Graphs) -> Graphs:
-    graphs: list[GraphWithData] = []
-    for G, infomap, louvain in gs.withData():
+    """ Create a new Graphs object where the only the nodes connected to the main component are kept.
+
+    Parameters
+    ----------
+    gs : Graphs
+        The Graphs object
+
+    Returns
+    -------
+    new_gs : Graphs
+        Returns a new Graphs object where only the nodes connected to the main component are kept.
+    """
+    graphs: list[nx.DiGraph] = []
+    for G in gs:
 
         # Find largest connected component
         main_nodes = max(nx.connected_components(G.to_undirected(as_view=True)), key=len)
@@ -119,26 +119,26 @@ def extract_main_components(gs: Graphs) -> Graphs:
         # Create a new graph with only those nodes
         G_main = G.subgraph(main_nodes).copy()
 
-        # Filter infomap grouping
-        infomap_main = {}
-        for subreddit, group in infomap.items():
-            if subreddit in main_nodes:
-                infomap_main[subreddit] = group
-
-        # Filter louvain 
-        louvain_main = {}
-        for subreddit, group in louvain.items():
-            if subreddit in main_nodes:
-                louvain_main[subreddit] = group
-
-        graphs.append(GraphWithData(G_main, infomap_main, louvain_main))
+        graphs.append(G_main)
     
-    return Graphs.fromGraphWithData(graphs)
+    return Graphs(graphs[0], graphs[1], graphs[2])
 
 
 def generate_graphs(df: pd.DataFrame) -> Graphs:
+    """ Given the reddit dataset as input, generate the 3 directed graphs and return them as a Graphs object
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The subreddit dataset
+
+    Returns
+    -------
+    gs : Graphs
+        Returns an instance of the Graphs class
+    """
     cprint("Generate the graphs", color="green")
-    gs = Graphs(nx.DiGraph(), nx.DiGraph(), nx.DiGraph(), {},{},{},{},{},{})
+    gs = Graphs(nx.DiGraph(), nx.DiGraph(), nx.DiGraph())
 
     # Add the links
     agg = df.groupby(["SOURCE_SUBREDDIT", "TARGET_SUBREDDIT"])["LINK_SENTIMENT"].agg(["sum", "count"]).reset_index()
@@ -164,21 +164,21 @@ def generate_graphs(df: pd.DataFrame) -> Graphs:
 
     # Run the infomap community detection algorithms
     # as louvain algorithm does not work on directed graphs.
-    cprint("Run infomap on the graphs", color="green")
-    gs.infomap_full = infomap_community_detection(gs.full)
-    gs.infomap_pos = infomap_community_detection(gs.positive)
-    gs.infomap_neg = infomap_community_detection(gs.negative)
+    # cprint("Run infomap on the graphs", color="green")
+    # infomap_full = infomap_community_detection(gs.full)
+    # infomap_pos = infomap_community_detection(gs.positive)
+    # infomap_neg = infomap_community_detection(gs.negative)
     cprint("Run louvain on the graphs", color="green")
-    gs.louvain_full = community_louvain.best_partition(gs.full.to_undirected())
-    gs.louvain_pos = community_louvain.best_partition(gs.positive.to_undirected())
-    gs.louvain_neg = community_louvain.best_partition(gs.negative.to_undirected())
+    louvain_full = community_louvain.best_partition(gs.full.to_undirected())
+    louvain_pos = community_louvain.best_partition(gs.positive.to_undirected())
+    louvain_neg = community_louvain.best_partition(gs.negative.to_undirected())
     for G in tqdm.tqdm(gs):
-        nx.set_node_attributes(G, gs.infomap_full, "infomap_full")
-        nx.set_node_attributes(G, gs.infomap_pos, "infomap_positive")
-        nx.set_node_attributes(G, gs.infomap_neg, "infomap_negative")
-        nx.set_node_attributes(G, gs.louvain_full, "louvain_full")
-        nx.set_node_attributes(G, gs.louvain_pos, "louvain_positive")
-        nx.set_node_attributes(G, gs.louvain_neg, "louvain_negative")
+        # nx.set_node_attributes(G, infomap_full, "infomap_full")
+        # nx.set_node_attributes(G, infomap_pos, "infomap_positive")
+        # nx.set_node_attributes(G, infomap_neg, "infomap_negative")
+        nx.set_node_attributes(G, louvain_full, "louvain_full")
+        nx.set_node_attributes(G, louvain_pos, "louvain_positive")
+        nx.set_node_attributes(G, louvain_neg, "louvain_negative")
 
     # Add an the attributes to the nodes
     cprint("Add the attributes to the graphs", color="green")
@@ -197,3 +197,117 @@ def generate_graphs(df: pd.DataFrame) -> Graphs:
         print(f"{name}: nb edges: {G.number_of_edges()}")
 
     return gs
+
+
+def print_top_degrees(nodes: list[str], gs: Graphs):
+    """ For the nodes given as input, print the top5 nodes that attack the most and that are the most
+    attacked, in absolute numbers and proportionaly.
+
+    Parameters
+    ----------
+    nodes : list[str]
+        A list of NodeIDs
+    gs : Graphs
+        A graphs object
+    """
+    neg_weighted_in_degree = dict(gs.negative.in_degree(weight='weight'))
+    neg_weighted_out_degree = dict(gs.negative.out_degree(weight='weight'))
+    full_weighted_in_degree = dict(gs.full.in_degree(weight='weight'))
+    full_weighted_out_degree = dict(gs.full.out_degree(weight='weight'))
+
+    top_nodes_in_degree = sorted(nodes, key=lambda n: neg_weighted_in_degree.get(n, 0), reverse=True)[:5]
+    top_nodes_out_degree = sorted(nodes, key=lambda n: neg_weighted_out_degree.get(n, 0), reverse=True)[:5]
+    
+    cprint(f"Nodes that attack the most (highest out degree):", color="blue")
+    for node in top_nodes_out_degree:
+        print(f"{node:<22}: {neg_weighted_out_degree.get(node, 0):>3} out of {full_weighted_out_degree.get(node, 0):>6,} "
+              f"hyperlinks ({(neg_weighted_out_degree.get(node, 0)/full_weighted_out_degree.get(node, 0))*100:.2f}%)")
+    cprint(f"Nodes that are the most attacked (highest in degree):", color="blue")
+    for node in top_nodes_in_degree:
+        print(f"{node:<22}: {neg_weighted_in_degree.get(node, 0):>3} out of {full_weighted_in_degree.get(node, 0):>6,} "
+              f"hyperlinks ({(neg_weighted_in_degree.get(node, 0)/full_weighted_in_degree.get(node, 0))*100:.2f}%)")
+    
+    top_nodes_in_degree = sorted(nodes, key=lambda n: (neg_weighted_in_degree[n] / full_weighted_in_degree[n]) if full_weighted_in_degree[n] > 20 else 0, reverse=True)[:5]
+    top_nodes_out_degree = sorted(nodes, key=lambda n: (neg_weighted_out_degree[n] / full_weighted_out_degree[n]) if full_weighted_out_degree[n] > 20 else 0, reverse=True)[:5]
+    
+    cprint(f"Nodes with a degree > 20 that have the highest attack vs cite ratio:", color="blue")
+    for node in top_nodes_out_degree:
+        print(f"{node:<22}: {neg_weighted_out_degree.get(node, 0):>3} out of {full_weighted_out_degree.get(node, 0):>6,} "
+              f"hyperlinks ({(neg_weighted_out_degree.get(node, 0)/full_weighted_out_degree.get(node, 0))*100:.2f}%)")
+    cprint(f"Nodes with a degree > 20 that have the highest being attacked vs being cited ratio :", color="blue")
+    for node in top_nodes_in_degree:
+        print(f"{node:<22}: {neg_weighted_in_degree.get(node, 0):>3} out of {full_weighted_in_degree.get(node, 0):>6,} "
+              f"hyperlinks ({(neg_weighted_in_degree.get(node, 0)/full_weighted_in_degree.get(node, 0))*100:.2f}%)")
+
+
+def get_sorted_negative_louvain_Communities(gs: Graphs) -> list[tuple[str, list[str]]]:
+    """ Get the louvain communities of the negative Graph sorted by size of the communities
+
+    Parameters
+    ----------
+    gs : Graphs
+        A Graphs object
+
+    Returns
+    -------
+    communities : list[tuple[str, list[str]]]
+        Returns a list of tuple[CommunityID, list[NodeID]]
+    """
+    communities: defaultdict[str, list[str]] = defaultdict(list)
+
+    for node, comm in nx.get_node_attributes(gs.negative, "louvain_negative").items():
+        communities[f"Community with id {comm}"].append(node)
+    communities["Graph of negative hyperlinks"] = gs.negative.nodes()
+
+    sorted_communities = sorted(communities.items(), key=lambda item: len(item[1]), reverse=True)
+
+    return sorted_communities
+     
+def plot_degree_distribution(gs: Graphs):
+    """ Print a degree distribution graph
+
+    Parameters
+    ----------
+    gs : Graphs
+        A graphs object
+    """
+    neg_weighted_in_degree = dict(gs.negative.in_degree(weight='weight'))
+    neg_weighted_out_degree = dict(gs.negative.out_degree(weight='weight'))
+    full_weighted_in_degree = dict(gs.full.in_degree(weight='weight'))
+    full_weighted_out_degree = dict(gs.full.out_degree(weight='weight'))
+    sorted_communities = get_sorted_negative_louvain_Communities(gs)
+
+
+    plt.figure(figsize=(8,6))
+    # Print top 5 nodes by weighted degree for each community
+    for name, nodes in [("Full Graph", gs.full.nodes())] + sorted_communities[:2]:
+        cprint(f"{name} ({len(nodes)} nodes)", "green")
+
+        # In degrees
+        degrees = [neg_weighted_in_degree.get(node, 0) for node in nodes]
+        if name == "Full Graph":
+            degrees = [full_weighted_in_degree.get(node, 0) for node in nodes]
+        degree_counts = Counter(degrees)
+        x = sorted(degree_counts.keys())
+        y = [degree_counts[d] for d in x]
+        plt.plot(x, y, marker='o', linestyle='-', label=f'{name} (in)')
+
+        # Out degrees
+        degrees = [neg_weighted_out_degree.get(node, 0) for node in nodes]
+        if name == "Full Graph":
+            degrees = [full_weighted_out_degree.get(node, 0) for node in nodes]
+        degree_counts = Counter(degrees)
+        x = sorted(degree_counts.keys())
+        y = [degree_counts[d] for d in x]
+        plt.plot(x, y, marker='o', linestyle='-', label=f'{name} (out)')
+        
+    # Log–log scale
+    plt.xscale('log')
+    plt.yscale('log')
+
+    plt.xlabel('Weighted degree (log scale)')
+    plt.ylabel('Number of subreddits (log scale)')
+    plt.title('Degree distribution per community')
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
