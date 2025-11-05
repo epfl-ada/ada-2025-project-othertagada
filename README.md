@@ -43,3 +43,7 @@ Q° : Can conflicts within the population spark seemingly unrelated conflicts be
 |**6** |11.12-17.12|<ul><li>Fix bugs (if any) </li><li> Verify website layout and code clarity </li><li> Avoid adding new features/content, focus on correctness of the project</li></lu>|
 
 # Internal milestones
+- [] Find our target population
+- [] Defined robust interaction window
+- [] Found troublemakers (or proved that there are none ) 
+- [] Datastory content complete
