@@ -12,7 +12,7 @@ from collections import defaultdict
 # Installing infomap using the default g++14 compiler on my system, the script excited with c++ error.
 # So I had to manually force the usage of g++12 for installation with the command below.
 # CC=/usr/bin/gcc-12 CXX=/usr/bin/g++-12 pip install infomap --no-cache-dir --force-reinstall
-from infomap import Infomap
+# from infomap import Infomap
 import tqdm
 
 @dataclass()
@@ -58,44 +58,41 @@ class Graphs():
 
 def print_connected(G: nx.DiGraph) -> float:
     comps = sorted(nx.connected_components(G.to_undirected(as_view=True)), key=len, reverse=True)
-    #c = Counter(map(len, comps))
-    # for k, v in sorted(Counter(map(len, comps)).items(), key=lambda item: item[1]):
-    #     print(f"")
         
     print(f"{len(comps[0])} out of {len(G)} nodes({(len(comps[0]) / len(G))*100:2f}%) are part of the main subgraph.") 
 
 
-def infomap_community_detection(G: nx.DiGraph) -> dict:
-    """ Run the infomap community detection algorithm on graph G. Return a dict[nodeID, communityID]
+# def infomap_community_detection(G: nx.DiGraph) -> dict:
+#     """ Run the infomap community detection algorithm on graph G. Return a dict[nodeID, communityID]
 
-    Parameters
-    ----------
-    G : networkx.DiGraph
-        The subreddit interaction graph.
+#     Parameters
+#     ----------
+#     G : networkx.DiGraph
+#         The subreddit interaction graph.
 
-    Returns
-    -------
-    communities : dict[str, int]
-        Returns the dict[nodeID, communityID]
-    """
+#     Returns
+#     -------
+#     communities : dict[str, int]
+#         Returns the dict[nodeID, communityID]
+#     """
 
-    # Necessary mappings as addlink expects integer ids
-    node_to_id = {node: i for i, node in enumerate(G.nodes())}
-    id_to_node = {i: node for node, i in node_to_id.items()}
+#     # Necessary mappings as addlink expects integer ids
+#     node_to_id = {node: i for i, node in enumerate(G.nodes())}
+#     id_to_node = {i: node for node, i in node_to_id.items()}
 
-    im = Infomap(directed=True)
-    for u, v, data in G.edges(data = True):
-        im.addLink(node_to_id[u], node_to_id[v], data["weight"])
-    im.run()
+#     im = Infomap(directed=True)
+#     for u, v, data in G.edges(data = True):
+#         im.addLink(node_to_id[u], node_to_id[v], data["weight"])
+#     im.run()
 
-    # Get communities
-    res = {}
-    for node in im.tree:
-        if node.is_leaf:
-            if id_to_node[node.node_id] in res:
-                cprint(f"Node {id_to_node[node.node_id]} who was attributed to community {res[id_to_node[node.node_id]]} is now attributed to community {node.module_id}.", "red")
-            res[id_to_node[node.node_id]] = node.module_id
-    return res
+#     # Get communities
+#     res = {}
+#     for node in im.tree:
+#         if node.is_leaf:
+#             if id_to_node[node.node_id] in res:
+#                 cprint(f"Node {id_to_node[node.node_id]} who was attributed to community {res[id_to_node[node.node_id]]} is now attributed to community {node.module_id}.", "red")
+#             res[id_to_node[node.node_id]] = node.module_id
+#     return res
 
 def extract_main_components(gs: Graphs) -> Graphs:
     """ Create a new Graphs object where the only the nodes connected to the main component are kept.
