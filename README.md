@@ -1,40 +1,38 @@
-# TITLE PROPS:
-- Please be nice: A deep dive into inter-subreddit communication
-- The extroverts: Analyzing the most interacting subreddits on the platform
-- The bubbleverse: How do different spheres on Reddit communicate?
+# Links for days : An insight into the structure of online dialogue
 
 # Abstract
-The aim of this analysis will be to visualize the dialogues that take place within a frequently communicating portion of subreddits, by unraveling causes, consequences, attacks and responses between these groups that often interact together. This is done by an analysis over non overlapping time windows of the changing weighted directed Reddit graph. What can we learn about conflicts and friendships from analyzing the dynamics that occur within a frequently interacting set of groups? Is it possible to detect the evolution of a conflict over time from the graph structure obtained?  Can different phases (initial interactions, phasing out, etc) or type of communication (mass attack, codependence, etc) be identified? What does this subset graph implies for the overall graph? 
+The aim of this analysis will be to visualize the dialogues that take place within a frequently communicating portion of subreddits, by unraveling causes, consequences, attacks and responses between these groups that often interact together. This is done by an analysis over non overlapping time windows of the changing weighted directed Reddit graph. What can we learn about conflicts and friendships from analyzing the dynamics that occur within a frequently interacting set of groups? Is it possible to detect the evolution of a conflict over time from the graph structure obtained?  Can different phases (initial interactions, phasing out, etc) or type of communication (mass attack, codependence, etc) be identified? What does this subset graph implies for the overall graph?  
 Ultimately, this study seeks to provide a deeper understanding of how communities on Reddit organize, influence one another, and evolve through cycles of cooperation and conflict giving insight in the broader landscape of online discourse.
 
 <p align="center">
-  <img src="subreddit_2015_weekly.gif" alt="Subreddit core network evolution per week (2015)" width="600">
+  <img src="network_gif_readme.gif" alt="Subreddit core network evolution per week (2015)" width="600">
   <br>
   <em>Weekly evolution of subreddit interactions during 2015.</em>
 </p>
 
 # Development of the project
-This project started as a global time analysis of the dataset. The idea was that we might find some trend towards or against negativity. This analysis was not conclusive as we felt that a time period of only 3 years wasn’t long enough to see a trend. We decided to pivot to a project angled at the analysis of the dataset as a graph structure. It is complicated to get a concret idea of what is at play in a graph of this size (50’000+ nodes, 800’000+ edges), our solution was to focus most of the project on a carefully chosen subset of subreddits. Finding the best subreddits subjects on which to perform the analysis is a key step of this project, for now we selected the subset that share the most interactions. This method presents an important flaw, some subreddits are specifically designed to have links to other subreddits and have consequently an inflated number of interactions with numerous subreddits that aren't representative of real friendships or conflicts. Finding the right subset of interacting communities is our priority.
+This project started as a global time analysis of the dataset. The idea was that we might find some trend towards or against negativity. This analysis was not conclusive as we felt that a time period of only 3 years wasn’t long enough to see a trend. We decided to pivot to a project angled at the analysis of the dataset as a graph structure. It is complicated to get a concrete idea of what is at play in a graph of this size (50’000+ nodes, 800’000+ edges), our solution was to focus most of the project on a carefully chosen subset of subreddits.  Finding the best subreddits subjects on which to perform the analysis is a key step of this project, for now we selected the subset that share the most interactions. This method presents an important flaw, some subreddits are specifically designed to have links to other subreddits and have consequently an inflated number of interactions with numerous subreddits that aren't representative of real friendships or conflicts. Finding the right subset of interacting communities is our priority.  
 The length of the time window considered is a crucial aspect, as it is responsible for the granularity of the analysis. A smaller window gives a more detailed visualization tool but might be overwhelming with irrelevant information, whereas a window that is too large won't allow us to see which event triggered a response.
 
 # Specific questions and methods
 Q° : What seems to bring these subreddits together ? Are they closely related or completely different ?  
 -> Computation of cosine similarity between subreddits using the Word2Vecx embeddings given in the additional embeddings dataset.
 
-Q° : Can we identify "troublemakers" within the population ?  
--> Time analysis of the initiators : find the first negative links sent that trigger a series of events  
-    Do they have similarities (in size, graph-based structure, topic etc.)?
+Q° : Can we identify "troublemakers" within the population ? Do they have similarities (in size, graph-based structure, topic etc.)?  
+-> Time analysis of the initiators : find the first negative links sent that trigger a series of events.  
+-> Plot comparaison of key proprieties: size, topic, linguistic aspect. 
+-> Compute graph closeness centrality on found "Troublemakers", Are they more central to the graph?  
 
 Q° : Are alliances made to coordinate/face attacks ? Are they temporary or long lasting friendships ?  
--> Long time graph visualization concerning subreddits with longterm dialogue.
+-> Long time graph visualization concerning subreddits with longterm dialogue. Longterm can be defined more precisely as a metric comprised of the number of interaction and how spread out in time they are. 
+-> Identify some set of connected components (using Networkx methods) and see how long they stay connected. Look if they tend to target the same subreddits or if they tend to be targeted by the same subreddits.
 
 Q° : How long does it take for an attack to be forgiven by the receiving end ? Meaning that they start interacting positively together again.  
 -> Temporal analysis of the average link sentiment of individual subreddits to the attacker subreddits.
+  1. Computation of the average sentiment within a rolling window (panda Series method) and look for a ascending sequence of mean, progressively closer to 1.
+  2. Group the chosen subset of the dataset by (source, target) pairs then sort it by the time stamp and compute the time it takes to see a sentiment reversal between the subreddits involved.
 
-Q° : Can we find mechanisms that group conflicts follow that are similar to the ones in conflicts between individuals ? (peut etre too far haha)  
--> J'ai r compris mon frere
-
-Q° : Can conflicts within the population spark seemingly unrelated conflicts between other subreddits ?
+Q° : Can conflicts within the population spark seemingly unrelated conflicts between other subreddits ?  
 -> Graph analysis on the entire dataset in relation to part of the chosen subset. (Example : look at proprieties of a graph with only subreddit A as target/source before/after an identified attack)
 
 # Proposed timeline

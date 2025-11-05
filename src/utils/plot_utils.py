@@ -36,8 +36,7 @@ def plot_mean_sentiment_per_month(data):
     Args:
         data (df): dataframe to plot
     """
-    data = get_df_time_window(data, '2015-01-01', '2017-05-01') # select full months
-    print('hello in plot mean per month')
+    data = get_df_time_window(data, '2014-01-01', '2017-05-01') # select full months
     data['year_month'] = data['TIMESTAMP'].dt.to_period('M').astype(str)
     monthly_mean = data.groupby('year_month')['LINK_SENTIMENT'].mean()
 
@@ -157,7 +156,7 @@ def plot_cluster_sentiment_variance(cluster_variance):
     plt.show()
 
 
-def animate_subreddit_evolution(graphs, labels, pos, save_path="subreddit_evolution.gif", interval=500, show_inline=True):
+def animate_subreddit_evolution(graphs, labels, pos, save_path="./outputs/subreddit_evolution.gif", interval=500, show_inline=True):
     """
     Animate subreddit interaction graphs over time (one frame per week).
     """
@@ -183,7 +182,7 @@ def animate_subreddit_evolution(graphs, labels, pos, save_path="subreddit_evolut
 
     ani = FuncAnimation(fig, update, frames=len(graphs), interval=interval, repeat=True)
     ani.save(save_path, writer="pillow", dpi=150)
-    print(f"✅ Saved animation to {save_path}")
+    print(f"Saved animation to {save_path}")
 
     if show_inline:
         plt.close(fig)
@@ -231,4 +230,4 @@ def get_animation_weekly(G, window, data, year):
         labels.append(f"Week of {start}")
 
     # === Animate the year week-by-week ===
-    animate_subreddit_evolution(graphs, labels, pos, save_path=f"subreddit_{year}_weekly.gif", interval=400)
+    animate_subreddit_evolution(graphs, labels, pos, save_path=f"./outputs/subreddit_{year}_weekly.gif", interval=400)
