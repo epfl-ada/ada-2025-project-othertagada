@@ -5,3 +5,11 @@ scipy==1.13.0
 matplotlib==3.8.4
 wandb==0.17.2
 numpy
+infomap==2.8.0
+termcolor==3.2.0
+python-louvain==0.16
+torch
+torchvision
+ipykernel
+pandas==2.3.3
+tqdm==4.67.1

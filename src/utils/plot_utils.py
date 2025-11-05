@@ -38,13 +38,12 @@ def plot_mean_sentiment_per_month(data):
     data['year_month'] = data['TIMESTAMP'].dt.to_period('M').astype(str)
     monthly_mean = data.groupby('year_month')['LINK_SENTIMENT'].mean()
 
-    monthly_mean.plot(kind='bar')
-    plt.ylim(0.75, 0.85)
-    plt.title('Mean sentiment per Month')
-    plt.xlabel('date')
-    plt.ylabel('Mean Sentiment')
-    plt.tight_layout()
-    plt.show()
+    plot_bar_chart(monthly_mean, 
+                   title='Mean sentiment per Month', 
+                   xlabel='date', 
+                   ylabel='Mean Sentiment', 
+                   ylim=(0.75, 0.85)
+                  )
 
 def plot_sorted_subreddits(sorted_subreddits,n, direction, title ):
     """ Plots Top/bottom n subreddits from sorted df 
@@ -60,12 +59,7 @@ def plot_sorted_subreddits(sorted_subreddits,n, direction, title ):
         raise ValueError('Direction should be SOURCE_SUBREDDIT or TARGET_SUBREDDIT')
 
     n_sorted_subreddits = sorted_subreddits.head(n).set_index(direction)
-    n_sorted_subreddits['avg_sentiment'].plot(kind='bar', figsize=(12,6))
-    plt.title(title)
-    plt.xlabel(direction)
-    plt.ylabel('Average Sentiment')
-    plt.tight_layout()
-    plt.show()
+    plot_bar_chart(n_sorted_subreddits, title=title, xlabel=direction, ylabel='Average Sentiment')
 
 def plot_subreddit_graph(G: nx.DiGraph, title: str, edge_scale: int = 100):
     """
@@ -114,4 +108,26 @@ def plot_average_sentiment_per_cluster(features) :
     plt.figure(figsize=(8,5))
     sns.barplot(data=features, x='cluster', y='mean_sentiment', ci='sd', palette='viridis')
     plt.title('Average subreddit sentiment per cluster')
+    plt.show()
+
+
+def plot_bar_chart(data, title, xlabel, ylabel, ylim=None, xlim=None):
+    """
+    Plots a bar chart.
+
+    Args:
+        data (pd.DataFrame): DataFrame containing 'x' and 'y' columns
+        title (str): title of the plot
+        xlabel (str): label of the x axis
+        ylabel (str): label of the y axis
+        ylim (tuple, optional): y-axis limits
+        xlim (tuple, optional): x-axis limits
+    """
+    data.plot(kind='bar', figsize=(10,6))
+    plt.ylim(ylim) if ylim else None
+    plt.xlim(xlim) if xlim else None
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.tight_layout()
     plt.show()
