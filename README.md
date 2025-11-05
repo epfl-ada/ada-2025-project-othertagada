@@ -7,6 +7,12 @@
 # Research question
 ## What can we learn about conflicts and friendships from analyzing the dynamics that occur within a frequently interacting set of groups ?
 
+<p align="center">
+  <img src="subreddit_2015_weekly.gif" alt="Subreddit core network evolution per week (2015)" width="400">
+  <br>
+  <em>Weekly evolution of subreddit interactions during 2015.</em>
+</p>
+
 # Description
 This project explores how Reddit communities interact, collaborate, and clash within a densely connected network of subreddits. By focusing on the most active and communicative groups, we aim to uncover the dynamics that shape inter-community relationships — whether friendly alliances or hostile exchanges. Using network analysis and time-windowed tracking of subreddit behavior, we visualize how patterns of sentiment and interaction evolve over time, identifying clusters of related topics and potential “troublemakers” who ignite chains of negative exchanges. Alongside network-based insights, we also examine linguistic properties of posts — such as word complexity, sentence length, or number of words used — to see whether communication style influences sentiment and group dynamics. Ultimately, this study investigates whether the mechanisms driving conflict and cooperation between online communities mirror those found in human social groups, revealing how both structure and language shape the evolving landscape of discourse on Reddit. (la dernière phrase rejoint la cinquième question de la section d'en-dessous mais jsp si on veut s'aventurer là-dedans vraiment même si c'est mega intéressant)
 ou on met ça idk:
