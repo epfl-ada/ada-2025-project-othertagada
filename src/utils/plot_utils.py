@@ -183,7 +183,7 @@ def animate_subreddit_evolution(graphs, labels, pos, save_path="subreddit_evolut
 
     ani = FuncAnimation(fig, update, frames=len(graphs), interval=interval, repeat=True)
     ani.save(save_path, writer="pillow", dpi=150)
-    print(f"✅ Saved animation to {save_path}")
+    print(f"Saved animation to {save_path}")
 
     if show_inline:
         plt.close(fig)
