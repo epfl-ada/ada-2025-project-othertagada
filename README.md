@@ -33,13 +33,13 @@ Q° : Can conflicts within the population spark seemingly unrelated conflicts be
 ->
 
 # Proposed timeline
-| **Week** | **Tasks** |
-| ------ | ------ |
-|**1** (6.11-12.11) | Find target population for deeper analysis <br> Make more utils for time analysis, plotting and other general functionalities needed for the project|
-|**2** (13.11-19.11)| Start in-depth time analysis of our target population <br> Define attack/interaction window (to be able to relate interactions between two subreddits)|
-|**3** (20.11-26.11)|Start work on the datastory (probably with a github.io website) <br> Use a classifier to try to create groups for our target population (by topic, size, other metrics...) <br> Continue working on analyzing the target population with focus on "troublemakers" <br> |
-|**4** (27.11-03.12)|Look for conflict sparking trends and possible alliances <br> Continue work on both data story and further analysis of the target population (bulk of our work should be this week)|
-|**5** (4.12-10.12)|Finalize the datastory, including text, interactive graphs and images <br> Wrap up analysis of our target population (time allocated for ideas not part of our initial planning) <br> Make sure all helpers and supporting code is mostly finalized|
-|**6** (11.12-17.12)| Fix bugs (if any) <br> Verify website layout and code clarity <br> Avoid adding new features/content, focus on correctness of the project|
+| **Week** |**Dates**| **Tasks** |
+| ------ | ------ | ------ |
+|**1** |6.11-12.11| <ul><li>Find target population for deeper analysis </li><li> Make more utils for time analysis, plotting and other general functionalities needed for the project</li></lu>|
+|**2** |13.11-19.11| <ul><li>Start in-depth time analysis of our target population </li><li> Define attack/interaction window (to be able to relate interactions between two subreddits)</li></lu>|
+|**3** |20.11-26.11|<ul><li>Start work on the datastory (probably with a github.io website) </li><li> Use a classifier to try to create groups for our target population (by topic, size, other metrics...) </li><li> Continue working on analyzing the target population with focus on "troublemakers" </li></lu> |
+|**4** |27.11-03.12|<ul><li>Look for conflict sparking trends and possible alliances </li><li> Continue work on both data story and further analysis of the target population (bulk of our work should be this week)</li></lu>|
+|**5** |4.12-10.12|<ul><li>Finalize the datastory, including text, interactive graphs and images </li><li> Wrap up analysis of our target population (time allocated for ideas not part of our initial planning) </li><li> Make sure all helpers and supporting code is mostly finalized</li></lu>|
+|**6** |11.12-17.12|<ul><li>Fix bugs (if any) </li><li> Verify website layout and code clarity </li><li> Avoid adding new features/content, focus on correctness of the project</li></lu>|
 
 # Internal milestones
