@@ -14,28 +14,28 @@ Ultimately, this study seeks to provide a deeper understanding of how communitie
 </p>
 
 # Development of the project
-This project started as a global time analysis of the dataset. The idea was that we might find some trend towards or against negativity. This analysis was not conclusive as we felt that a time period of only 3 years wasn’t long enough to see a trend. We decided to pivot to a project angled at the analysis of the dataset as a graph structure. It is complicated to get a concret idea of what is at play in a graph of this size (50’000+ nodes, 300’000+ edges), our solution was to focus most of the project on a carefully chosen subset of subreddits. Finding the best subreddits subjects on which to perform the analysis is a key step of this project, for now we selected the subset that share the most interactions. This method presents an important flaw, some subreddits are specifically designed to have links to other subreddits and have consequently an inflated number of interactions with numerous subreddits that aren't representative of real friendships or conflicts. Finding the right subset of interacting communities is our priority.
+This project started as a global time analysis of the dataset. The idea was that we might find some trend towards or against negativity. This analysis was not conclusive as we felt that a time period of only 3 years wasn’t long enough to see a trend. We decided to pivot to a project angled at the analysis of the dataset as a graph structure. It is complicated to get a concret idea of what is at play in a graph of this size (50’000+ nodes, 800’000+ edges), our solution was to focus most of the project on a carefully chosen subset of subreddits. Finding the best subreddits subjects on which to perform the analysis is a key step of this project, for now we selected the subset that share the most interactions. This method presents an important flaw, some subreddits are specifically designed to have links to other subreddits and have consequently an inflated number of interactions with numerous subreddits that aren't representative of real friendships or conflicts. Finding the right subset of interacting communities is our priority.
 The length of the time window considered is a crucial aspect, as it is responsible for the granularity of the analysis. A smaller window gives a more detailed visualization tool but might be overwhelming with irrelevant information, whereas a window that is too large won't allow us to see which event triggered a response.
 
 # Specific questions and methods
 Q° : What seems to bring these subreddits together ? Are they closely related or completely different ?  
--> subreddit embeddings
+-> Computation of cosine similarity between subreddits using the Word2Vecx embeddings given in the additional embeddings dataset.
 
 Q° : Can we identify "troublemakers" within the population ?  
--> time analysis of the initiators : find the first negative links sent that trigger a series of events  
-    Do they have similatities (in size, graph-based structure, topic etc.)?
+-> Time analysis of the initiators : find the first negative links sent that trigger a series of events  
+    Do they have similarities (in size, graph-based structure, topic etc.)?
 
-Q° : Are alliances made to coordonate/face attacks ? Are they temporary or long lasting friendships ?  
--> graph analysis  ??
+Q° : Are alliances made to coordinate/face attacks ? Are they temporary or long lasting friendships ?  
+-> Long time graph visualization concerning subreddits with longterm dialogue.
 
 Q° : How long does it take for an attack to be forgiven by the receiving end ? Meaning that they start interacting positively together again.  
--> temporal analysis of the sentiment of individual subreddits for other subreddits that attacked them
+-> Temporal analysis of the average link sentiment of individual subreddits to the attacker subreddits.
 
 Q° : Can we find mechanisms that group conflicts follow that are similar to the ones in conflicts between individuals ? (peut etre too far haha)  
-->
+-> J'ai r compris mon frere
 
-Q° : Can conflicts within the population spark seemingly unrelated conflicts between other members ??  
-->
+Q° : Can conflicts within the population spark seemingly unrelated conflicts between other subreddits ?
+-> Graph analysis on the entire dataset in relation to part of the chosen subset. (Example : look at proprieties of a graph with only subreddit A as target/source before/after an identified attack)
 
 # Proposed timeline
 | **Week** |**Dates**| **Tasks** |
