@@ -3,9 +3,9 @@
 - The extroverts: Analyzing the most interacting subreddits on the platform
 - The bubbleverse: How do different spheres on Reddit communicate?
 
-## The aim of this analysis will be to visualize the dialogues that take place within a frequently communicating portion of subreddits, by unraveling causes, consequences, attacks and responses between these groups that oftenly interact together.
-# Research question
-## What can we learn about conflicts and friendships from analyzing the dynamics that occur within a frequently interacting set of groups ?
+# Abstract
+The aim of this analysis will be to visualize the dialogues that take place within a frequently communicating portion of subreddits, by unraveling causes, consequences, attacks and responses between these groups that often interact together. This is done by an analysis over non overlapping time windows of the changing weighted directed Reddit graph. What can we learn about conflicts and friendships from analyzing the dynamics that occur within a frequently interacting set of groups? Is it possible to detect the evolution of a conflict over time from the graph structure obtained?  Can different phases (initial interactions, phasing out, etc) or type of communication (mass attack, codependence, etc) be identified? What does this subset graph implies for the overall graph? 
+Ultimately, this study seeks to provide a deeper understanding of how communities on Reddit organize, influence one another, and evolve through cycles of cooperation and conflict giving insight in the broader landscape of online discourse.
 
 <p align="center">
   <img src="subreddit_2015_weekly.gif" alt="Subreddit core network evolution per week (2015)" width="600">
@@ -13,10 +13,9 @@
   <em>Weekly evolution of subreddit interactions during 2015.</em>
 </p>
 
-# Description
-This project explores how Reddit communities interact, collaborate, and clash within a densely connected network of subreddits. By focusing on the most active and communicative groups, we aim to uncover the dynamics that shape inter-community relationships — whether friendly alliances or hostile exchanges. Using network analysis and time-windowed tracking of subreddit behavior, we visualize how patterns of sentiment and interaction evolve over time, identifying clusters of related topics and potential “troublemakers” who ignite chains of negative exchanges. Alongside network-based insights, we also examine linguistic properties of posts — such as word complexity, sentence length, or number of words used — to see whether communication style influences sentiment and group dynamics. Ultimately, this study investigates whether the mechanisms driving conflict and cooperation between online communities mirror those found in human social groups, revealing how both structure and language shape the evolving landscape of discourse on Reddit. (la dernière phrase rejoint la cinquième question de la section d'en-dessous mais jsp si on veut s'aventurer là-dedans vraiment même si c'est mega intéressant)
-ou on met ça idk:
-Ultimately, this study seeks to provide a deeper understanding of how communities on Reddit organize, influence one another, and evolve through cycles of cooperation and conflict within the broader ecosystem of online discourse.
+# Development of the project
+This project started as a global time analysis of the dataset. The idea was that we might find some trend towards or against negativity. This analysis was not conclusive as we felt that a time period of only 3 years wasn’t long enough to see a trend. We decided to pivot to a project angled at the analysis of the dataset as a graph structure. It is complicated to get a concret idea of what is at play in a graph of this size (50’000+ nodes, 300’000+ edges), our solution was to focus most of the project on a carefully chosen subset of subreddits. Finding the best subreddits subjects on which to perform the analysis is a key step of this project, for now we selected a subset who have a lot of interactions amongst them. This method presents us with an important flaw, some subreddits are specifically designed to have links to other subreddits and have consequently an inflated number of interactions with numerous subreddits. Finding the right subset is our priority.
+The length of the time window considered is crucial aspect, as it is responsible for the granularity of the analysis, a smaller window gives a more detailed visualization tool but might be overwhelming with irrelevant information.
 
 # Specific questions and methods
 Q° : What seems to bring these subreddits together ? Are they closely related or completely different ?  
