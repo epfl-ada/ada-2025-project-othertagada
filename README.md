@@ -1,4 +1,8 @@
-# GROUP DYNAMICS SOMETHING ? 
+# TITLE PROPS:
+- Please be nice: A deep dive into inter-subreddit communication
+- The extroverts: Analyzing the most interacting subreddits on the platform
+- The bubbleverse: How do different spheres on Reddit communicate?
+
 ## The aim of this analysis will be to visualize the dialogues that take place within a frequently communicating portion of subreddits, by unraveling causes, consequences, attacks and responses between these groups that oftenly interact together.
 # Research question
 ## What can we learn about conflicts and friendships from analyzing the dynamics that occur within a frequently interacting set of groups ?
