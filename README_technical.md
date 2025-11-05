@@ -17,6 +17,10 @@ conda activate <env_name>
 
 # install requirements
 pip install -r pip_requirements.txt
+
+# if during execution of a python jupyter notebook, you get an error about infomap, you may need
+# to force its installation with an older version of gcc with a command like:
+CC=/usr/bin/gcc-12 CXX=/usr/bin/g++-12 pip install infomap --no-cache-dir --force-reinstall
 ```
 
 
