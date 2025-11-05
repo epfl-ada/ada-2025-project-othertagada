@@ -24,10 +24,13 @@ Q° : Can we identify "troublemakers" within the population ? Do they have simil
 -> Compute graph closeness centrality on found "Troublemakers", Are they more central to the graph?  
 
 Q° : Are alliances made to coordinate/face attacks ? Are they temporary or long lasting friendships ?  
--> Long time graph visualization concerning subreddits with longterm dialogue. Longterm can be defined more precisely as a metric comprised of the number of interaction and how spread out in time they are.  
+-> Long time graph visualization concerning subreddits with longterm dialogue. Longterm can be defined more precisely as a metric comprised of the number of interaction and how spread out in time they are. 
+-> Identify some set of connected components (using Networkx methods) and see how long they stay connected. Look if they tend to target the same subreddits or if they tend to be targeted by the same subreddits.
 
 Q° : How long does it take for an attack to be forgiven by the receiving end ? Meaning that they start interacting positively together again.  
 -> Temporal analysis of the average link sentiment of individual subreddits to the attacker subreddits.
+  1. Computation of the average sentiment within a rolling window (panda Series method) and look for a ascending sequence of mean, progressively closer to 1.
+  2. Group the chosen subset of the dataset by (source, target) pairs then sort it by the time stamp and compute the time it takes to see a sentiment reversal between the subreddits involved.
 
 Q° : Can conflicts within the population spark seemingly unrelated conflicts between other subreddits ?  
 -> Graph analysis on the entire dataset in relation to part of the chosen subset. (Example : look at proprieties of a graph with only subreddit A as target/source before/after an identified attack)
