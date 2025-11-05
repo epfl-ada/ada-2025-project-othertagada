@@ -7,6 +7,8 @@
 # Research question
 ## What can we learn about conflicts and friendships from analyzing the dynamics that occur within a frequently interacting set of groups ?
 
+# Description
+This project explores how Reddit communities interact, collaborate, and clash within a densely connected network of subreddits. By focusing on the most active and communicative groups, we aim to uncover the dynamics that shape inter-community relationships — whether friendly alliances or hostile exchanges.
 
 # Specific questions and methods
 Q° : What seems to bring these subreddits together ? Are they closely related or completely different ?
@@ -14,6 +16,7 @@ Q° : What seems to bring these subreddits together ? Are they closely related o
 
 Q° : Can we identify "troublemakers" within the population ?
 -> time analysis of the initiators : find the first negative links sent that trigger a series of events
+    Do they have similatities (in size, graph-based structure, topic etc.)?
 
 Q° : Are alliances made to coordonate/face attacks ? Are they temporary or long lasting friendships ?
 -> graph analysis  ??
