@@ -109,7 +109,8 @@ def write_html_spring_graph_n_nodes(data, avg_df, n):
     fig.update_xaxes(showgrid=False, zeroline=False, visible=False)
     fig.update_yaxes(showgrid=False, zeroline=False, visible=False)
 
-    pio.write_html(fig, file="reddit_network_plotly.html", auto_open=True)
+    pio.write_html(fig, file="./outputs/reddit_network_plotly.html", auto_open=False)
+    print("Saved interactive graph to ./outputs/reddit_network_plotly.html")
 
 def mean_sentiment_per_subreddit_in_graph(G, df, features):
     """

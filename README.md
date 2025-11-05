@@ -5,7 +5,7 @@ The aim of this analysis will be to visualize the dialogues that take place with
 Ultimately, this study seeks to provide a deeper understanding of how communities on Reddit organize, influence one another, and evolve through cycles of cooperation and conflict giving insight in the broader landscape of online discourse.
 
 <p align="center">
-  <img src="subreddit_2015_weekly.gif" alt="Subreddit core network evolution per week (2015)" width="600">
+  <img src="network_gif_readme.gif" alt="Subreddit core network evolution per week (2015)" width="600">
   <br>
   <em>Weekly evolution of subreddit interactions during 2015.</em>
 </p>
