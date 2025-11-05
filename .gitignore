@@ -1,6 +1,9 @@
 .venv/
+*.ds_store
 *.tsv
 *.csv
 *.pyc
 *.pkl
 *.html
+*.ipynb
+!results.ipynb
