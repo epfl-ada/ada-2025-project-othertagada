@@ -1,7 +1,4 @@
-# TITLE PROPS:
-- Please be nice: A deep dive into inter-subreddit communication
-- The extroverts: Analyzing the most interacting subreddits on the platform
-- The bubbleverse: How do different spheres on Reddit communicate?
+# Links for days : An insight into the structure of online dialogue
 
 # Abstract
 The aim of this analysis will be to visualize the dialogues that take place within a frequently communicating portion of subreddits, by unraveling causes, consequences, attacks and responses between these groups that often interact together. This is done by an analysis over non overlapping time windows of the changing weighted directed Reddit graph. What can we learn about conflicts and friendships from analyzing the dynamics that occur within a frequently interacting set of groups? Is it possible to detect the evolution of a conflict over time from the graph structure obtained?  Can different phases (initial interactions, phasing out, etc) or type of communication (mass attack, codependence, etc) be identified? What does this subset graph implies for the overall graph? 
