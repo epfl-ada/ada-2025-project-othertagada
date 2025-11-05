@@ -110,3 +110,60 @@ def write_html_spring_graph_n_nodes(data, avg_df, n):
     fig.update_yaxes(showgrid=False, zeroline=False, visible=False)
 
     pio.write_html(fig, file="reddit_network_plotly.html", auto_open=True)
+
+def mean_sentiment_per_subreddit_in_graph(G, df, features):
+    """
+    Compute the mean sentiment of each subreddit in the graph G and the variance of these 
+    mean sentiment scores within each cluster.
+    Add 'mean_sentiment' and 'sentiment_variance' columns to the features.
+
+    Parameters
+    ----------
+    G : networkx.Graph or networkx.DiGraph
+        The subreddit interaction graph. Only subreddits (nodes) present 
+        in this graph are considered when computing sentiment averages.
+
+    df : pandas.DataFrame
+        The full dataset of subreddit interactions.
+
+    features : pandas.DataFrame
+        A DataFrame containing per-subreddit graph features and cluster 
+        assignments. 
+
+    Returns
+    -------
+    features : pandas.DataFrame
+        The input `features` DataFrame enriched with new 'mean_sentiment' and 'sentiment_variance'
+        columns.
+    cluster_variance : pandas.DataFrame
+        A separate DataFrame summarizing the variance of mean sentiment per cluster.
+    """
+
+    valid_subreddits = set(G.nodes())
+
+    mean_sentiment = (
+        df[df['SOURCE_SUBREDDIT'].isin(valid_subreddits)]
+        .groupby('SOURCE_SUBREDDIT')['LINK_SENTIMENT']
+        .mean()
+    )
+
+
+    # Convert to DataFrame and merge
+    sentiment_df = mean_sentiment.reset_index()
+    sentiment_df.columns = ['subreddit', 'mean_sentiment']
+
+    # Merge into features
+    features = features.merge(sentiment_df, on='subreddit', how='left')
+
+    # --- Variance of sentiment within each cluster ---
+    cluster_variance = features.groupby('cluster')['mean_sentiment'].var().reset_index()
+    cluster_variance.columns = ['cluster', 'sentiment_variance']
+
+    ### ###
+    print("Variance of mean sentiment within each cluster:")
+    print(cluster_variance)
+
+    # Add cluster variance to features if useful
+    features = features.merge(cluster_variance, on='cluster', how='left')
+
+    return features, cluster_variance

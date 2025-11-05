@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
-from data_utils import *
+from src.utils.data_utils import *
 import seaborn as sns
 
 def plot_distribution_nb_appearance_subreddits(data):
