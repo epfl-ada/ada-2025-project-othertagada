@@ -131,3 +131,21 @@ def plot_bar_chart(data, title, xlabel, ylabel, ylim=None, xlim=None):
     plt.ylabel(ylabel)
     plt.tight_layout()
     plt.show()
+
+def plot_cluster_sentiment_variance(cluster_variance):
+    """
+    Visualize the variance of mean sentiment within each subreddit cluster.
+
+    Parameters
+    ----------
+    cluster_variance : pandas.DataFrame
+        A DataFrame containing at least the following columns:
+        - 'cluster': numeric or categorical label representing a subreddit cluster
+        - 'sentiment_variance': numerical value representing the variance of 
+          mean sentiment within that cluster.
+
+    """
+    plt.figure(figsize=(8,5))
+    sns.barplot(data=cluster_variance, x='cluster', y='sentiment_variance')
+    plt.title('sentiment variance per subreddit cluster')
+    plt.show()
