@@ -156,7 +156,7 @@ def plot_cluster_sentiment_variance(cluster_variance):
     plt.show()
 
 
-def animate_subreddit_evolution(graphs, labels, pos, save_path="subreddit_evolution.gif", interval=500, show_inline=True):
+def animate_subreddit_evolution(graphs, labels, pos, save_path="./outputs/subreddit_evolution.gif", interval=500, show_inline=True):
     """
     Animate subreddit interaction graphs over time (one frame per week).
     """
@@ -230,4 +230,4 @@ def get_animation_weekly(G, window, data, year):
         labels.append(f"Week of {start}")
 
     # === Animate the year week-by-week ===
-    animate_subreddit_evolution(graphs, labels, pos, save_path=f"subreddit_{year}_weekly.gif", interval=400)
+    animate_subreddit_evolution(graphs, labels, pos, save_path=f"./outputs/subreddit_{year}_weekly.gif", interval=400)
