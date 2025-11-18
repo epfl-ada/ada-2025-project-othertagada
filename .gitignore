@@ -6,4 +6,5 @@
 *.pkl
 *.html
 *.ipynb
+*.zst
 !results.ipynb
