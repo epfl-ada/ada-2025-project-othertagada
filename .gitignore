@@ -7,4 +7,5 @@
 *.html
 *.ipynb
 *.zst
+*.db
 !results.ipynb

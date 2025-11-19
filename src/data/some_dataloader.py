@@ -10,7 +10,7 @@ class RedditDataset(Dataset):
         - __getitem__ (returns a sample from the dataset at the given index idx)
     """
 
-    def __init__(self, data_path_title = "data/soc-redditHyperlinks-title.tsv", data_path_body = "data/soc-redditHyperlinks-body.tsv"):
+    def __init__(self, data_path_title = "data/soc-redditHyperlinks-title-cleaned.tsv", data_path_body = "data/soc-redditHyperlinks-body-cleaned.tsv"):
         super().__init__()
 
         self.data_path_title = data_path_title  
