@@ -13,3 +13,7 @@ torchvision
 ipykernel
 pandas==2.3.3
 tqdm==4.67.1
+seaborn
+plotly
+statsmodels
+scikit-learn
