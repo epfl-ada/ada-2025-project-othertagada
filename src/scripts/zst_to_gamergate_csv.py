@@ -107,7 +107,7 @@ def zst_to_gamer_gate_csv():
 				output_obj = []
 				for field in fields:
 					if field == "created_utc":
-						value = datetime.fromtimestamp(int(obj['created_utc'])).strftime("%Y-%m-%d %H:%M")
+						value = datetime.fromtimestamp(int(obj['created_utc']), UTC).strftime("%Y-%m-%d %H:%M:%S")
 					elif field == "subreddit":
 						if 'permalink' in obj:
 							subreddit_lower = f"{obj['permalink'].split('/')[2].lower()}"
