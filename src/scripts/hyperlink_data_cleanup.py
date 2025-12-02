@@ -31,5 +31,8 @@ def clean_hyperlink_data():
     cur.execute("DROP TABLE IF EXISTS ts")
     conn.close()
 
+if __name__ == '__main__':
+    clean_hyperlink_data()
+
 
 

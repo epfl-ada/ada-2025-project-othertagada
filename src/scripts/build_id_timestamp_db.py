@@ -101,3 +101,6 @@ def build_id_timestamp_db():
 	conn.close()
 	log.info(f"Total: {total_lines}")
 
+if __name__ == '__main__':
+	build_id_timestamp_db()
+

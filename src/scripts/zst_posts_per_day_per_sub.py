@@ -119,3 +119,6 @@ def build_posts_per_day_per_sub_csv():
 
 	log.info(f"Total: {total_lines}")
 
+if __name__ == '__main__':
+	build_posts_per_day_per_sub_csv()
+
