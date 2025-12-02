@@ -75,7 +75,7 @@ def zst_to_gamer_gate_csv():
 	# Init output file
 	with open(output_file_path, "w", encoding='utf-8', newline="") as output_file:
 		writer = csv.writer(output_file)
-		writer.writerow(["TIMESTAMP", "SUBREDDIT", "USERNAME", "USER_ID", "TITLE", "BODY_TEXT", "NUM_COMMENTS", "POST_ID"])
+		writer.writerow(["TIMESTAMP", "SUBREDDIT", "USERNAME", "TITLE", "BODY_TEXT", "NUM_COMMENTS", "POST_ID"])
 
 		input_folder = "data/RedditDataset/reddit/submissions/"
 		input_files = []
