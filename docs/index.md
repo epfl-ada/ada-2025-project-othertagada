@@ -4,6 +4,7 @@ title: Gamer Gate
 subtitle: Misogyny in gamer communities, the case of the kiA subreddit
 cover-img: assets/gradient.png
 ---
+<style>body {text-align: justify}</style>
 # Introduction
 ## What are we talking about ?
 Our datastory is about [Gamergate](https://en.wikipedia.org/wiki/Gamergate), an online harassement campaign against feminism, diversity, and progressivism in video game culture, that was present on multiple online platforms, including reddit. Two subreddits where created in response: r/KotakuInAction, r/GamerGhazi, which exclusively are about this topic. The trigger for this event was a blog post published in August 2014 by Eron Gjoni, the ex-partner of game developer Zoë Quinn, in which he made allegations about their personal relationship.
