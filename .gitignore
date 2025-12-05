@@ -5,6 +5,7 @@
 *.pyc
 *.pkl
 *.html
+!docs/assets/*.html
 *.ipynb
 *.zst
 *.db
