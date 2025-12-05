@@ -11,9 +11,24 @@ cover-img: assets/lights.webp
 
 
 }
+body {
+    font: normal 13px Verdana, Arial, sans-serif;
+    text-align: justify
+}
+h1{
+    font: Verdana, Arial, sans-serif;
+    font-size: 26px;
+}
+h2 {
+    font: Verdana, Arial, sans-serif;
+    font-size: 20px;
+}
+h3{
+    font: Verdana, Arial, sans-serif;
+    font-size: 16px;
+}
 
 </style>
-<style>body {text-align: justify}</style>
 
 <!---
 cover image source = https://spectrum.ieee.org/fiber-optic-cable-record
