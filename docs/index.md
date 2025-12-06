@@ -11,6 +11,15 @@ cover-img: assets/lights.webp
 
 
 }
+.center_div{
+    display: grid; 
+    justify-content: center; 
+    align-items: center;
+    width: 100%;
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
+
+}
 body {
     font: normal 13px Verdana, Arial, sans-serif;
     text-align: justify
@@ -39,6 +48,15 @@ cover image source = https://spectrum.ieee.org/fiber-optic-cable-record
 Our datastory is about [Gamergate](https://en.wikipedia.org/wiki/Gamergate), an online harassement campaign against feminism, diversity, and progressivism in video game culture, that was present on multiple online platforms, including reddit. Two subreddits where created in response: r/KotakuInAction, r/GamerGhazi, which exclusively are about this topic. The trigger for this event was a blog post published in August 2014 by Eron Gjoni, the ex-partner of game developer Zoë Quinn, in which he made allegations about their personal relationship.
 
 Although the claims were personal and unverified, they were seized upon by segments of online communities, which quickly shifted the focus toward accusations of “ethics in games journalism.” In practice, however, the movement became dominated by coordinated harassment, particularly targeting women in gaming, including Quinn, Anita Sarkeesian, and Brianna Wu, through doxxing, threats, and sustained online abuse.
+
+<div class="center_div">
+
+<iframe src="assets/posts_per_day_gamerghazi.html" width="100%" height=400px frameBorder="0"></iframe>
+
+<iframe src="assets/posts_per_day_kotakuinaction.html" width="100%" height=400px frameBorder="0"></iframe>
+</div>
+
+These two graphs show the number of posts in each of the subreddits created during the Gamer gate, we can see that peak activity was around the end of october. The post volume on r/GamerGhazi stayed elevated until march of 2015, where it declined and stabilized. r/KotakuInAction saw a rapid peak and decline, and subsequent stabilization after the initial burst of posting.
 
 ## Why this topic ?
 Reddit’s semi-anonymous structure and inconsistent moderation practices have historically made it a fertile environment for the rapid spread of hostility and harassment. In this datastory, we examine the evolution of one such episode, using data to uncover how the event unfolded across the platform and how various communities responded, interacted, and influenced each other during the escalation. 
