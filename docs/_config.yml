@@ -29,6 +29,13 @@ author: "Robin Herberich, Katia Häfliger, Maguette Diouf, Matteo Simonet, Jér�
 
 url-pretty: "othertagada.com"
 
+navbar-links:
+  Introduction: "/#introduction"
+  Research Questions: "/#research-questions"
+  Look at the players: "/#look-at-the-players"
+  References: "/#references"
+
+
 # Build settings
 remote_theme: daattali/beautiful-jekyll@6.0.1
 plugins:
