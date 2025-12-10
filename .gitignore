@@ -6,6 +6,7 @@
 *.pkl
 *.html
 !docs/assets/*.html
+!docs/_layouts/*.html
 *.ipynb
 *.zst
 *.db
