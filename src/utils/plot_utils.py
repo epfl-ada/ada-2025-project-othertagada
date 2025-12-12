@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from matplotlib.colors import LogNorm
 import networkx as nx
 import numpy as np
 from src.utils.data_utils import *
@@ -6,6 +7,43 @@ from matplotlib.animation import FuncAnimation
 from IPython.display import HTML, display
 import seaborn as sns
 
+def plot_jaccard_similarity_user_heatmap(post_data):
+
+    def jaccard_similarity(list1, list2):
+        s1 = set(list1)
+        s2 = set(list2)
+        return len(s1.intersection(s2)) / len(s1.union(s2))
+    
+    subreddit_users = post_data.groupby("SUBREDDIT")["USERNAME"].apply(set)
+    subreddits = subreddit_users.index
+    n = len(subreddits)
+
+    jaccard_matrix = np.zeros((n, n))
+
+    for i, sub1 in enumerate(subreddits):
+        for j, sub2 in enumerate(subreddits):
+            jaccard_matrix[i, j] = jaccard_similarity(
+                subreddit_users[sub1], 
+                subreddit_users[sub2]
+            )
+    plt.figure(figsize=(7,6))
+
+    jaccard_df = pd.DataFrame(jaccard_matrix, index=subreddits, columns=subreddits)
+
+    sns.heatmap(
+        jaccard_df,
+        cmap="mako", 
+        norm=LogNorm(vmin=jaccard_df.values.min() + 1e-5, vmax=jaccard_df.values.max()),  # Log scale
+        annot=False,
+        linewidths=0.5,
+        linecolor='gray'
+    )
+
+    plt.title("Jaccard Similarity Between Subreddit User Sets")
+    plt.tight_layout()
+    #plt.savefig('outputs/graph/heatmap_users.png')
+    plt.show()
+    
 
 def plot_distribution_nb_appearance_subreddits(data):
     """ Plots the distribution of the number of appearances of source and target subreddits
