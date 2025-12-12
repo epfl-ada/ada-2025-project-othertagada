@@ -70,5 +70,6 @@ def write_subreddit_monthly_text_documents():
     print("All monthly subreddit text files created in:", output_folder)
 
 if __name__ == '__main__':
-	write_subreddit_monthly_text_documents()
+    write_subreddit_text_document()
+    write_subreddit_monthly_text_documents()
      
