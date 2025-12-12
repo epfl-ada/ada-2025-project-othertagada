@@ -55,21 +55,23 @@ def zst_to_gamer_gate_csv():
 	output_file_path = "data/gamergate_post_data.csv"
 	
 	gamergate_subs = {
-        "kotakuinaction",
-        "gamerghazi",
-        "twoxchromosomes",
-        "subredditdrama",
-        "tumblrinaction",
-        "outoftheloop",
-        "drama",
-        "againsthatesubreddits",
-        "twobestfriendsplay",
-        "anime",
-        "cringeanarchy",
-        "mensrights",
-        "mgtow",
-        "gaming",
-        "politics",
+		"srssucks",
+		"shitghazisays",
+		"kotakuinaction",
+		"amrsucks",
+		"drama",
+		"subredditdrama",
+		"againstgamergate",
+		"ggfreeforall",
+		"shitliberalssay",
+		"kiachatroom",
+		"circlebroke2",
+		"gamerghazi",
+		"topmindsofreddit",
+		"bestofoutrageculture",
+		"shitredditsays",
+		"panichistory",
+		"the_donald",
     }
 
 	# Init output file
