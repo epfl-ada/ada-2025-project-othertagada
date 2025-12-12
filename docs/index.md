@@ -115,8 +115,10 @@ Additionally, to make it easier to work with the Pushshift dataset, we only kept
 | **BODY_TEXT** | Text of the post body|
 | **NUM_COMMENTS** | Number of comments under the post |
 
-We also only kept the posts of a select number of subreddits. The subreddits have been chosen by taking the ten subreddits that interacted the most with r/KotakuInAction and the ten subreddits that interacted the most with r/GamerGhazi.
+We chose to reduce our dataset to the subreddits that interact the most with either r/kotakuinaction (main pro-GamerGate subreddit) or r/gamerghazi (main counterpart of kotakuinaction) between 2014-07-01 and 2016-09-30.
 
+<iframe src="assets/top50_interactions_kotakuinaction.html" class="iframe_standard"></iframe>
+<iframe src="assets/top50_interactions_gamerghazi.html" class="iframe_standard"></iframe>
 
 # Research questions
 
@@ -125,6 +127,9 @@ We also only kept the posts of a select number of subreddits. The subreddits hav
 <div class="center_div">
 
 <img src="assets/heatmap_users.png"/>
+
+<iframe src="assets/stacked_bar_transition.html" class="iframe_standard"></iframe>
+
 
 </div>
 
