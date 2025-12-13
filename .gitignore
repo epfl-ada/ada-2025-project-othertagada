@@ -12,3 +12,4 @@
 *.db
 !results.ipynb
 outputs/
+*.txt
