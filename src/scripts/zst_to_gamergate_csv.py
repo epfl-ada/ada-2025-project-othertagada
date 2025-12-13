@@ -12,11 +12,32 @@ import sys
 from datetime import datetime, UTC
 import logging.handlers
 import csv
+import argparse
 
 
 log = logging.getLogger("bot")
 log.setLevel(logging.DEBUG)
 log.addHandler(logging.StreamHandler())
+
+gamergate_subs = {
+		"srssucks",
+		"shitghazisays",
+		"kotakuinaction",
+		"amrsucks",
+		"drama",
+		"subredditdrama",
+		"againstgamergate",
+		"ggfreeforall",
+		"shitliberalssay",
+		"kiachatroom",
+		"circlebroke2",
+		"gamerghazi",
+		"topmindsofreddit",
+		"bestofoutrageculture",
+		"shitredditsays",
+		"panichistory",
+		"the_donald",
+    }
 
 
 def read_and_decode(reader, chunk_size, max_window_size, previous_chunk=None, bytes_read=0):
@@ -51,29 +72,7 @@ def read_lines_zst(file_name):
 
 		reader.close()
 
-def zst_to_gamer_gate_csv():
-	output_file_path = "data/gamergate_post_data.csv"
-	
-	gamergate_subs = {
-		"srssucks",
-		"shitghazisays",
-		"kotakuinaction",
-		"amrsucks",
-		"drama",
-		"subredditdrama",
-		"againstgamergate",
-		"ggfreeforall",
-		"shitliberalssay",
-		"kiachatroom",
-		"circlebroke2",
-		"gamerghazi",
-		"topmindsofreddit",
-		"bestofoutrageculture",
-		"shitredditsays",
-		"panichistory",
-		"the_donald",
-    }
-
+def zst_to_gamer_gate_csv(subs=gamergate_subs, output_file_path="data/gamergate_post_data.csv"):
 	# Init output file
 	with open(output_file_path, "w", encoding='utf-8', newline="") as output_file:
 		writer = csv.writer(output_file)
@@ -115,7 +114,7 @@ def zst_to_gamer_gate_csv():
 							subreddit_lower = f"{obj['permalink'].split('/')[2].lower()}"
 						else:
 							subreddit_lower = f"{obj['subreddit'].lower()}"
-						if subreddit_lower not in gamergate_subs:
+						if subreddit_lower not in subs:
 							break
 						value = subreddit_lower
 					elif field == "author":
@@ -137,7 +136,7 @@ def zst_to_gamer_gate_csv():
 				if file_lines % 100000 == 0:
 					log.info(f"{created} : {file_lines + total_lines:,} : {(file_bytes_processed / input_file[1]) * 100:.0f}% : {(total_bytes_processed / total_size) * 100:.0f}%")
 				
-				# Only write if all fields are present (i.e. subreddit is in gamergate_subs)
+				# Only write if all fields are present (i.e. subreddit is in subs)
 				if(len(output_obj) == len(fields)):
 					writer.writerow(output_obj)
 			total_lines += file_lines
@@ -149,5 +148,16 @@ def zst_to_gamer_gate_csv():
 
 
 if __name__ == '__main__':
-	zst_to_gamer_gate_csv()
+	parser = argparse.ArgumentParser("zst_to_gamergate_csv")
+	parser.add_argument('-l','--subreddit_list', nargs='+', help='List of subreddits', required=False)
+	parser.add_argument('-o', '--file_output_path', help="Output path", type=str, required=False)
+	args = parser.parse_args()
+	subs = gamergate_subs
+	if args.subreddit_list:
+		subs = args.subreddit_list
+		print(f"Using subreddit list: {subs}")
+	output_file_path = "data/gamergate_post_data.csv"
+	if args.file_output_path:
+		output_file_path = args.file_output_path
+	zst_to_gamer_gate_csv(subs=subs, output_file_path=output_file_path)
 

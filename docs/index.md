@@ -68,6 +68,11 @@ Our datastory is about [Gamergate](https://en.wikipedia.org/wiki/Gamergate), an 
 
 Although the claims were personal and unverified, they were seized upon by segments of online communities, which quickly shifted the focus toward accusations of “ethics in games journalism.” In practice, however, the movement became dominated by coordinated harassment, particularly targeting women in gaming, including Quinn, Anita Sarkeesian, and Brianna Wu, through doxxing, threats, and sustained online abuse.
 
+>Anyone else having seen the cultural insanity of SJW's spreading far enough that they are considering just giving up on the first world?
+
+Posted on r/KiAChatroom
+
+
 <div class="center_div">
 
 <iframe src="assets/posts_per_day_gamerghazi.html" class="iframe_standard"></iframe>
@@ -119,6 +124,8 @@ We also only kept the posts of a select number of subreddits. The subreddits hav
 
 
 # Research questions
+
+
 
 # Look at the players
 

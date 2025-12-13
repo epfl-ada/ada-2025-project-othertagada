@@ -11,3 +11,4 @@
 *.zst
 *.db
 !results.ipynb
+outputs/
