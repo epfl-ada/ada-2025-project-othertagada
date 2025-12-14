@@ -6,6 +6,7 @@ from src.utils.data_utils import *
 from matplotlib.animation import FuncAnimation
 from IPython.display import HTML, display
 import seaborn as sns
+import plotly.graph_objects as go
 
 def plot_jaccard_similarity_user_heatmap(post_data):
 
@@ -267,5 +268,110 @@ def get_animation_weekly(G, window, data, year):
         graphs.append(G_week)
         labels.append(f"Week of {start}")
 
-    # === Animate the year week-by-week ===
+
     animate_subreddit_evolution(graphs, labels, pos, save_path=f"./outputs/subreddit_{year}_weekly.gif", interval=400)
+
+
+def plot_interactions(links_dataset, subreddit, n=50):
+
+    top50 = top_connected(links_dataset, subreddit, n)
+
+    top10 = top50.head(10)
+
+    #aggregate the rest (ranks 11–50)
+    others_total = top50.iloc[10:]['total'].sum()
+
+    #labels and values
+    labels = list(top10.index) + ['Others (rank 11–' + str(n) + ')']
+    values = list(top10['total']) + [others_total]
+
+    fig = go.Figure(
+        go.Pie(
+            labels=labels,
+            values=values,
+            hole=0,
+            sort=False,
+            textinfo='label+percent',
+            showlegend=False,
+            textposition='outside'
+        )
+    )
+    fig.show()
+
+def plot_stacked_bar_chart(links_dataset, html_output=False):
+    #count out links
+    out_counts = (
+        links_dataset
+        .groupby(['SOURCE_SUBREDDIT', 'TARGET_SUBREDDIT'])
+        .size()
+        .reset_index(name='count')
+        .rename(columns={'SOURCE_SUBREDDIT': 'SUBREDDIT', 'TARGET_SUBREDDIT': 'OTHER'})
+    )
+
+    #count in links
+    in_counts = (
+        links_dataset
+        .groupby(['TARGET_SUBREDDIT', 'SOURCE_SUBREDDIT'])
+        .size()
+        .reset_index(name='count')
+        .rename(columns={'TARGET_SUBREDDIT': 'SUBREDDIT', 'SOURCE_SUBREDDIT': 'OTHER'})
+    )
+
+    def split_counts(df):
+        kia   = df[df['OTHER'] == 'kotakuinaction'].groupby('SUBREDDIT')['count'].sum()
+        ghazi = df[df['OTHER'] == 'gamerghazi'].groupby('SUBREDDIT')['count'].sum()
+        other = df[~df['OTHER'].isin(['kotakuinaction', 'gamerghazi'])].groupby('SUBREDDIT')['count'].sum()
+        return kia, ghazi, other
+
+
+    out_kia, out_ghazi, out_other = split_counts(out_counts)
+    in_kia,  in_ghazi,  in_other  = split_counts(in_counts)
+
+    #list of subreddits
+    subs = sorted(
+        set(links_dataset['SOURCE_SUBREDDIT']) | set(links_dataset['TARGET_SUBREDDIT'])
+    )
+
+    #offset for the two bars per subreddit
+    x_base = list(range(len(subs)))
+    x_out  = [x - 0.2 for x in x_base]   # left bar
+    x_in   = [x + 0.2 for x in x_base]   # right bar
+
+
+    out_kia_y   = [out_kia.get(s, 0)   for s in subs]
+    out_ghazi_y = [out_ghazi.get(s, 0) for s in subs]
+    out_other_y = [out_other.get(s, 0) for s in subs]
+
+    in_kia_y    = [in_kia.get(s, 0)    for s in subs]
+    in_ghazi_y  = [in_ghazi.get(s, 0)  for s in subs]
+    in_other_y  = [in_other.get(s, 0)  for s in subs]
+
+    fig = go.Figure()
+    #out
+    fig.add_bar(x=x_out, y=out_kia_y,   name="OUT → KIA",   marker_color="red")
+    fig.add_bar(x=x_out, y=out_ghazi_y, name="OUT → Ghazi", marker_color="blue")
+    fig.add_bar(x=x_out, y=out_other_y, name="OUT → Other", marker_color="green", visible="legendonly")
+
+    #in
+    fig.add_bar(x=x_in, y=in_kia_y,   name="IN ← KIA",   marker_color="red",  opacity=0.8)
+    fig.add_bar(x=x_in, y=in_ghazi_y, name="IN ← Ghazi", marker_color="blue", opacity=0.8)
+    fig.add_bar(x=x_in, y=in_other_y, name="IN ← Other", marker_color="green", opacity=0.8, visible="legendonly")
+
+    fig.update_layout(
+        barmode="stack",
+        xaxis=dict(
+            tickmode="array",
+            tickvals=x_base,
+            ticktext=subs
+        ),
+        xaxis_title="Subreddit",
+        yaxis_title="Number of links",
+        title="Outgoing and incoming links per subreddit",
+        xaxis_tickangle=-45,
+    )
+
+    fig.show()
+    if html_output:
+        fig.write_html("./docs/assets/stacked_bar_transition.html")
+
+

@@ -136,3 +136,27 @@ def extract_graph_features(G):
 
     return features
 
+
+def top_connected(df, subreddit, n=10):
+    #links from
+    from_counts = (
+        df[df['SOURCE_SUBREDDIT'] == subreddit]
+        .groupby('TARGET_SUBREDDIT')
+        .size()
+        .rename('from_count')
+    )
+
+    #links to
+    to_counts = (
+        df[df['TARGET_SUBREDDIT'] == subreddit]
+        .groupby('SOURCE_SUBREDDIT')
+        .size()
+        .rename('to_count')
+    )
+
+    merged = pd.concat([from_counts, to_counts], axis=1).fillna(0)
+    merged['total'] = merged['from_count'] + merged['to_count']
+
+
+    return merged.sort_values('total', ascending=False).head(n)    #to sort by total interaction
+

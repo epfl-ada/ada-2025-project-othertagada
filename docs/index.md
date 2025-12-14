@@ -38,6 +38,18 @@ cover-img: assets/lights.webp
     zoom: 0.50;
 }
 
+.iframe-row {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.iframe-row iframe {
+  width: 500px;
+  height: 450px;
+  border: none;
+}
+
 
 body {
     font: normal 15px Verdana, Arial, sans-serif;
@@ -122,8 +134,11 @@ Additionally, to make it easier to work with the Pushshift dataset, we only kept
 
 We chose to reduce our dataset to the subreddits that interact the most with either r/kotakuinaction (main pro-GamerGate subreddit) or r/gamerghazi (main counterpart of kotakuinaction) between 2014-07-01 and 2016-09-30.
 
-<iframe src="assets/top50_interactions_kotakuinaction.html" class="iframe_standard"></iframe>
-<iframe src="assets/top50_interactions_gamerghazi.html" class="iframe_standard"></iframe>
+
+<div class="iframe-row">
+  <iframe src="assets/top50_interactions_kotakuinaction.html" class="iframe_standard"></iframe>
+  <iframe src="assets/top50_interactions_gamerghazi.html" class="iframe_standard"></iframe>
+</div>
 
 # Research questions
 1. How did the gamergate events evolve over time and what can they teach us regarding misogyny in online debate ?
