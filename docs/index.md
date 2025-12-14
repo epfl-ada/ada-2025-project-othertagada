@@ -158,6 +158,7 @@ We chose to reduce our dataset to the subreddits that interact the most with eit
 </div>
 
 # How it played out
+Look at 2014-12-18
 
 <div class="center_div">
 
