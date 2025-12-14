@@ -169,11 +169,13 @@ We chose to reduce our dataset to the subreddits that interact the most with eit
 
 <div class="center_div">
 
-<iframe src="assets/pred_accuracy_all.html" class="iframe_standard"></iframe>
+<iframe src="assets/feature_coef_gamergate_subs.html" class="iframe_standard"></iframe>
 
-<iframe src="assets/pred_accuracy_struct.html" class="iframe_standard"></iframe>
+<iframe src="assets/feature_significance_gamergate_subs.html" class="iframe_standard"></iframe>
 
-<iframe src="assets/pred_accuracy_liwc.html" class="iframe_standard"></iframe>
+<iframe src="assets/feature_coef_hl_data.html" class="iframe_standard"></iframe>
+
+<iframe src="assets/feature_significance_hl_data.html" class="iframe_standard"></iframe>
 
 </div>
 
