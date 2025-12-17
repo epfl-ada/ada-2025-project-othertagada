@@ -26,6 +26,40 @@ To make it easier to work with the Pushshift dataset, we only kept the following
 | **NUM_COMMENTS** | Number of comments under the post |
 
 # Methods
+**To make it easier to work with our datasets and to focus our attention on relevant data:**
+
+Keep only the posts of the top 10 subreddits that interact the most with either r/kotakuinaction (main pro-GamerGate subreddit) or r/gamerghazi (main counterpart of kotakuinaction)
+
+**To understand the "players" and their relationships:** 
+- User Similarity: A heatmap of user similarity is generated to measure the overlap of user bases between different subreddits.
+
+- Clustering: Users are clustered using data_gamergate (large) based on behavioral features, including: Average link sentiment and LIWC
+
+- Activity Metrics: Histograms of posts per user are compared between KotakuInAction (KiA) and GamerGhazi (GiA), cross-referenced with link sentiment to identify if high-volume users drive negativity.
+
+- Deleted Content Analysis: Comparison of deleted vs. non-deleted users/posts to check for differences using LIWC.
+
+
+
+**To map "how it played out" over time:**
+
+- Event Detection: Identification of spikes in total post volume correlated with a timeline of real-world GamerGate events.
+
+- Dynamic Network Visualization: A network graph with a time slider to visualize the structural evolution of the community.
+
+**Linguistic & Sentiment Analysis
+To analyze speech patterns and misogyny:**
+
+- Statistical Hypothesis Testing (T-tests): The distribution of LIWC categories (Sexual, Swear, Anger, Sad) in KiA is compared against the global distribution using T-tests (p-values) to quantitatively verify if the discourse in KiA is distinct (e.g., significantly more toxic or misogynistic).
+
+**Topic Modeling
+To understand what was being discussed:**
+
+- TF-IDF Matrix: Used to weigh word importance within posts.
+
+- Topic Extraction: Identification of "Top Topics" per subreddit and an analysis of topic evolution per month to see how the narrative shifted.
+
+- Topic Classification: A model trained to predict the subreddit based on the topic, with accuracy used as a metric of discourse distinctiveness.
 
 # Proposed timeline
 | **Week** |**Dates**| **Tasks** |
@@ -37,15 +71,13 @@ To make it easier to work with the Pushshift dataset, we only kept the following
 |**5** |4.12-10.12|<ul><li>Finalize the datastory, including text, interactive graphs and images </li><li> Wrap up analysis of our target population (time allocated for ideas not part of our initial planning) </li><li> Make sure all helpers and supporting code is mostly finalized</li></lu>|
 |**6** |11.12-17.12|<ul><li>Fix bugs (if any) </li><li> Verify website layout and code clarity </li><li> Avoid adding new features/content, focus on correctness of the project</li></lu>|
 
-# Internal milestones
-- [x] Found our target population
-- [ ] Defined robust interaction window
-- [ ] Found troublemakers (or proved that there are none ) 
-- [ ] Datastory content complete
-
 # Individual contributions
 **Robin Herberich:** 
 - Readme for M3
+- Setting up datastory website, work on layout of website and general features
+- Writing datastory introduction and data presentation
+- Pushshift datawrangling, processing scripts and related hyperlink dataset clean-up
+- Extracting posts per day per subreddit dataset and plot posts per day for a few subreddits.
 
 **Maguette Diouf:**
 
