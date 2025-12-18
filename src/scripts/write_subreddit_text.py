@@ -3,9 +3,9 @@ import os
 
 def write_subreddit_text_document():
 
-    df = pd.read_csv("data/gamergate_post_data.csv")
+    df = pd.read_csv("data/politics_post_data.csv")
     
-    output_folder = "outputs/subreddit_text_documents"
+    output_folder = "outputs/subreddit_text_politics"
     os.makedirs(output_folder, exist_ok=True)
 
     df['TITLE'] = df['TITLE'].fillna("")
@@ -71,5 +71,5 @@ def write_subreddit_monthly_text_documents():
 
 if __name__ == '__main__':
     write_subreddit_text_document()
-    write_subreddit_monthly_text_documents()
+    #write_subreddit_monthly_text_documents()
      

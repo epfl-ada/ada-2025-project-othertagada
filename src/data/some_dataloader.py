@@ -95,7 +95,54 @@ class RedditPostDataset(Dataset):
         super().__init__()
 
         self.data_path = data_path
-        self.data = pd.read_csv('data/gamergate_post_data.csv', header=0) # Read CSV file
+        self.data = pd.read_csv(data_path, header=0) # Read CSV file
+
+        self.data['TIMESTAMP'] = pd.to_datetime(self.data['TIMESTAMP']) # Convert time
+        self.data = self.data[~(self.data['SUBREDDIT'] == 'the_donald')] # getting rid of unrelated subreddit
+    
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        # support tensor indices from DataLoader samplers
+        if isinstance(idx, (torch.Tensor, np.ndarray)):
+            idx = idx.tolist()
+
+        row = self.data.iloc[idx]
+
+        # Basic fields
+        timestamp = row.get('TIMESTAMP') if 'TIMESTAMP' in self.data.columns else None
+        subreddit = row.get('SUBREDDIT') if 'SUBREDDIT' in self.data.columns else None
+        username = row.get('USERNAME') if 'USERNAME' in self.data.columns else None
+        title = row.get('TITLE') if 'TITLE' in self.data.columns else None
+        body_text = row.get('BODY_TEXT') if 'BODY_TEXT' in self.data.columns else None
+        num_comments = row.get('NUM_COMMENTS') if 'NUM_COMMENTS' in self.data.columns else None
+        post_id = row.get('POST_ID') if 'POST_ID' in self.data.columns else None
+
+        sample = {
+            'timestamp': timestamp,
+            'subreddit': subreddit,
+            'username': username,
+            'title': title,
+            'body_text': body_text,
+            'num_comment': num_comments,
+            'post_id': post_id,
+        }
+
+        return sample
+
+class RedditPoliticalPostDataset(Dataset):
+    """
+    A dataset implements 2 functions
+        - __len__  (returns the number of samples in our dataset)
+        - __getitem__ (returns a sample from the dataset at the given index idx)
+    """
+
+    def __init__(self, data_path = "data/gamergate_post_data.csv"):
+        super().__init__()
+
+        self.data_path = data_path
+        self.data = pd.read_csv(data_path, header=0) # Read CSV file
 
         self.data['TIMESTAMP'] = pd.to_datetime(self.data['TIMESTAMP']) # Convert time
     
