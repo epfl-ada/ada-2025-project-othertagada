@@ -376,6 +376,7 @@ def plot_stacked_bar_chart(links_dataset, html_output=False):
         fig.write_html("./docs/assets/stacked_bar_transition.html")
 
 
+
 def plot_histogram_nbposts_per_user(post_data: pd.DataFrame, subs_of_interest):
     subreddits_posts_per_user = post_data.groupby(["SUBREDDIT", "USERNAME"]).size().reset_index(name="post_count")
     subreddit_sizes = (
@@ -482,3 +483,62 @@ def plot_posts_percent_positive_by_posts_per_user(post_data: pd.DataFrame, hl_da
     plt.show()
 
 
+def plot_link_neg_frac(hl_data, large_gamergate_df):
+    ## outgoing negativity comparision (by negative outgoing link fraction)
+
+    ## whole dataset
+    overall_mean = (hl_data["LINK_SENTIMENT"] == -1).mean()
+
+    ## gamergate
+    gamergate_mean = (large_gamergate_df["LINK_SENTIMENT"] == -1).mean()
+
+    fig = go.Figure()
+
+    fig.add_bar(
+        x=["Whole Dataset", "Gamergate-related"],
+        y=[overall_mean, gamergate_mean],
+        marker_color=["gray", "crimson"]
+    )
+
+    fig.update_layout(
+        title="Fraction of outgoing negative link : Whole Reddit vs Gamergate-related Subreddits",
+        yaxis_title="Negative Link fraction",
+        yaxis_tickformat=".0%",
+        template="plotly_white"
+    )
+
+    fig.show()
+
+
+def plot_link_neg_frac_per_subs(gamergate_df, gamergate_subs):
+
+    gg_sub_neg_frac = (
+        gamergate_df
+        .groupby("source")["LINK_SENTIMENT"]
+        .apply(lambda s: (s == -1).mean())
+        .sort_values(ascending=False)
+        .reset_index(name="neg_frac")
+    )
+
+    gg_sub_neg_frac = gg_sub_neg_frac[
+        gg_sub_neg_frac["source"].isin(gamergate_subs)
+    ]
+
+    fig = go.Figure()
+
+    fig.add_bar(
+        x=gg_sub_neg_frac["source"],
+        y=gg_sub_neg_frac["neg_frac"],
+        marker_color=gg_sub_neg_frac["neg_frac"],
+        marker_colorscale="Reds"
+    )
+
+    fig.update_layout(
+        title="Fraction of Negative Links by Gamergate Subreddit",
+        xaxis_title="Subreddit",
+        yaxis_title="Fraction of negative links",
+        yaxis_tickformat=".0%",
+        template="plotly_white"
+    )
+
+    fig.show()

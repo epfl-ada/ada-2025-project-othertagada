@@ -160,3 +160,20 @@ def top_connected(df, subreddit, n=10):
 
     return merged.sort_values('total', ascending=False).head(n)    #to sort by total interaction
 
+def get_large_and_restricted_df(hl_data, gamergate_subs) :
+
+    hl_data["source"] = hl_data["SOURCE_SUBREDDIT"].str.lower()
+    hl_data["target"] = hl_data["TARGET_SUBREDDIT"].str.lower()
+
+    hl_data['timestamp'] = pd.to_datetime(hl_data['TIMESTAMP'], unit='s')  # dataset timestamps are unix secs
+
+    # weekly aggregation for the df
+    hl_data['week'] = hl_data['TIMESTAMP'].dt.to_period('W').apply(lambda r: r.start_time)
+
+    # large data = TARGET or SOURCE part of gamergate_list
+    large_gamergate_df = hl_data[(hl_data["source"].isin(gamergate_subs)) | (hl_data["target"].isin(gamergate_subs))].copy()
+
+    # restricted data = TARGET & SOURCE part of gamergate_list
+    restricted_gamergate_df = hl_data[(hl_data["source"].isin(gamergate_subs)) & (hl_data["target"].isin(gamergate_subs))].copy()
+
+    return large_gamergate_df, restricted_gamergate_df
