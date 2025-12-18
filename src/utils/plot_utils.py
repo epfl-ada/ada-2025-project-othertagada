@@ -7,6 +7,7 @@ from matplotlib.animation import FuncAnimation
 from IPython.display import HTML, display
 import seaborn as sns
 import plotly.graph_objects as go
+from matplotlib.ticker import PercentFormatter
 
 def plot_jaccard_similarity_user_heatmap(post_data):
 
@@ -373,5 +374,111 @@ def plot_stacked_bar_chart(links_dataset, html_output=False):
     fig.show()
     if html_output:
         fig.write_html("./docs/assets/stacked_bar_transition.html")
+
+
+def plot_histogram_nbposts_per_user(post_data: pd.DataFrame, subs_of_interest):
+    subreddits_posts_per_user = post_data.groupby(["SUBREDDIT", "USERNAME"]).size().reset_index(name="post_count")
+    subreddit_sizes = (
+        subreddits_posts_per_user
+        .groupby("SUBREDDIT")
+        .size()
+        .rename("subreddit_size")
+    )
+
+    # Join back to original dataframe
+    subreddits_posts_per_user = (
+        subreddits_posts_per_user
+        .join(subreddit_sizes, on="SUBREDDIT")
+        .sort_values("subreddit_size", ascending=False)
+    )
+    sns.histplot(
+        data=subreddits_posts_per_user[subreddits_posts_per_user["SUBREDDIT"].isin(subs_of_interest)],
+        x = "post_count",
+        hue = "SUBREDDIT",
+        bins=100,
+        log_scale=True,
+        multiple="stack", # stack the different subredddits instead of overlaying them
+        alpha=1,
+    )
+    plt.xlabel("Number of posts per user")
+    plt.ylabel("Number of users")
+    plt.title("Histogram of Posts per User")
+    plt.yscale("log")
+    plt.xscale("log")
+    plt.show()
+
+def plot_posts_percent_positive_by_posts_per_user(post_data: pd.DataFrame, hl_data: pd.DataFrame, subs_of_interest):
+    merged_df = pd.merge(left=post_data, right=hl_data, how="inner", on="POST_ID").loc[lambda d: d["SUBREDDIT"].isin(subs_of_interest)]
+    df_plot = merged_df.groupby(["LINK_SENTIMENT", "USERNAME"]).size().reset_index(name="post_count")
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+
+    # Define bins
+    bins = np.logspace(
+        np.log10(max(1, df_plot["post_count"].min())),
+        np.log10(df_plot["post_count"].max()),
+        10
+    )
+    bin_centers = (bins[:-1] + bins[1:]) / 2
+
+    # Stacked distribution histogram
+    sns.histplot(
+        data=df_plot.loc[df_plot.index.repeat(df_plot["post_count"])],
+        x="post_count",
+        hue="LINK_SENTIMENT",
+        bins=bins,
+        multiple="fill",
+        stat="probability",
+        alpha=0.8,
+        ax=ax
+    )
+
+    ax.set_xscale("log")
+    ax.set_xlabel("Posts per user (log scale)")
+    ax.set_ylabel("Percent of posts")
+    ax.yaxis.set_major_formatter(PercentFormatter(1.0))
+
+    #  Compute confidence intervals
+    df_plot["bin"] = np.digitize(df_plot["post_count"], bins)
+    df_plot["bin"] = df_plot["bin"].clip(1, len(bin_centers))
+    n_df = (
+        df_plot
+        .groupby("bin")["post_count"]
+        .sum()
+        .reset_index(name="n_posts")
+    )
+
+    k_df = (
+        df_plot
+        .groupby(["bin", "LINK_SENTIMENT"])["post_count"]
+        .sum()
+        .reset_index(name="k_posts")
+    )
+
+    ci_data = k_df.merge(n_df, on="bin", how="left")
+
+    ci_data["p"] = ci_data["k_posts"] / ci_data["n_posts"]
+    ci_data["ci"] = 1.96 * np.sqrt(
+        ci_data["p"] * (1 - ci_data["p"]) / ci_data["n_posts"]
+    )
+
+    # Overlay CI bars
+    sub_h = ci_data[ci_data["LINK_SENTIMENT"] == 1]
+
+    xpos = bin_centers[sub_h["bin"].values - 1]
+
+    ax.errorbar(
+        xpos,
+        sub_h["p"],
+        yerr=sub_h["ci"],
+        fmt="none",
+        ecolor="black",
+        capsize=2,
+    )
+
+    ax.set_xlim(1, df_plot["post_count"].max())
+
+    plt.tight_layout()
+    plt.show()
 
 

@@ -1,6 +1,7 @@
 import plotly.graph_objects as go
 import networkx as nx
 import plotly.io as pio
+import pandas as pd
 
 def write_html_spring_graph_n_nodes(data, avg_df, n):
     """ Create a networkX graph of the dataframe ... COMPLETE DESCRIPTION!!!!!!!
@@ -168,3 +169,57 @@ def mean_sentiment_per_subreddit_in_graph(G, df, features):
     features = features.merge(cluster_variance, on='cluster', how='left')
 
     return features, cluster_variance
+
+
+## plot average for power user against light user with variance##
+def t_test_negativity_users(post_data: pd.DataFrame, hl_data: pd.DataFrame, subs_of_interest, threshold = 50):
+    """
+    Realize a t test to see if power users (users with more than threshold posts) have a different mean negativity level on linked posts than non power users.
+
+        Parameters
+    ----------
+        post_data : pd.Dataframe,
+            The post dataset
+
+        hl_data : pandas.DataFrame
+            The hyperlink dataset
+
+        subs_of_interest : list
+            All subreddits of interst
+        
+        threshold: int
+            Users with more than threshold posts are considered power users.
+    """
+    from scipy.stats import ttest_ind
+    users = post_data.groupby("USERNAME").size().reset_index(name="n_posts")
+    merged = (
+        post_data
+        .merge(hl_data, on="POST_ID")
+        .loc[lambda d: d["SUBREDDIT"].isin(subs_of_interest)]
+    )
+
+    user_stats = (
+        merged
+        .groupby("USERNAME")
+        .agg(
+            n_linked_posts=("LINK_SENTIMENT", "size"),
+            mean_sentiment=("LINK_SENTIMENT", "mean")
+        )
+        .reset_index()
+        .merge(users, on="USERNAME")
+    )
+
+    user_stats["is_power_user"] = (user_stats["n_posts"] > threshold).astype(int)
+
+    print(f"Nb of users with 1 post: {len(user_stats[user_stats["n_posts"] == 1])}")
+    print(f"Nb of users with 2 posts: {len(user_stats[user_stats["n_posts"] == 2])}")
+    print(f"Nb of power users (> {threshold} posts): {len(user_stats[user_stats["is_power_user"] == 1])}, Nb of newbies (<= {threshold} posts): {len(user_stats[user_stats["is_power_user"] == 0])}")
+
+    power = user_stats.loc[(user_stats["is_power_user"] == 1), "mean_sentiment"]
+    non_power = user_stats.loc[(user_stats["is_power_user"] == 0), "mean_sentiment"]
+
+    # There is much more variance for users with a small number of posts, so we must set equal_var=False
+    t_stat, p_val = ttest_ind(power, non_power, equal_var=True)
+    print(f"t_stat: {t_stat}, p_val: {p_val}")
+
+    #return user_stats
