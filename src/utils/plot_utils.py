@@ -7,6 +7,8 @@ from matplotlib.animation import FuncAnimation
 from IPython.display import HTML, display
 import seaborn as sns
 import plotly.graph_objects as go
+import plotly.express as px
+from plotly.graph_objects import Figure, Table
 from matplotlib.ticker import PercentFormatter
 
 def plot_jaccard_similarity_user_heatmap(post_data):
@@ -542,3 +544,118 @@ def plot_link_neg_frac_per_subs(gamergate_df, gamergate_subs):
     )
 
     fig.show()
+
+def inter_plot_pred_accuracy_per_subs(test_set, link_prediction, gamergate_subs, title, output_path) :
+    
+    test_set["link_prediction"] = (pd.Series(link_prediction, index=test_set.index).replace(0, -1))
+
+    pred_acc_per_subreddit = test_set.groupby('source').apply(lambda x : (x['link_prediction'] == x['LINK_SENTIMENT']).mean())
+
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Bar(
+            x=list(gamergate_subs),
+            y=pred_acc_per_subreddit[list(gamergate_subs)],
+            text=[f"{a:.3f}" for a in pred_acc_per_subreddit[list(gamergate_subs)]],
+            textposition="auto",
+            name="Accuracy"
+        )
+    )
+
+    fig.update_layout(
+        title=title,
+        xaxis_title="Subreddit",
+        yaxis_title="Accuracy",
+        template="plotly_white",
+    )
+
+    fig.write_html(output_path)
+
+    fig.show()
+
+def plot_feature_coef_and_significance(log_reg, feature_columns, title, output_path):
+
+    coef_df = pd.DataFrame({
+        'Feature': feature_columns,
+        'Coefficient': log_reg.params.values,
+        'p_value': log_reg.pvalues.values
+    })
+
+    coef_df['Significant'] = coef_df['p_value'] < 0.025
+    coef_df['Significance'] = coef_df['Significant'].map({True: 'Yes', False: 'No'})
+    coef_df['abs_coef'] = coef_df['Coefficient'].abs()
+
+    # Sort for nicer plotting
+    coef_df = coef_df.sort_values('Coefficient')
+
+    def bar_color(row):
+        if row['Coefficient'] > 0 and row['Significant']:
+            return 'rgb(33,102,172)'      # dark blue
+        if row['Coefficient'] > 0 and not row['Significant']:
+            return 'rgba(33,102,172,0.4)' # light blue
+        if row['Coefficient'] < 0 and row['Significant']:
+            return 'rgb(178,24,43)'       # dark red
+        return 'rgba(178,24,43,0.4)'      # light red
+
+    coef_df['color'] = coef_df.apply(bar_color, axis=1)
+
+    fig = px.bar(
+        coef_df,
+        x='Coefficient',
+        y='Feature',
+        orientation='h',
+        hover_data={
+            'Coefficient': ':.3f',
+            'p_value': ':.3e',
+            'Significance': True
+        },
+        title=title
+    )
+
+    fig.update_traces(marker_color=coef_df['color'])
+    fig.add_vline(x=0, line_dash='dash', line_color='black')
+
+    fig.update_layout(
+        xaxis_title='Coefficient (log-odds)',
+        yaxis_title='Feature'
+    )
+
+    fig.write_html(output_path)
+
+    fig.show()
+
+    return coef_df
+
+def feature_coef_significance_grid(coef_df, title, output_path):
+    table = Figure(
+        data=[
+            Table(
+                header=dict(
+                    values=['Feature', 'Coefficient', 'p-value', 'Significant'],
+                    fill_color='lightgrey',
+                    align='left'
+                ),
+                cells=dict(
+                    values=[
+                        coef_df['Feature'],
+                        coef_df['Coefficient'].round(3),
+                        coef_df['p_value'].apply(lambda x: f"{x:.2e}"),
+                        coef_df['Significance']
+                    ],
+                    fill_color=[
+                        ['#e8f4ff' if s else '#fdecea' for s in coef_df['Significant']]
+                    ],
+                    align='left'
+                )
+            )
+        ]
+    )
+
+    table.update_layout(title=title)
+    table.write_html(output_path)
+
+    table.show()
+
+
+

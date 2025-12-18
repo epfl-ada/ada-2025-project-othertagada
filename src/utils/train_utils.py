@@ -4,6 +4,12 @@ import pandas as pd
 from src.utils.data_utils import *
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression, LogisticRegression, Ridge
+from sklearn.model_selection import cross_val_predict
+from sklearn.model_selection import cross_val_score
+from sklearn.metrics import accuracy_score, confusion_matrix
+import statsmodels.api as sm
 
 def train_logit_link_sentiment_timewindow(df, properties, save_path, from_date, to_date):
     """ Train logistic regression model over properties features to classify link sentiment of post
@@ -92,3 +98,53 @@ def kmeans_cluster_graph_features(features, n_clusters=10):
     features['cluster'] = kmeans.fit_predict(X_scaled)
 
     return features, kmeans
+
+def train_test_set(data):
+
+    train_set, test_set = train_test_split(data, test_size=0.2,random_state=42)
+   
+    """
+    Other method :
+    train_set = hl_data.sample(frac=0.8, random_state=42)
+    # Dropping all those indexes from the dataframe that exists in the train_set
+    test_set = hl_data.drop(train_set.index)
+    """
+
+    return train_set, test_set
+
+def data_scaling_for_training(train_set, test_set, feature_columns, feature_to_exclude):
+    
+    new_feature_columns = feature_columns.copy()
+
+    ## remove one feature to evaluate its significance
+    if feature_to_exclude != None :
+        new_feature_columns.remove(feature_to_exclude)
+
+    
+
+    X_train = StandardScaler().fit_transform(train_set[new_feature_columns])
+    y_train = train_set["LINK_SENTIMENT"].map(lambda x : (x == 1)) ## enlever map  
+    X_test = StandardScaler().fit_transform(test_set[new_feature_columns])
+    y_test = test_set["LINK_SENTIMENT"].map(lambda x : (x == 1)) ## enlever map 
+
+    return X_train, y_train, X_test, y_test 
+
+def logistic_regression(X_train, y_train, X_test, y_test): 
+
+    logistic = LogisticRegression().fit(X_train, y_train)
+
+    link_prediction = logistic.predict(X_test)
+    accuracy = logistic.score(X_test, y_test) #(prediction == test_val).mean()
+
+
+    return logistic, link_prediction
+
+def sm_log_reg(X_train, y_train, X_test, y_test) :
+
+    log_reg = sm.Logit(y_train, X_train).fit()
+    yhat = log_reg.predict(X_test)
+    prediction = list(map(round, yhat))
+    print('Test accuracy = ', accuracy_score(y_test, prediction)) 
+    print(log_reg.summary())
+
+    return log_reg, prediction
