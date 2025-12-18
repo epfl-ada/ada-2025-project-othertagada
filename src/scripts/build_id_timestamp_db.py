@@ -1,7 +1,3 @@
-# this is an example of iterating over all zst files in a single folder,
-# decompressing them and reading the created_utc field to make sure the files
-# are intact. It has no output other than the number of lines
-
 # SOURCE: https://github.com/Watchful1/PushshiftDumps/blob/master/scripts/iterate_folder.py
 # Modified by Robin
 
@@ -51,12 +47,14 @@ def read_lines_zst(file_name):
 
 		reader.close()
 
+# Build the ID to Timestamp database
 def build_id_timestamp_db():
 	# Init DB
 	conn = sqlite3.connect("data/timestamps.db")
 	cur = conn.cursor()
 	cur.execute("CREATE TABLE IF NOT EXISTS ts (id TEXT PRIMARY KEY, ts TEXT)")
 
+	# Gather input files
 	input_folder = "data/RedditDataset/reddit/submissions/"
 	input_files = []
 	total_size = 0

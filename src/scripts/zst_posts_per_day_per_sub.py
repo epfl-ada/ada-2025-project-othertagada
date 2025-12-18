@@ -1,7 +1,3 @@
-# this is an example of iterating over all zst files in a single folder,
-# decompressing them and reading the created_utc field to make sure the files
-# are intact. It has no output other than the number of lines
-
 # SOURCE: https://github.com/Watchful1/PushshiftDumps/blob/master/scripts/iterate_folder.py
 # Modified by Robin
 

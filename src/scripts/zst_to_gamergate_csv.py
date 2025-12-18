@@ -1,7 +1,3 @@
-# this is an example of iterating over all zst files in a single folder,
-# decompressing them and reading the created_utc field to make sure the files
-# are intact. It has no output other than the number of lines
-
 # SOURCE: https://github.com/Watchful1/PushshiftDumps/blob/master/scripts/iterate_folder.py
 # Modified by Robin
 
@@ -19,6 +15,7 @@ log = logging.getLogger("bot")
 log.setLevel(logging.DEBUG)
 log.addHandler(logging.StreamHandler())
 
+# These are the subreddits related to gamergate
 gamergate_subs = {
 		"srssucks",
 		"shitghazisays",
@@ -38,7 +35,6 @@ gamergate_subs = {
 		"panichistory",
 		"the_donald",
     }
-
 
 def read_and_decode(reader, chunk_size, max_window_size, previous_chunk=None, bytes_read=0):
 	chunk = reader.read(chunk_size)
@@ -97,6 +93,7 @@ def zst_to_gamer_gate_csv(subs=gamergate_subs, output_file_path="data/gamergate_
 		total_lines = 0
 		total_bytes_processed = 0
 		
+		# Define fields to extract
 		fields = ["created_utc", "subreddit", "author", "title", "text", "num_comments", "id"]
 
 		for input_file in input_files:
@@ -148,6 +145,7 @@ def zst_to_gamer_gate_csv(subs=gamergate_subs, output_file_path="data/gamergate_
 
 
 if __name__ == '__main__':
+	# Parse arguments
 	parser = argparse.ArgumentParser("zst_to_gamergate_csv")
 	parser.add_argument('-l','--subreddit_list', nargs='+', help='List of subreddits', required=False)
 	parser.add_argument('-o', '--file_output_path', help="Output path", type=str, required=False)
@@ -159,5 +157,6 @@ if __name__ == '__main__':
 	output_file_path = "data/gamergate_post_data.csv"
 	if args.file_output_path:
 		output_file_path = args.file_output_path
+
 	zst_to_gamer_gate_csv(subs=subs, output_file_path=output_file_path)
 

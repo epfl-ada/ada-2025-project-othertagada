@@ -3,6 +3,7 @@ import zstandard as zstd
 import csv
 import sqlite3
 from build_id_timestamp_db import build_hyperlink_data_db
+
 # If len(id) != 6 remove last character (Some IDs have an extra 's' at the end and in our datset all IDs have length 6) 
 # Timestamps seem quite inaccurate, we should replace them using the post IDs to fetch accurate timestamps from the new dataset
 def clean_hyperlink_data():
