@@ -153,13 +153,18 @@ We chose to reduce our dataset to the subreddits that interact the most with eit
 
 <img src="assets/heatmap_users.png"/>
 
+We can look into the interactions of these subreddits to see if they link towards/get linked by either gamerghazi or kotakuinaction.
 <iframe src="assets/stacked_bar_transition.html" class="iframe_standard"></iframe>
 
+Together, these two plots give us insights on which side of the conflict they stand.
+
+Classification maybe ?
 
 </div>
 
 # How it played out
-Look at 2014-12-18
+Here is an overview of how the Gamergate events unraveled. Use the slider to navigate.
+Look at 2014-12-18 for a few fun examples !
 
 <div class="center_div">
 
