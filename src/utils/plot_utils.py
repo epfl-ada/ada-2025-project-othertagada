@@ -657,5 +657,137 @@ def feature_coef_significance_grid(coef_df, title, output_path):
 
     table.show()
 
+def plot_in_and_out_neg_link_frac_per_subs(large_gamergate_df, gamergate_subs):
+## fraction of outgoing and ingoing negative links per subreddits in gamergate subs
+
+    out_neg = (
+        large_gamergate_df
+        .groupby("source")["LINK_SENTIMENT"]
+        .apply(lambda s: (s == -1).mean())
+        .reset_index(name="neg_out_frac")
+    )
+
+    # keep only gamergate subreddits
+    out_neg = out_neg[out_neg["source"].isin(gamergate_subs)]
+
+    in_neg = (
+        large_gamergate_df
+        .groupby("target")["LINK_SENTIMENT"]
+        .apply(lambda s: (s == -1).mean())
+        .reset_index(name="neg_in_frac")
+    )
+
+    # keep only gamergate subreddits
+    in_neg = in_neg[in_neg["target"].isin(gamergate_subs)]
+
+    negativity_df = (
+        out_neg.merge(
+            in_neg,
+            left_on="source",
+            right_on="target",
+            how="outer"
+        )
+    )
+
+    negativity_df["subreddit"] = negativity_df["source"].combine_first(
+        negativity_df["target"]
+    )
+
+    negativity_df = negativity_df[
+        ["subreddit", "neg_out_frac", "neg_in_frac"]
+    ].fillna(0)
+
+    fig = go.Figure()
+
+    fig.add_bar(
+        x=negativity_df["subreddit"],
+        y=negativity_df["neg_out_frac"],
+        name="Negative outgoing",
+        marker_color="crimson"
+    )
+
+    fig.add_bar(
+        x=negativity_df["subreddit"],
+        y=negativity_df["neg_in_frac"],
+        name="Negative incoming",
+        marker_color="royalblue"
+    )
+
+    fig.update_layout(
+        barmode="group",
+        title="Negative Incoming vs Outgoing Links (Gamergate Subreddits)",
+        xaxis_title="Subreddit",
+        yaxis_title="Fraction of negative links",
+        yaxis_tickformat=".0%",
+        template="plotly_white"
+    )
+
+    fig.show()
 
 
+
+def plot_out_pos_neg_link_per_subs(large_gamergate_df, gamergate_subs):
+## fraction of outgoing and ingoing negative links per subreddits in gamergate subs
+
+    out_neg = (
+        large_gamergate_df
+        .groupby("source")["LINK_SENTIMENT"]
+        .apply(lambda s: (s == -1).count())
+        .reset_index(name="neg_out")
+    )
+
+    # keep only gamergate subreddits
+    out_neg = out_neg[out_neg["source"].isin(gamergate_subs)]
+
+    out_pos = (
+        large_gamergate_df
+        .groupby("source")["LINK_SENTIMENT"]
+        .apply(lambda s: (s == 1).count())
+        .reset_index(name="pos_out")
+    )
+
+    # keep only gamergate subreddits
+    out_pos = out_pos[out_pos["source"].isin(gamergate_subs)]
+
+    negativity_df = (
+        out_neg.merge(
+            out_pos,
+            left_on="source",
+            right_on="source",
+            how="outer"
+        )
+    )
+
+    negativity_df["subreddit"] = negativity_df["source"].combine_first(
+        negativity_df["source"]
+    )
+
+    negativity_df = negativity_df[
+        ["subreddit", "neg_out", "pos_out"]
+    ].fillna(0)
+
+    fig = go.Figure()
+
+    fig.add_bar(
+        x=negativity_df["subreddit"],
+        y=negativity_df["neg_out"],
+        name="Negative outgoing",
+        marker_color="crimson"
+    )
+
+    fig.add_bar(
+        x=negativity_df["subreddit"],
+        y=negativity_df["pos_out"],
+        name="Positive outgoing",
+        marker_color="royalblue"
+    )
+
+    fig.update_layout(
+        barmode="group",
+        title="Outgoing Positive vs Negative Links (Gamergate Subreddits)",
+        xaxis_title="Subreddit",
+        yaxis_title="Number of links",
+        template="plotly_white"
+    )
+
+    fig.show()
