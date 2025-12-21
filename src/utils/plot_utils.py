@@ -918,6 +918,8 @@ def plot_out_pos_neg_link_per_subs(large_gamergate_df, gamergate_subs):
         template="plotly_white"
     )
 
+    fig.write_html("docs/assets/plot_out_pos_neg_link_per_subs.html")
+
     fig.show("png", width=1000, height=600)
 
 
