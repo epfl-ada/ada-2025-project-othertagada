@@ -263,4 +263,4 @@ Look at 2014-12-18 for a few fun examples !
 # Conclusion
 
 # References 
-- Cover image: [hhttps://spectrum.ieee.org/media-library/different-shades-of-blue-and-yellow-lines-with-bright-spots-of-light-curving-against-a-black-background.jpg?id=52552740&width=3600&height=2400](https://spectrum.ieee.org/media-library/different-shades-of-blue-and-yellow-lines-with-bright-spots-of-light-curving-against-a-black-background.jpg?id=52552740&width=3600&height=2400)
+- Cover image: [https://spectrum.ieee.org/media-library/different-shades-of-blue-and-yellow-lines-with-bright-spots-of-light-curving-against-a-black-background.jpg?id=52552740&width=3600&height=2400](https://spectrum.ieee.org/media-library/different-shades-of-blue-and-yellow-lines-with-bright-spots-of-light-curving-against-a-black-background.jpg?id=52552740&width=3600&height=2400)
