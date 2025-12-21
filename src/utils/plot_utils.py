@@ -488,7 +488,24 @@ def plot_posts_percent_positive_by_posts_per_user(post_data: pd.DataFrame, hl_da
 
 
 def plot_link_neg_frac(hl_data, large_gamergate_df):
-    ## outgoing negativity comparision (by negative outgoing link fraction)
+
+    """
+    Plot the fraction of negative outgoing links for the whole Reddit dataset
+    and for Gamergate-related subreddits.
+
+    Parameters
+    ----------
+    hl_data : pandas.DataFrame
+        DataFrame containing all Reddit hyperlinks with a LINK_SENTIMENT column.
+    large_gamergate_df : pandas.DataFrame
+        Subset of hl_data containing links where either the source or the target
+        subreddit is involved in the Gamergate event.
+
+    Returns
+    -------
+    None
+        Displays an interactive bar plot.
+    """
 
     ## whole dataset
     overall_mean = (hl_data["LINK_SENTIMENT"] == -1).mean()
@@ -516,6 +533,21 @@ def plot_link_neg_frac(hl_data, large_gamergate_df):
 
 def plot_link_neg_frac_per_subs(gamergate_df, gamergate_subs):
 
+    """
+    Plot the fraction of negative outgoing links for each Gamergate subreddit.
+
+    Parameters
+    ----------
+    gamergate_df : pandas.DataFrame
+        DataFrame containing hyperlinks involving Gamergate-related subreddits.
+    gamergate_subs : set or list of str
+        Collection of subreddit names involved in the Gamergate event.
+
+    Returns
+    -------
+    None
+        Displays an interactive bar plot.
+    """
     gg_sub_neg_frac = (
         gamergate_df
         .groupby("source")["LINK_SENTIMENT"]
@@ -548,6 +580,28 @@ def plot_link_neg_frac_per_subs(gamergate_df, gamergate_subs):
     fig.show()
 
 def inter_plot_pred_accuracy_per_subs(test_set, link_prediction, gamergate_subs, title, output_path) :
+
+    """
+    Plot prediction accuracy per Gamergate subreddit for a link sentiment classifier.
+
+    Parameters
+    ----------
+    test_set : pandas.DataFrame
+        Test dataset containing true LINK_SENTIMENT values and a 'source' column.
+    link_prediction : array-like
+        Predicted link sentiment labels produced by a classifier.
+    gamergate_subs : set or list of str
+        Collection of subreddit names involved in the Gamergate event.
+    title : str
+        Title of the plot.
+    output_path : str
+        Path where the interactive HTML plot will be saved.
+
+    Returns
+    -------
+    None
+        Saves and displays an interactive bar plot.
+    """
     
     test_set["link_prediction"] = (pd.Series(link_prediction, index=test_set.index).replace(0, -1))
 
@@ -577,6 +631,28 @@ def inter_plot_pred_accuracy_per_subs(test_set, link_prediction, gamergate_subs,
     fig.show()
 
 def plot_feature_coef_and_significance(log_reg, feature_columns, title, output_path):
+
+    """
+    Visualize logistic regression coefficients and their statistical significance.
+
+
+    Parameters
+    ----------
+    log_reg : statsmodels.discrete.discrete_model.BinaryResults
+        Fitted logistic regression model.
+    feature_columns : list of str
+        Names of the features used in the model.
+    title : str
+        Title of the plot.
+    output_path : str
+        Path where the interactive HTML plot will be saved.
+
+    Returns
+    -------
+    coef_df : pandas.DataFrame
+        DataFrame containing feature names, coefficients, p-values, and
+        significance indicators.
+    """
 
     coef_df = pd.DataFrame({
         'Feature': feature_columns,
@@ -630,6 +706,25 @@ def plot_feature_coef_and_significance(log_reg, feature_columns, title, output_p
     return coef_df
 
 def feature_coef_significance_grid(coef_df, title, output_path):
+    """
+    Display a tabular summary of model coefficients and their statistical significance.
+
+    Parameters
+    ----------
+    coef_df : pandas.DataFrame
+        DataFrame containing feature names, coefficients, p-values, and
+        significance indicators.
+    title : str
+        Title of the table.
+    output_path : str
+        Path where the interactive HTML table will be saved.
+
+    Returns
+    -------
+    None
+        Saves and displays an interactive table.
+    """
+
     table = Figure(
         data=[
             Table(
@@ -660,7 +755,21 @@ def feature_coef_significance_grid(coef_df, title, output_path):
     table.show()
 
 def plot_in_and_out_neg_link_frac_per_subs(large_gamergate_df, gamergate_subs):
-## fraction of outgoing and ingoing negative links per subreddits in gamergate subs
+    """
+    Plot the fraction of incoming and outgoing negative links per Gamergate subreddit.
+
+    Parameters
+    ----------
+    large_gamergate_df : pandas.DataFrame
+        DataFrame containing hyperlinks involving Gamergate-related subreddits.
+    gamergate_subs : set or list of str
+        Collection of subreddit names involved in the Gamergate event.
+
+    Returns
+    -------
+    None
+        Displays an interactive grouped bar plot.
+    """
 
     out_neg = (
         large_gamergate_df
@@ -729,12 +838,26 @@ def plot_in_and_out_neg_link_frac_per_subs(large_gamergate_df, gamergate_subs):
 
 
 def plot_out_pos_neg_link_per_subs(large_gamergate_df, gamergate_subs):
-## fraction of outgoing and ingoing negative links per subreddits in gamergate subs
+    """
+    Plot the number of positive and negative outgoing links per Gamergate subreddit.
+
+    Parameters
+    ----------
+    large_gamergate_df : pandas.DataFrame
+        DataFrame containing hyperlinks involving Gamergate-related subreddits.
+    gamergate_subs : set or list of str
+        Collection of subreddit names involved in the Gamergate event.
+
+    Returns
+    -------
+    None
+        Displays an interactive grouped bar plot.
+    """
 
     out_neg = (
         large_gamergate_df
         .groupby("source")["LINK_SENTIMENT"]
-        .apply(lambda s: (s == -1).count())
+        .apply(lambda s: (s == -1).sum())
         .reset_index(name="neg_out")
     )
 
@@ -744,7 +867,7 @@ def plot_out_pos_neg_link_per_subs(large_gamergate_df, gamergate_subs):
     out_pos = (
         large_gamergate_df
         .groupby("source")["LINK_SENTIMENT"]
-        .apply(lambda s: (s == 1).count())
+        .apply(lambda s: (s == 1).sum())
         .reset_index(name="pos_out")
     )
 
