@@ -3,7 +3,12 @@ import plotly.express as px
 from src.data.some_dataloader import RedditPostDataset
 
 def proportion_of_gg_in_politics(gg_df, pol_df):
+    """ Plots proportion of users of gamergate in political dataframe
 
+    Args:
+        gg_df (df): gamergate dataframe
+        pol_df (df): political dataframe
+    """
     subs_gg = {
         'shitghazisays',
         'kotakuinaction',
@@ -85,7 +90,12 @@ def proportion_of_gg_in_politics(gg_df, pol_df):
 
 
 def proportion_of_gamer_in_politics(gg_df, pol_df):
+    """ Plots proportion of users of gaming in political dataframe
 
+    Args:
+        gg_df (df): gaming dataframe
+        pol_df (df): political dataframe
+    """
     subs_pol = {
         'the_donald',
         'conservative',
