@@ -6,6 +6,11 @@ cover-img: assets/gamergateCollage_thedailycougar.jpg
 mathjax: true
 ---
 <style type="text/css" media="screen">
+.image_center{
+  display: block;
+  margin: auto;
+  width: 600px;
+}
 .row_div{
     display: flex;
     justify-content: space-between;
@@ -241,8 +246,9 @@ $$J(A,B)= \frac{A\cap B}{A\cup B}$$
 
 <div class="center_div">
 So subreddits with a higher proportion of overlapping users will have a higer Jaccard index.
+<br><br>
 
-<img src="assets/heatmap_users.png"/>
+<img src="assets/heatmap_users.png" class="image_center"/>
 
 We can look into the interactions of these subreddits to see if they link towards or get linked, by either gamerghazi or kotakuinaction, to better understand their relationships within the Gamergate network.
 <iframe src="assets/stacked_bar_transition.html" class="iframe_standard"></iframe>
@@ -294,7 +300,7 @@ As mentioned before, this story is one of intense harassment, a huge part of man
 
 Gamergate led to a massive hate campaign so as we could expect, the subreddits involved in the conflict spreaded a lot of negativity compared to the the platform as a whole and the link sentiment confirms it very well. 
 
-#plot frac neg link# {% include_relative assets/file.html %}
+
 
 The two sides of the conflict confronted each other vividly on the subject but, like in almost every quarrel, some side can attack with more energy. We determined in a naive way which subreddits are more aggressive in their speach and the one that are more victims of this aggressivity. Here we simplify and classify the "bullies" and the "bullied" by observing which fraction is higher between the outgoing and incomig negative links for each subreddit.
 
@@ -365,7 +371,7 @@ Let's train our regression model and see how well we can predict the link sentim
 
 Training on the whole dataset, we get an prediction accuracy of 0.807 which is pretty satisfying. Now let's see how well the model predict the outgoing link sentiment of each of our selected subreddits.
 
-{% include_relative assets/pred_accuracy_per_subs_hl_data.html %}
+<iframe src="assets/pred_accuracy_per_subs_hl_data.html" class="iframe_standard"></iframe>
 
 It is clearly less satisfying... 
 The accuracy is less than 0.8 for all subreddits and even less than 0.5 for three of them. 
