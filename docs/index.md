@@ -217,10 +217,10 @@ So subreddits with a higher proportion of overlapping users will have a higer Ja
 We can look into the interactions of these subreddits to see if they link towards or get linked, by either gamerghazi or kotakuinaction, to better understand their relationships within the Gamergate network.
 <iframe src="assets/stacked_bar_transition.html" class="iframe_standard"></iframe>
 
-Together, these two plots give us insights on which side of the conflict each subreddit stand.  <br>  <br> 
+Together, these two plots give us insights on which side of the conflict each subreddit stand.  <br> <br>
 
-Here is a list of the major actors and a brief summary of their side. They are noted either pro-gamergate or anti-gamergate. <br>
-Some of these are pretty general subreddits that are involved in all sorts of interactions and are by no means exclusive to the gamergate drama. If they didn't strictly agree to one side, they were marked as neutral. <br> <br>
+Here is a parctical summary of where their "side". They are noted as either pro-gamergate or anti-gamergate. <br> <br>
+Some of these are pretty general subreddits that are involved in all sorts of interactions and are by no means exclusive to the gamergate drama. If they didn't strictly agree to one side, they were marked as neutral. <br> <br> <br>
   
 </div>
 
