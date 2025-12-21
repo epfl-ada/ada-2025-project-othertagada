@@ -300,11 +300,12 @@ As mentioned before, this story is one of intense harassment, a huge part of man
 
 Gamergate led to a massive hate campaign so as we could expect, the subreddits involved in the conflict spreaded a lot of negativity compared to the the platform as a whole and the link sentiment confirms it very well. 
 
-{% include_relative assets/plot_out_neg_frac.html %}
+
+<iframe src="assets/plot_out_neg_frac.html" class="iframe_standard"></iframe>
 
 The two sides of the conflict confronted each other vividly on the subject but, like in almost every quarrel, some side can attack with more energy. We determined in a naive way which subreddits are more aggressive in their speach and the one that are more victims of this aggressivity. Here we simplify and classify the "bullies" and the "bullied" by observing which fraction is higher between the outgoing and incomig negative links for each subreddit.
 
-{% include_relative assets/plot_in_and_out_neg_link_frac_per_subs.html %}
+<iframe src="assets/plot_in_and_out_neg_link_frac_per_subs" class="iframe_standard"></iframe>
 
 The plot is clear : 
 - Bullies : r/amrsucks, r/circlebroke2, r/drama, r/srssucks, r/subredditdrama.
@@ -329,7 +330,9 @@ However, among the subreddits with the most accurate predictions, we can find dr
 
 Let's look at this next plot to get a better understanding.
 
-{% include_relative assets/plot_out_pos_neg_link_per_subs.html %}
+<iframe src="assets/plot_out_pos_neg_link_per_subs.html" class="iframe_standard"></iframe>
+
+
 
 The answer is actually very simple. They are among the most active subreddits of our selection, which means that they will have more impact on the model that we trained than the other smaller subreddits with only a few posts on their account.
 
@@ -338,7 +341,8 @@ To go futher with this analysis we want to figure out which feature had the most
 
 But, to keep things a little bit more interesting, let's train an other model on only the data involving our subreddits of interest. 
 
-{% include_relative assets/pred_accuracy_per_subs_hl_data.html %} 
+<iframe src="assets/pred_accuracy_per_subs_hl_data.html" class="iframe_standard"></iframe>
+
 
 We seem to have a better prediction !
 
@@ -351,7 +355,8 @@ Here is what the first prediction on the whole dataset tells us :
 
 {% include_relative assets/feature_coef_hl_data.html %} 
 
-{% include_relative assets/feature_significance_hl_data.html %} 
+<iframe src="assets/feature_significance_hl_data.html" class="iframe_standard"></iframe>
+
 
 The automated readability is top 1 in the portance of positive prediction. The Automated Readability Index is indeed a readability test that gauges the level of education needed to understand a piece of writing. We could make the asssumption that links containing more "complicated" text tend to be classified as positive. 
 Texts written with negative intent are incline to be less elaborated and complex. Probably because the majority of the negatively classified posts contains insulting and aggressive speech with swears and are not negative in a constructive way like a negative review might be for example. Which explains the strong negative weight that the LIWC_Anger and LIWC_Swear features gained in the trained model, both indicators of the amount of anger and swear in a text.
@@ -359,8 +364,9 @@ Texts written with negative intent are incline to be less elaborated and complex
 The second model teaches us something else :
 
 {% include_relative assets/feature_coef_gamergate_subs.html %} 
+<iframe src="assets/feature_significance_gamergate_subs.html" class="iframe_standard"></iframe>
 
-{% include_relative assets/feature_significance_gamergate_subs.html %} 
+
 
 Again without any surprise, anger is a good predictor of negative sentiment in a link. Gamergate involved a lot of threats and abuse as we previously stated. It triggered a very vivid reaction which was aggressive. The average number of words in a sentence appears as well once again in the negative prediction. It indicates a characteristic of the negative posts : the more words in a sentence, the more negative it gets.
 
