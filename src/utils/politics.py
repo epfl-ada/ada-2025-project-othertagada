@@ -121,4 +121,4 @@ def proportion_of_gg_in_politics(gg_df, pol_df, max_n=10):
         full_html=False,
     )
 
-    fig.show()
+    fig.show("png", width=1000, height=600)
