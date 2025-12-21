@@ -75,8 +75,34 @@ h3{
     font-size: 18px;
 }
 
-</style>
 
+/* Container to show two svg images on the same row */
+.svg-container {
+    display: flex;
+    width: 100%;
+    gap: 10px;            /* optional gap between images */
+  }
+
+  /* SVG images: equal width, maintain aspect ratio */
+  .svg-image {
+    flex: 1 1 50%;        /* grow/shrink, base width 50% */
+    width: 50%;
+    height: auto;
+  }
+
+  /* Responsive: stack on small screens */
+  @media (max-width: 800px) {
+    .svg-image {
+      flex: 1 1 100%;     /* full width */
+      width: 100%;
+    }
+    .svg-container {
+        flex-wrap: wrap;      /* allows wrapping to next line */
+    }
+  }
+
+</style>
+<script src="https://cdn.plot.ly/plotly-3.3.0.min.js" charset="utf-8"></script>
 <!--- Script that closes the menu when clicking a nav link-->
 <script src="assets/js/menu_closer.js"></script>
 
@@ -154,6 +180,24 @@ We chose to reduce our dataset to the subreddits that interact the most with eit
 5. A lot of articles such as this post suggest that gamergate was just a strategy headed by extremists to spread ideas and recruit more people to their cause. Did that work out ? To which extent did the gaming community involved in the gamergate controversy get influenced towards alt-right spheres ?
 
 # Look at the players
+
+In the plots below, we see that the the number posts per user diagram follows a lognormal distribution.
+
+<div class="svg-container">
+  <img src="assets/histogram_nbposts_per_user.svg" alt="Histogram of" class="svg-image">
+  <img src="assets/userposts_ccdf.svg" alt="Plot 2" class="svg-image">
+</div>
+
+## Which subreddits are more moderated?
+
+This chart shows the percentage of posts with deleted bodies per subreddit.
+
+<div class="plotly-chart">
+  {% include_relative assets/deleted_posts_per_subreddit.html %}
+</div>
+
+This plot is very interesting. On the right side we see the subreddits that are mostly unmoderated. r/kiachatroom (kia=kotakuinaction), r/amrsucks (amr=againstmensright), r/srssucks (srs=shitredditsays) and r/shitghazisays (ghazi=gamerghazi) are all subreddits on the side of "r/kotakuinaction", the side of the attackers and initiators of the gamergate.
+On the contrary, most strongly moderated subreddits e.g. r/shitredditsays, r/gamerghazi, r/againstgamersgate are on the side of the defenders. This makes lots of sense, as the subreddits who fight against harassment will moderate their own posts, while the attackers will not.
 
 <div class="center_div">
 

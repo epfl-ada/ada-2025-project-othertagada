@@ -409,6 +409,7 @@ def plot_histogram_nbposts_per_user(post_data: pd.DataFrame, subs_of_interest):
     plt.title("Histogram of Posts per User")
     plt.yscale("log")
     plt.xscale("log")
+    plt.savefig("docs/assets/histogram_nbposts_per_user.svg", format="svg", dpi=300)
     plt.show()
 
 def plot_posts_percent_positive_by_posts_per_user(post_data: pd.DataFrame, hl_data: pd.DataFrame, subs_of_interest):
@@ -824,6 +825,7 @@ def plot_userposts_ccdf(usersposts_fit: powerlaw.Fit):
     ax.legend()
 
     plt.tight_layout()
+    plt.savefig("docs/assets/userposts_ccdf.svg", format="svg")
     plt.show()
 
 def plot_posts_with_deleted_body(post_data: pd.DataFrame, byUser=True, byModerator=True):
@@ -837,6 +839,7 @@ def plot_posts_with_deleted_body(post_data: pd.DataFrame, byUser=True, byModerat
         raise ValueError("byUser and byModerator cannot be both false.")
     deleted_percentage = (post_data.groupby('SUBREDDIT')["body_deleted"].mean() * 100).sort_values(ascending=False)
 
+    # Non interactive plot in results notebook
     plt.figure(figsize=(12, 6))
     sns.barplot(x=deleted_percentage.index, hue=deleted_percentage.index, y=deleted_percentage.values, palette="mako")
     plt.ylabel('Percentage of Posts with Deleted Body (%)')
@@ -845,3 +848,36 @@ def plot_posts_with_deleted_body(post_data: pd.DataFrame, byUser=True, byModerat
     plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
     plt.show()
+
+    # Interactive plot for website
+    subreddits = deleted_percentage.index.tolist()
+    values = deleted_percentage.values.tolist()
+    fig = go.Figure(
+        data=[
+            go.Bar(
+                x=subreddits,
+                y=values,
+                marker=dict(
+                    color=values,
+                    #colorscale="Mako"
+                ),
+                showlegend=False
+            )
+        ]
+    )
+
+    fig.update_layout(
+        title="Percentage of Deleted Posts per Subreddit",
+        xaxis_title="Subreddit",
+        yaxis_title="Percentage of Posts with Deleted Body (%)",
+        xaxis_tickangle=-45,
+        template="plotly_white",
+        margin=dict(b=120)
+    )
+
+    # Export to HTML (responsive by default)
+    fig.write_html(
+        "docs/assets/deleted_posts_per_subreddit.html",
+        include_plotlyjs=False,  # better for websites
+        full_html=False
+    )
