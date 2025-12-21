@@ -90,3 +90,7 @@ To understand what was being discussed:**
 **Matteo Simonet:**
 
 **Jérémie de Faveri:**
+- Styling the website
+- Posts per user analysis: Does it follow the power law?
+- Analysis: Difference in negativity between power and light users
+- Analysis: Which subreddits are more moderated?
