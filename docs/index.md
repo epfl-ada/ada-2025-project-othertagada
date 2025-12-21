@@ -224,19 +224,23 @@ Look at 2014-12-18 for a few fun examples !
 
 # Gamer speech pattern / hate speech pattern
 
+<div class="plotly-chart">
+  {% include_relative assets/feature_coef_hl_data.html %}
+</div>
+
 <div class="center_div">
-
-<iframe src="assets/feature_coef_gamergate_subs.html" class="iframe_standard"></iframe>
-
-<iframe src="assets/feature_significance_gamergate_subs.html" class="iframe_standard"></iframe>
-
-<iframe src="assets/pred_accuracy_gamergate_subs.html" class="iframe_standard"></iframe>
 
 <iframe src="assets/feature_coef_hl_data.html" class="iframe_standard"></iframe>
 
 <iframe src="assets/feature_significance_hl_data.html" class="iframe_standard"></iframe>
 
 <iframe src="assets/pred_accuracy_per_subs_hl_data.html" class="iframe_standard"></iframe>
+
+<iframe src="assets/feature_coef_gamergate_subs.html" class="iframe_standard"></iframe>
+
+<iframe src="assets/feature_significance_gamergate_subs.html" class="iframe_standard"></iframe>
+
+<iframe src="assets/pred_accuracy_gamergate_subs.html" class="iframe_standard"></iframe>
 
 </div>
 
