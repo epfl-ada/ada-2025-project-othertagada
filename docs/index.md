@@ -6,6 +6,11 @@ cover-img: assets/gamergateCollage_thedailycougar.jpg
 mathjax: true
 ---
 <style type="text/css" media="screen">
+.image_center{
+  display: block;
+  margin: auto;
+  width: 600px;
+}
 .row_div{
     display: flex;
     justify-content: space-between;
@@ -241,8 +246,9 @@ $$J(A,B)= \frac{A\cap B}{A\cup B}$$
 
 <div class="center_div">
 So subreddits with a higher proportion of overlapping users will have a higer Jaccard index.
+<br><br>
 
-<img src="assets/heatmap_users.png"/>
+<img src="assets/heatmap_users.png" class="image_center"/>
 
 We can look into the interactions of these subreddits to see if they link towards or get linked, by either gamerghazi or kotakuinaction, to better understand their relationships within the Gamergate network.
 <iframe src="assets/stacked_bar_transition.html" class="iframe_standard"></iframe>
@@ -294,7 +300,7 @@ As mentioned before, this story is one of intense harassment, a huge part of man
 
 Gamergate led to a massive hate campaign so as we could expect, the subreddits involved in the conflict spreaded a lot of negativity compared to the the platform as a whole and the link sentiment confirms it very well. 
 
-{% include_relative assets/plot_out_neg_frac.html.html %}
+{% include_relative assets/plot_out_neg_frac.html %}
 
 The two sides of the conflict confronted each other vividly on the subject but, like in almost every quarrel, some side can attack with more energy. We determined in a naive way which subreddits are more aggressive in their speach and the one that are more victims of this aggressivity. Here we simplify and classify the "bullies" and the "bullied" by observing which fraction is higher between the outgoing and incomig negative links for each subreddit.
 
@@ -315,7 +321,7 @@ Predicting the negativity of a post is the best way to moderate the content of a
 
 For this purpose, we used our good old logistic regression that will help us classify some link posts as positive or negative, given their attributes. The ones that we chose were either related to the stylistic linguistic characteristic and or values indicating the amount of anger, swear or sexual content in the text.
 
-{% include_relative assets/pred_accuracy_per_subs_hl_data.html %}
+<iframe src="assets/pred_accuracy_per_subs_hl_data.html" class="iframe_standard"></iframe>
 
 Even if we got a prediction accuracy of 0.807 which is pretty satisfying, the one for each of our subreddits is less satisfying and even less than 0.5 for three of them. 
 Clearly our model is not fitting all the data from the selected subreddits very well. It represents only a small fraction of the whole dataset.
@@ -394,7 +400,7 @@ But is this high proportion really more elevated than for the communuty of a 're
 {% include_relative assets/gaming_proportion_politics.html %}
 
 
-# What Happens in the aftermath ?
+# The aftermath
 While r/kotakuinaction and r/gamerghazi where created expressively with the goal of discussing the subject of GamerGate, these subreddits (like many others) do not die down suddenly after the events. These subreddits continue posting years after the peak of the conflict. But what topics are still discussed in the aftermath of the main events, is the actual gamergate still the most important theme are do communities once united by a conflict build new interest?\
 To try to respond to these interrogations we utilized [Empath](https://arxiv.org/pdf/1602.06979) a NLP tool that relies on deep learning to infer lexicon from some given seed words. Here we created 4 topic categories: 
 * Gamergate : Everything related to the actual events that sparked gamergate
@@ -418,10 +424,10 @@ The topic of gamergate are very high, this is explained by the fact that one of 
 
 
 # Conclusion
-Our story is one of successful manufactured outrage. A political agenda disguised as a simple 'gaming scandal'. 
-We trained a logistic regression model with the aim of better understanding what makes a message negative with the bigger goal of having better moderation on reddit. Better moderation to prevent such harassement and hate compaign from happening again, but not only.\
-With better moderation from the platforms that host these online communites, we could hope to see an improved responsiveness to the creation of extreme online communities.\
-Still we need to keep in mind that it is very often difficult to put in action, one cannot just apply a threshold to justify closing a subreddit, it is often a delicate situation. 
+Our story is one of successful manufactured outrage. A political agenda disguised as a simple 'gaming scandal', which involved big companies, political figures, governmental agencies ; powers that would seem completely beyond a community of online chatters.\
+We trained a logistic regression model with the aim of better understanding what makes a message negative with the bigger goal of having better moderation on reddit. Better moderation to prevent such harassment and hate campaign from happening again, but not only.\
+With better moderation from the platforms that host these online communities, we could hope to see an improved responsiveness to waves of online harassment, radicalization and political manipulation.\
+Still, we need to keep in mind that it is very often difficult to put in action, one cannot just apply a threshold to justify closing a subreddit. It is often a delicate situation that has real world repercussions when it comes to political ideas and to what is judged right and wrong. 
 
 # References 
 - Cover image: [https://thedailycougar.com/wp-content/uploads/2014/11/gamergate.jpg](https://thedailycougar.com/wp-content/uploads/2014/11/gamergate.jpg)
