@@ -100,6 +100,22 @@ def kmeans_cluster_graph_features(features, n_clusters=10):
     return features, kmeans
 
 def train_test_set(data):
+    """
+    Splits a dataset into training and test subsets.
+
+    Parameters
+    ----------
+    data : pandas.DataFrame
+        The complete dataset to be split
+    -------
+    train_set : pandas.DataFrame
+        The subset of the data used for model training (80% of the original
+        dataset).
+
+    test_set : pandas.DataFrame
+        The subset of the data reserved for model evaluation (20% of the
+        original dataset).
+    """
 
     train_set, test_set = train_test_split(data, test_size=0.2,random_state=42)
    
