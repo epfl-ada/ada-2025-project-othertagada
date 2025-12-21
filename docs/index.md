@@ -191,24 +191,33 @@ We chose to reduce our dataset to the subreddits that interact the most with eit
 
 
 # Look at the players
-We want to understand how users interact with the reddit platform to better analyze the gamergate. First let's look how strongly power users (users that posted a lot in the subreddits related to the gamergate) dominate the discourse. In the graph below we see the number of posts per user in the 15 subreddits of interest. The graph seems to follow a power law distribution.\
-In the plots below, we see that the the number posts per user diagram follows a lognormal distribution.
+We want to understand how users interact with the reddit platform to better analyze the gamergate. First let's look how strongly power users (users that posted a lot in the subreddits related to the gamergate) dominate the discourse. In the graph below we see the number of posts per user in the 15 subreddits of interest. While the graph seems to follow a power law distribution at first sight, statistical analysis shows that it follows a lognormal distribution, as one can infer from the graphs below.
 
 <div class="svg-container">
   <img src="assets/histogram_nbposts_per_user.svg" alt="Histogram of" class="svg-image">
   <img src="assets/userposts_ccdf.svg" alt="Plot 2" class="svg-image">
 </div>
 
+Power-law distributions are scale-free and big nodes can grow indefinitely in importance. For example, the number of references to websites follows a power-law distribution. There are enormous websites like google, then 10 times more websites with x times less links, and so forth. Lognormal distributions are also heavy-tail, but not scale-free. This makes sense, as human users are constrained by time and attention. This in turns shows that power users are very important but do not fully dominate the discourse as might be the case with a pure power law.
+
+"Light users", while rare posters, might also still look at a lot of posts and might be very active in the act of reading and could therefore be seen more as spectators. Power users could be seen more like the leaders of the subreddits.
+
+We also were interested to see if on the posts that contain hyperlinks, power users are overall less negative than "light" users. While the initial graphs we drew seemed to suggest that, the statistical analysis revealed no statistical significance, so we can conclude that power users and light users have the same probability to start attacks.
+
 ## Which subreddits are more moderated?
 
-This chart shows the percentage of posts with deleted bodies per subreddit.
+Let's look which subreddits do more strongly moderate their users. In reddit, a post can be deleted either by the user itself (in this case in the body the text "\[deleted]" appears) or by moderators or admins (in this case in the post body the text "\[removed]" appears).
+
+Most of the moderation is done by the moderators. Users who create subreddits automatically become their moderators. They can define the rules of the subreddit, can nominate other users to become moderators, and can delete posts. Moderators in general have lots of freedom in the way they do moderation. Admins on the contrary are reddit employees. Until ca. 2014, they only did the most basic moderation to be able to keep the site running, like deleting spam or removing illegal content. By 2014 however, reddit admins began to moderate a bit more strictly and imposed some new moderation rules. This change of policy was also due to events like the Gamergate happening. Posts can also be deleted by bots, but the bots are in turn controlled by one of these two groups. \[2]
+
+This chart shows the percentage of posts with bodies removed by moderators or admins per subreddit. To interpret this graph, it is probably safe to assume that most posts were removed by moderators.
 
 <div class="plotly-chart">
   {% include_relative assets/deleted_posts_per_subreddit.html %}
 </div>
 
 This plot is very interesting. On the right side we see the subreddits that are mostly unmoderated. r/kiachatroom (kia=kotakuinaction), r/amrsucks (amr=againstmensright), r/srssucks (srs=shitredditsays) and r/shitghazisays (ghazi=gamerghazi) are all subreddits on the side of "r/kotakuinaction", the side of the attackers and initiators of the gamergate.
-On the contrary, most strongly moderated subreddits e.g. r/shitredditsays, r/gamerghazi, r/againstgamersgate are on the side of the defenders. This makes lots of sense, as the subreddits who fight against harassment will moderate their own posts, while the attackers will not.
+On the contrary, most strongly moderated subreddits e.g. r/shitredditsays, r/gamerghazi, r/againstgamersgate are on the side of the defenders. This makes lots of sense, as the subreddits who fight against harassment will moderate their own posts, while the attackers will not. 
 
 <div class="center_div">
 
@@ -459,3 +468,5 @@ Still we need to keep in mind that it is very often difficult to put in action, 
 
 # References 
 - Cover image: [https://spectrum.ieee.org/media-library/different-shades-of-blue-and-yellow-lines-with-bright-spots-of-light-curving-against-a-black-background.jpg?id=52552740&width=3600&height=2400](https://spectrum.ieee.org/media-library/different-shades-of-blue-and-yellow-lines-with-bright-spots-of-light-curving-against-a-black-background.jpg?id=52552740&width=3600&height=2400)
+
+- \[2] Moderation in reddit [https://www.theguardian.com/technology/2015/dec/30/reddit-ellen-pao]
