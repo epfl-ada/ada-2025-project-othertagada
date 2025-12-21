@@ -464,7 +464,7 @@ But is this high proportion really more elevated than for the communuty of a 're
 {% include_relative assets/gaming_proportion_politics.html %}
 
 
-# What Happens in the aftermath ?
+# The aftermath
 While r/kotakuinaction and r/gamerghazi where created expressively with the goal of discussing the subject of GamerGate, these subreddits (like many others) do not die down suddenly after the events. These subreddits continue posting years after the peak of the conflict. But what topics are still discussed in the aftermath of the main events, is the actual gamergate still the most important theme are do communities once united by a conflict build new interest?\
 To try to respond to these interrogations we utilized [Empath](https://arxiv.org/pdf/1602.06979) a NLP tool that relies on deep learning to infer lexicon from some given seed words. Here we created 4 topic categories: 
 * Gamergate : Everything related to the actual events that sparked gamergate
