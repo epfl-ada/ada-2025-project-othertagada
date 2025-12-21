@@ -119,9 +119,15 @@ Posted on r/KiAChatroom
 
 <div class="center_div">
 
-<iframe src="assets/posts_per_day_gamerghazi.html" class="iframe_standard"></iframe>
+<div class="plotly-chart">
+  {% include_relative assets/posts_per_day_gamerghazi.html %}
+</div>
 
-<iframe src="assets/posts_per_day_kotakuinaction.html" class="iframe_standard"></iframe>
+
+<div class="plotly-chart">
+  {% include_relative assets/posts_per_day_kotakuinaction.html %}
+</div>
+
 </div>
 
 These two graphs show the number of posts in each of the subreddits created during the Gamer gate, we can see that peak activity was around the end of october. The post volume on r/GamerGhazi stayed elevated until march of 2015, where it declined and stabilized. r/KotakuInAction saw a rapid peak and decline, and subsequent stabilization after the initial burst of posting.
@@ -224,9 +230,6 @@ Look at 2014-12-18 for a few fun examples !
 
 # Gamer speech pattern / hate speech pattern
 
-<div class="plotly-chart">
-  {% include_relative assets/feature_coef_hl_data.html %}
-</div>
 
 <div class="center_div">
 
