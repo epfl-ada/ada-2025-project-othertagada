@@ -239,6 +239,7 @@ As discussed before, this story is one of intense harassment, a huge part of man
 As a hate compaign we expect subreddits involved in the conflict to be more negative than reddit as a platform globally, but let's verify this assumption to make it a fact before going further. We compare the average negativity of the subreddits of interest against the one on Reddit in a global sense.
 
 #plot gamergate vs reddit negativity#
+{% include_relative assets/plot_out_neg_frac.html %}
 
 So much negativity... but yay our assumption was verfied!
 
@@ -314,6 +315,10 @@ Let's train our regression model and see how well we can predict the link sentim
 Training on the whole dataset, we get an prediction accuracy of 0.807 which is pretty satisfying. Now let's see how well the model predict the outgoing link sentiment of each of our selected subreddits.
 
 #plot feature coef hl data#
+<div class="center_div">
+
+<iframe src="assets/feature_coef_hl_data.html" class="iframe_standard"></iframe>
+</div>
 
 It is clearly less satisfying... 
 The accuracy is less than 0.8 for all subreddits and even less than 0.5 for three of them. 
