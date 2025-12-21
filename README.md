@@ -88,5 +88,13 @@ To understand what was being discussed:**
 - Writing script to create .txt file from post dataset for each subreddits 
 
 **Matteo Simonet:**
+- Scraping of events data from an online timeline
+- Selection of relevant subreddits for analysis
+- Visualization of the network and volume of posts during the conflict, visualization of relationships between subreddits
+- Analysis of political implications of users
 
 **Jérémie de Faveri:**
+- Styling the website
+- Posts per user analysis: Does it follow the power law?
+- Analysis: Difference in negativity between power and light users
+- Analysis: Which subreddits are more moderated?
