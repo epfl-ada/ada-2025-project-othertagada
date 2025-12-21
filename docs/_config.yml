@@ -49,6 +49,7 @@ plugins:
 
 kramdown:
   input: GFM
+  math_engine: mathjax
 
 # Exclude from processing.
 # The following items will not be processed, by default.

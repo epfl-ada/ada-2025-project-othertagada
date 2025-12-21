@@ -3,6 +3,7 @@ layout: page
 title: r/GamerGate
 subtitle: Misogyny in gamer communities, the case of the kiA subreddit
 cover-img: assets/lights.webp
+mathjax: true
 ---
 <style type="text/css" media="screen">
 .row_div{
@@ -209,7 +210,12 @@ On the contrary, most strongly moderated subreddits e.g. r/shitredditsays, r/gam
 To understand better how the selected subreddits interact we first need to understand how their communities of users overlap (or don't!) We compute the Jaccard Similarity between each subreddit to construct a heatmap of user similarity between subreddits in a very intuitive way.
 
 The Jaccard index measures the similarity between two sets by dividing the intersection of the sets by their union.
+</div>
+
 $$J(A,B)= \frac{A\cap B}{A\cup B}$$
+
+
+<div class="center_div">
 So subreddits with a higher proportion of overlapping users will have a higer Jaccard index.
 
 <img src="assets/heatmap_users.png"/>
@@ -331,6 +337,7 @@ ARI = 4.71 \left( \frac{\text{characters}}{\text{words}} \right)
 + 0.5 \left( \frac{\text{words}}{\text{sentences}} \right)
 - 21.43,
 $$
+
 it confirms our observation. We find the average number of words in a sentence and the average word length which is just an affine (linear) function of the average number of characters in a word.\
 Other than the ones we just discussed, we are not able to identify any other correlation clearly.
 
