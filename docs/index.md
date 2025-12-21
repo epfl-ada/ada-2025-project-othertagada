@@ -69,7 +69,8 @@ mathjax: true
 
 
 body {
-    font: normal 15px Verdana, Arial, sans-serif;
+    font: normal 1rem Verdana, Arial, sans-serif;
+    color: black;
     text-align: justify;
 }
 
@@ -84,6 +85,10 @@ h2 {
 h3{
     font: Verdana, Arial, sans-serif;
     font-size: 18px;
+}
+
+table {
+    margin: 0 auto;
 }
 
 
@@ -241,6 +246,11 @@ So subreddits with a higher proportion of overlapping users will have a higer Ja
 
 We can look into the interactions of these subreddits to see if they link towards or get linked, by either gamerghazi or kotakuinaction, to better understand their relationships within the Gamergate network.
 <iframe src="assets/stacked_bar_transition.html" class="iframe_standard"></iframe>
+
+We can clearly see that most subreddits send more links than they receive from KiA and Ghazi.  <br> 
+
+This also helps us better understand the nature of one of our actors. Gamerghazi presents much more links towards Kia than from them, which is in explained by its nature of G"counter-attack" to gamergate. They are not the direct target of the gamergaters, but more like an opposition. <br> <br>
+
 
 Together, these two plots give us insights on which side of the conflict each subreddit stand.  <br> <br>
 
@@ -480,4 +490,4 @@ Still we need to keep in mind that it is very often difficult to put in action, 
 # References 
 - Cover image: [https://thedailycougar.com/wp-content/uploads/2014/11/gamergate.jpg](https://thedailycougar.com/wp-content/uploads/2014/11/gamergate.jpg)
 
-- \[2] Moderation in reddit [https://www.theguardian.com/technology/2015/dec/30/reddit-ellen-pao]
+- \[2] Moderation in reddit [https://www.theguardian.com/technology/2015/dec/30/reddit-ellen-pao](https://www.theguardian.com/technology/2015/dec/30/reddit-ellen-pao)
