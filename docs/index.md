@@ -69,7 +69,8 @@ mathjax: true
 
 
 body {
-    font: normal 15px Verdana, Arial, sans-serif;
+    font: normal 1rem Verdana, Arial, sans-serif;
+    color: black;
     text-align: justify;
 }
 
@@ -84,6 +85,10 @@ h2 {
 h3{
     font: Verdana, Arial, sans-serif;
     font-size: 18px;
+}
+
+table {
+    margin: 0 auto;
 }
 
 
@@ -498,4 +503,4 @@ Still we need to keep in mind that it is very often difficult to put in action, 
 # References 
 - Cover image: [https://thedailycougar.com/wp-content/uploads/2014/11/gamergate.jpg](https://thedailycougar.com/wp-content/uploads/2014/11/gamergate.jpg)
 
-- \[2] Moderation in reddit [https://www.theguardian.com/technology/2015/dec/30/reddit-ellen-pao]
+- \[2] Moderation in reddit [https://www.theguardian.com/technology/2015/dec/30/reddit-ellen-pao](https://www.theguardian.com/technology/2015/dec/30/reddit-ellen-pao)
