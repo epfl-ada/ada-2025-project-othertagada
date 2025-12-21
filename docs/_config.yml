@@ -33,6 +33,10 @@ navbar-links:
   Introduction: "/#introduction"
   Research Questions: "/#research-questions"
   Look at the players: "/#look-at-the-players"
+  How it played out: "/#how-it-played-out"
+  Gamer speech pattern / hate speech pattern: "/#gamer-speech-pattern--hate-speech-pattern"
+  Gamergate users and the alt-right sphere: "/#gamergate-users-and-the-alt-right-sphere"
+  What Happens in the aftermath: "/#what-happens-in-the-aftermath"
   Conclusion: "/#conclusion"
   References: "/#references"
 
@@ -45,6 +49,7 @@ plugins:
 
 kramdown:
   input: GFM
+  math_engine: mathjax
 
 # Exclude from processing.
 # The following items will not be processed, by default.

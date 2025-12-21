@@ -11,43 +11,6 @@ import plotly.express as px
 from plotly.graph_objects import Figure, Table
 from matplotlib.ticker import PercentFormatter
 import powerlaw
-
-def plot_jaccard_similarity_user_heatmap(post_data):
-
-    def jaccard_similarity(list1, list2):
-        s1 = set(list1)
-        s2 = set(list2)
-        return len(s1.intersection(s2)) / len(s1.union(s2))
-    
-    subreddit_users = post_data.groupby("SUBREDDIT")["USERNAME"].apply(set)
-    subreddits = subreddit_users.index
-    n = len(subreddits)
-
-    jaccard_matrix = np.zeros((n, n))
-
-    for i, sub1 in enumerate(subreddits):
-        for j, sub2 in enumerate(subreddits):
-            jaccard_matrix[i, j] = jaccard_similarity(
-                subreddit_users[sub1], 
-                subreddit_users[sub2]
-            )
-    plt.figure(figsize=(7,6))
-
-    jaccard_df = pd.DataFrame(jaccard_matrix, index=subreddits, columns=subreddits)
-
-    sns.heatmap(
-        jaccard_df,
-        cmap="mako", 
-        norm=LogNorm(vmin=jaccard_df.values.min() + 1e-5, vmax=jaccard_df.values.max()),  # Log scale
-        annot=False,
-        linewidths=0.5,
-        linecolor='gray'
-    )
-
-    plt.title("Jaccard Similarity Between Subreddit User Sets")
-    plt.tight_layout()
-    #plt.savefig('outputs/graph/heatmap_users.png')
-    plt.show()
     
 
 def plot_distribution_nb_appearance_subreddits(data):
@@ -234,6 +197,14 @@ def animate_subreddit_evolution(graphs, labels, pos, save_path="./outputs/subred
 
 
 def get_animation_weekly(G, window, data, year):
+    """ Animation of links for the week given  
+
+    Args:
+        G : NetworkX graph object
+        window : time window
+        data (df): dataframe with 
+        year (int): given year 
+    """
     core_subreddits = list(G.nodes())
 
     # Compute fixed positions once
@@ -277,6 +248,13 @@ def get_animation_weekly(G, window, data, year):
 
 
 def plot_interactions(links_dataset, subreddit, n=50):
+    """ Plots pie chart of percentage of links for top 10 subreddits 
+
+    Args:
+        links_dataset (df): path of corpus
+        subreddits (str[]): list of name of main subreddits
+        n (int): number of subreddit to fill the pie chart
+    """
 
     top50 = top_connected(links_dataset, subreddit, n)
 
@@ -303,6 +281,12 @@ def plot_interactions(links_dataset, subreddit, n=50):
     fig.show("png", width=1000, height=600)
 
 def plot_stacked_bar_chart(links_dataset, html_output=False):
+    """ Plots stacked bar chart of links ingoing and outgoing
+
+    Args:
+        links_dataset (df): path of corpus
+        html_output (Bool): False, no write of file, if True html file written 
+    """
     #count out links
     out_counts = (
         links_dataset
@@ -381,6 +365,12 @@ def plot_stacked_bar_chart(links_dataset, html_output=False):
 
 
 def plot_histogram_nbposts_per_user(post_data: pd.DataFrame, subs_of_interest):
+    """ Plots histogram of number of posts per users in subs of interest 
+
+    Args:
+        post_data (df): datafram of post, must contain subs of interest
+        sub_of_interest (str[]): list of subreddit to use in histogram
+    """
     subreddits_posts_per_user = post_data.groupby(["SUBREDDIT", "USERNAME"]).size().reset_index(name="post_count")
     subreddit_sizes = (
         subreddits_posts_per_user
@@ -413,6 +403,13 @@ def plot_histogram_nbposts_per_user(post_data: pd.DataFrame, subs_of_interest):
     plt.show()
 
 def plot_posts_percent_positive_by_posts_per_user(post_data: pd.DataFrame, hl_data: pd.DataFrame, subs_of_interest):
+    """ Plots the percentage of positive vs negative links per post per user
+
+    Args:
+        post_data (df): dataframe of post
+        hl_data (df): dataframe of links
+        subs_of_interest (str[]): subreddit of interest
+    """
     merged_df = pd.merge(left=post_data, right=hl_data, how="inner", on="POST_ID").loc[lambda d: d["SUBREDDIT"].isin(subs_of_interest)]
     df_plot = merged_df.groupby(["LINK_SENTIMENT", "USERNAME"]).size().reset_index(name="post_count")
 
@@ -923,6 +920,7 @@ def plot_out_pos_neg_link_per_subs(large_gamergate_df, gamergate_subs):
 
 
 def plot_userposts_ccdf(usersposts_fit: powerlaw.Fit):
+    
     fig, ax = plt.subplots(figsize=(6, 5))
 
     # Empirical CCDF
@@ -956,6 +954,16 @@ def plot_userposts_ccdf(usersposts_fit: powerlaw.Fit):
     plt.show()
 
 def plot_posts_with_deleted_body(post_data: pd.DataFrame, byUser=True, byModerator=True):
+    """
+    Plots percentage of posts with deleted body
+
+    Parameters
+    ----------
+    post_df : pandas.DataFrame
+        DataFrame containing hyperlinks involving Gamergate-related subreddits.
+    byUser : boolean
+    byModerator : boolean 
+    """
     if byUser and byModerator:
         post_data["body_deleted"] = (post_data["BODY_TEXT"] == "[deleted]") | (post_data["BODY_TEXT"] == "[removed]")
     elif byUser:

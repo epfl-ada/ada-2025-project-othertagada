@@ -6,6 +6,13 @@ import plotly.graph_objects as go
 
 
 def create_collection(corpus_root):
+    """ Create collection from text document in corpus root
+
+    Args:
+        corpus_root (str): path of corpus
+    Returns:
+        collection (obj): collection from text
+    """
     collection = []
 
     files = sorted(
@@ -22,6 +29,12 @@ def create_collection(corpus_root):
     return collection
 
 def plot_monthly_topic(collection, lexicon):
+    """ plot interactive empath topics per month from given collection and given lexicon
+
+    Args:
+        collection (obj): collection from text
+        lexicon (obj): empath lexicon must contain cutom categories 'misogyny', 'gamergate', 'legal' and 'incel'
+    """
 
     nlp = spacy.load('en_core_web_lg')
 

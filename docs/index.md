@@ -2,7 +2,8 @@
 layout: page
 title: r/GamerGate
 subtitle: Misogyny in gamer communities, the case of the kiA subreddit
-cover-img: assets/lights.webp
+cover-img: assets/gamergateCollage_thedailycougar.jpg
+mathjax: true
 ---
 <style type="text/css" media="screen">
 .row_div{
@@ -54,6 +55,16 @@ cover-img: assets/lights.webp
   width: 500px;
   height: 450px;
   border: none;
+}
+
+.page-heading {
+    background: rgba(50, 100, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 15px !important;
+    margin: 13rem 0;
+    box-shadow: 0 0 0 3px rgba(50, 100, 255,0.2),
+    0 8px 300px rgba(50,100,255,0.15);
 }
 
 
@@ -108,9 +119,12 @@ h3{
 
 # Introduction
 ## What are we talking about ?
-Our datastory is about [Gamergate](https://en.wikipedia.org/wiki/Gamergate), an online harassement campaign against feminism, diversity, and progressivism in video game culture, that was present on multiple online platforms, including reddit. Two subreddits where created in response: r/KotakuInAction, r/GamerGhazi, which exclusively are about this topic. The trigger for this event was a blog post published in August 2014 by Eron Gjoni, the ex-partner of game developer Zoë Quinn, in which he made allegations about their personal relationship.
 
-Although the claims were personal and unverified, they were seized upon by segments of online communities, which quickly shifted the focus toward accusations of “ethics in games journalism.” In practice, however, the movement became dominated by coordinated harassment, particularly targeting women in gaming, including Quinn, Anita Sarkeesian, and Brianna Wu, through doxxing, threats, and sustained online abuse.
+Our datastory is about [Gamergate](https://en.wikipedia.org/wiki/Gamergate), an online harassement campaign against feminism, diversity, and progressivism in video game culture that was present on multiple online platforms including reddit. \
+The trigger for this event was a blog post published in August 2014 by Eron Gjoni, the ex-partner of game developer Zoë Quinn, in which he made allegations about their personal relationship. Conspiracy theories regarding Quinn having affairs with journalists in exchange for positive reviews on her new game "Depression Quest" were the perfect argument for far-right activists to create a large-scale bullying campaign disguised as scandal about ethics in games journalism. \
+In practice, the movement became dominated by coordinated harassment, particularly targeting women in gaming, including Quinn, Anita Sarkeesian, and Brianna Wu, through doxxing, threats, and sustained online abuse.
+
+Two subreddits were created in response: r/KotakuInAction and r/GamerGhazi, which are exclusively about this topic.
 
 >Anyone else having seen the cultural insanity of SJW's spreading far enough that they are considering just giving up on the first world?
 
@@ -133,8 +147,7 @@ Posted on r/KiAChatroom
 These two graphs show the number of posts in each of the subreddits created during the Gamer gate, we can see that peak activity was around the end of october. The post volume on r/GamerGhazi stayed elevated until march of 2015, where it declined and stabilized. r/KotakuInAction saw a rapid peak and decline, and subsequent stabilization after the initial burst of posting.
 
 ## Why this topic ?
-Reddit’s semi-anonymous structure and inconsistent moderation practices have historically made it a fertile environment for the rapid spread of hostility and harassment. In this datastory, we examine the evolution of one such episode, using data to uncover how the event unfolded across the platform and how various communities responded, interacted, and influenced each other during the escalation. 
-
+Reddit’s semi-anonymous structure and inconsistent moderation practices have historically made it a fertile environment for the rapid spread of hostility and harassment. In this datastory, we examine the evolution of one such episode, using data to uncover how the event unfolded across the platform, how various communities were involved, which tools were used, and the political implications of such a large scale drama at the dawn of the 2016  US presidential elections, with the aim of being aware of these propaganda patterns if they happen again in the future, and possible moderation tools that could be developped to fight against them.
 ## The datasets
 ### Reddit Hyperlink Network
 The main dataset (available [here](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)) used for this project was created by a group at Stanford. It is composed of two separate datasets with the same structure, with the only difference being that the first is extracted from post titles and the second one from the post bodies :
@@ -181,51 +194,81 @@ We chose to reduce our dataset to the subreddits that interact the most with eit
   <iframe src="assets/top50_interactions_gamerghazi.html" class="iframe_standard"></iframe>
 </div>
 
-# Research questions
-1. How did the gamergate events evolve over time and what can they teach us regarding misogyny in online debate ?
-2. To what extent do linguistic patterns and user sentiment diverge between Pro-GamerGate (KiA) and Anti-GamerGate (GiA) communities ? How does this compare to other related subreddits ?
-3. Is the hostility and negative sentiment in GamerGate debates widely distributed across the user base, or disproportionately generated by a hyper-active core of 'super-participants' that create the majority of posts ?
-4. To what extent do Pro- and Anti-GamerGate communities function as linguistic echo chambers? Can a classifier distinguish between posts from r/KotakuInAction and r/GamerGhazi with high accuracy, indicating a distinct separation in vocabulary and rhetoric?
-5. Retrospectively, articles such as [this post](https://www.nytimes.com/interactive/2019/08/15/opinion/what-is-gamergate.html) state that Gamergate was just a strategy headed by extremists to spread ideas and recruit more people to their cause. Did that work out ? To which extent did the gaming community involved in the gamergate controversy get influenced towards alt-right spheres ?
-
-
 
 # Look at the players
-
-In the plots below, we see that the the number posts per user diagram follows a lognormal distribution.
+We want to understand how users interact with the reddit platform to better analyze the gamergate. First let's look how strongly power users (users that posted a lot in the subreddits related to the gamergate) dominate the discourse. In the graph below we see the number of posts per user in the 15 subreddits of interest. While the graph seems to follow a power law distribution at first sight, statistical analysis shows that it follows a lognormal distribution, as one can infer from the graphs below.
 
 <div class="svg-container">
-  <img src="assets/histogram_nbposts_per_user.svg" alt="Histogram of" class="svg-image">
-  <img src="assets/userposts_ccdf.svg" alt="Plot 2" class="svg-image">
+  <img src="assets/histogram_nbposts_per_user.svg" alt="Histogram of number of posts per user" class="svg-image">
+  <img src="assets/userposts_ccdf.svg" alt="CCDF number of posts per user plot" class="svg-image">
 </div>
+
+Power-law distributions are extremely unequal. For example, the number of references to websites follows a power-law distribution. Most websites are linked very little, while a tiny number (like google.com) can become overwhelmingly dominant. This kind of pattern is often described as scale-free, because the same imbalance appears at every level. Lognormal distributions are also heavy-tail, but not scale-free. This makes sense, as human users are constrained by time and attention. This in turns shows that power users are very important but do not fully dominate the discourse as might be the case with a pure power law.
+
+"Light users", while rare posters, might also still look at a lot of posts and might be very active in the act of reading and could therefore be considered more as spectators. Power users could be seen more like the leaders of the subreddits.
+
+We also were interested to analyze if on the posts that contain hyperlinks, power users are overall less negative than "light" users. While the initial graphs we drew seemed to suggest that, the statistical analysis revealed no statistical significance, so we can conclude that power users and light users have the same probability to start attacks.
 
 ## Which subreddits are more moderated?
 
-This chart shows the percentage of posts with deleted bodies per subreddit.
+Let's look which subreddits do more strongly moderate their users. In reddit, a post can be deleted either by the user itself (in this case in the body the text "\[deleted]" appears) or by moderators or admins (in this case in the post body the text "\[removed]" appears).
+
+Most of the moderation is done by the moderators. Users who create subreddits automatically become their moderators. They can define the rules of the subreddit, can nominate other users to become moderators, and can delete posts. Moderators in general have lots of freedom in the way they do moderation. Admins on the contrary are reddit employees. Until around 2014, they only did the most basic moderation to be able to keep the site running, like deleting spam or removing illegal content. By 2014 however, reddit admins began to moderate a bit more strictly and imposed some new moderation rules. This change of policy was also due to events like the Gamergate happening. Posts can also be deleted by bots, but the bots are in turn controlled by one of these two groups. \[2]
+
+This chart shows the percentage of posts with bodies removed by moderators or admins per subreddit. To interpret this graph, it is probably safe to assume that most posts were removed by moderators (and not admins).
 
 <div class="plotly-chart">
   {% include_relative assets/deleted_posts_per_subreddit.html %}
 </div>
 
 This plot is very interesting. On the right side we see the subreddits that are mostly unmoderated. r/kiachatroom (kia=kotakuinaction), r/amrsucks (amr=againstmensright), r/srssucks (srs=shitredditsays) and r/shitghazisays (ghazi=gamerghazi) are all subreddits on the side of "r/kotakuinaction", the side of the attackers and initiators of the gamergate.
-On the contrary, most strongly moderated subreddits e.g. r/shitredditsays, r/gamerghazi, r/againstgamersgate are on the side of the defenders. This makes lots of sense, as the subreddits who fight against harassment will moderate their own posts, while the attackers will not.
+On the contrary, most strongly moderated subreddits e.g. r/shitredditsays, r/gamerghazi, r/againstgamersgate are on the side of the defenders. This makes lots of sense, as the subreddits who fight against harassment will moderate their own posts, while the attackers will not. 
 
 <div class="center_div">
 
-<img src="assets/heatmap_users.png"/>
+To understand better how the selected subreddits interact we first need to understand how their communities of users overlap (or don't!) We compute the Jaccard Similarity between each subreddit to construct a heatmap of user similarity between subreddits in a very intuitive way.
 
-We can look into the interactions of these subreddits to see if they link towards/get linked by either gamerghazi or kotakuinaction.
-<iframe src="assets/stacked_bar_transition.html" class="iframe_standard"></iframe>
-
-Together, these two plots give us insights on which side of the conflict they stand.
-
-Classification maybe ?
-
+The Jaccard index measures the similarity between two sets by dividing the intersection of the sets by their union.
 </div>
 
+$$J(A,B)= \frac{A\cap B}{A\cup B}$$
+
+
+<div class="center_div">
+So subreddits with a higher proportion of overlapping users will have a higer Jaccard index.
+
+<img src="assets/heatmap_users.png"/>
+
+We can look into the interactions of these subreddits to see if they link towards or get linked, by either gamerghazi or kotakuinaction, to better understand their relationships within the Gamergate network.
+<iframe src="assets/stacked_bar_transition.html" class="iframe_standard"></iframe>
+
+Together, these two plots give us insights on which side of the conflict each subreddit stand.  <br> <br>
+
+Here is a parctical summary of where their "side". They are noted as either pro-gamergate or anti-gamergate. <br> <br>
+Some of these are pretty general subreddits that are involved in all sorts of interactions and are by no means exclusive to the gamergate drama. If they didn't strictly agree to one side, they were marked as neutral. <br> <br> <br>
+  
+</div>
+
+
+| **<span style="color:red">kotakuinaction</span>** | Pro |
+| **amrsucks** | Pro |
+| **kiachatroom** | Pro |
+| **srssucks** | Pro |
+| **shitghazisays** | Pro |
+| **ggfreeforall** | Neutral/pro |
+| **shitliberalssay** | Political/Pro |
+| **<span style="color:blue">gamerghazi</span>** | Anti |
+| **topmindsofreddit** | Anti |
+| **againstgamergate** | Neutral/anti |
+| **bestofoutrageculture** | Political/anti |
+| **drama** | Neutral |
+| **subredditdrama** | Neutral |
+| **shitredditsays** | Neutral |
+| **circlebroke2** | Neutral |
+| **panichistory** | Political/Neutral |
+
 # How it played out
-Here is an overview of how the Gamergate events unraveled. Use the slider to navigate.
-Look at 2014-12-18 for a few fun examples !
+Here is an overview of how the Gamergate events unraveled. Use the slider to navigate. Look at the week of Dec 15, 2014 for a fun example, which gives a glimpse at the magnitude of the drama just after its peak !
 
 <div class="center_div">
 
@@ -299,6 +342,7 @@ ARI = 4.71 \left( \frac{\text{characters}}{\text{words}} \right)
 + 0.5 \left( \frac{\text{words}}{\text{sentences}} \right)
 - 21.43,
 $$
+
 it confirms our observation. We find the average number of words in a sentence and the average word length which is just an affine (linear) function of the average number of characters in a word.\
 Other than the ones we just discussed, we are not able to identify any other correlation clearly.
 
@@ -390,9 +434,12 @@ It's intriguing to notice LIWC_Swear has now a small positive weight. We have to
 
 </div>
 
-# Gamergate users and the alt-right sphere
+# Gamergate users and the alt-right sphere
 GamerGate has been widely analysed post mortem and is now considered a text book exmaple of manifactured online outrage. Pushing communinities to more extrem views, more precisely more extrem political views. Gamergate is inherently political in its premice of harassement compagne agains women in gamer spaces.\
-To this aim we look at users from what we consider 'attacker' subreddits and at users from political subreddits, in particular right to alt-right subreddits.
+As pointed out by numerous medias covering the drama, Gamergate was a conspiracy theory created by alt-right extremists to rally people to their cause. 
+As Donald Trump's former political advisor Steve Bannon [stated here](https://eu.usatoday.com/story/tech/talkingtech/2017/07/18/steve-bannon-learned-harness-troll-army-world-warcraft/489713001/) : “You can activate that army. They come in through Gamergate or whatever and then get turned onto politics and Trump.”  
+Let's see if that worked out.\
+We look at users from what we consider 'attacker' subreddits and at users from political subreddits, in particular right to alt-right subreddits.
 
 {% include_relative assets/gamergate_proportion_politics.html %}
 
@@ -431,4 +478,6 @@ With better moderation from the platforms that host these online communites, we 
 Still we need to keep in mind that it is very often difficult to put in action, one cannot just apply a threshold to justify closing a subreddit, it is often a delicate situation. 
 
 # References 
-- Cover image: [https://spectrum.ieee.org/media-library/different-shades-of-blue-and-yellow-lines-with-bright-spots-of-light-curving-against-a-black-background.jpg?id=52552740&width=3600&height=2400](https://spectrum.ieee.org/media-library/different-shades-of-blue-and-yellow-lines-with-bright-spots-of-light-curving-against-a-black-background.jpg?id=52552740&width=3600&height=2400)
+- Cover image: [https://thedailycougar.com/wp-content/uploads/2014/11/gamergate.jpg](https://thedailycougar.com/wp-content/uploads/2014/11/gamergate.jpg)
+
+- \[2] Moderation in reddit [https://www.theguardian.com/technology/2015/dec/30/reddit-ellen-pao]

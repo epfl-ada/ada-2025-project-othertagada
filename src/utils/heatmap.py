@@ -7,11 +7,24 @@ from matplotlib.colors import LogNorm
 from src.data.some_dataloader import RedditPostDataset
 
 def jaccard_similarity(list1, list2):
+    """ compute jaccard similarity between the sets created from two lists
+
+    Args:
+        list1 (list): first list
+        list2 (list): second list
+    Returns:
+        jaccard similarity
+    """
     s1 = set(list1)
     s2 = set(list2)
     return len(s1.intersection(s2)) / len(s1.union(s2))
 
 def heatmap_user_in_commun(post_data):
+    """ plots and save heatmap of jaccard similarity between all subreddits in dataframe.
+
+    Args:
+        post_data (df): dataframe to plot histogram
+    """
 
     subreddit_users = post_data.groupby("SUBREDDIT")["USERNAME"].apply(set)
 
