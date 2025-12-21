@@ -2,7 +2,7 @@
 layout: page
 title: r/GamerGate
 subtitle: Misogyny in gamer communities, the case of the kiA subreddit
-cover-img: assets/lights.webp
+cover-img: assets/gamergateCollage_thedailycougar.jpg
 mathjax: true
 ---
 <style type="text/css" media="screen">
@@ -55,6 +55,16 @@ mathjax: true
   width: 500px;
   height: 450px;
   border: none;
+}
+
+.page-heading {
+    background: rgba(50, 100, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 15px !important;
+    margin: 13rem 0;
+    box-shadow: 0 0 0 3px rgba(50, 100, 255,0.2),
+    0 8px 300px rgba(50,100,255,0.15);
 }
 
 
@@ -486,6 +496,6 @@ With better moderation from the platforms that host these online communites, we 
 Still we need to keep in mind that it is very often difficult to put in action, one cannot just apply a threshold to justify closing a subreddit, it is often a delicate situation. 
 
 # References 
-- Cover image: [https://spectrum.ieee.org/media-library/different-shades-of-blue-and-yellow-lines-with-bright-spots-of-light-curving-against-a-black-background.jpg?id=52552740&width=3600&height=2400](https://spectrum.ieee.org/media-library/different-shades-of-blue-and-yellow-lines-with-bright-spots-of-light-curving-against-a-black-background.jpg?id=52552740&width=3600&height=2400)
+- Cover image: [https://thedailycougar.com/wp-content/uploads/2014/11/gamergate.jpg](https://thedailycougar.com/wp-content/uploads/2014/11/gamergate.jpg)
 
 - \[2] Moderation in reddit [https://www.theguardian.com/technology/2015/dec/30/reddit-ellen-pao]
