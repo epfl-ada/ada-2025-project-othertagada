@@ -525,6 +525,8 @@ def plot_link_neg_frac(hl_data, large_gamergate_df):
         template="plotly_white"
     )
 
+    fig.write_html("docs/assets/plot_out_neg_frac.html")
+
     fig.show("png", width=1000, height=600)
 
 
@@ -573,6 +575,8 @@ def plot_link_neg_frac_per_subs(gamergate_df, gamergate_subs):
         yaxis_tickformat=".0%",
         template="plotly_white"
     )
+
+    fig.write_html("docs/assets/plot_out_neg_frac_per_subs.html")
 
     fig.show("png", width=1000, height=600)
 
