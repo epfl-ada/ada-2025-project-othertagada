@@ -10,6 +10,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.graph_objects import Figure, Table
 from matplotlib.ticker import PercentFormatter
+import powerlaw
 
 def plot_jaccard_similarity_user_heatmap(post_data):
 
@@ -791,3 +792,56 @@ def plot_out_pos_neg_link_per_subs(large_gamergate_df, gamergate_subs):
     )
 
     fig.show()
+
+
+def plot_userposts_ccdf(usersposts_fit: powerlaw.Fit):
+    fig, ax = plt.subplots(figsize=(6, 5))
+
+    # Empirical CCDF
+    usersposts_fit.plot_ccdf(ax=ax, label="Empirical data", linewidth=2)
+
+    # Power-law fit
+    usersposts_fit.power_law.plot_ccdf(
+        ax=ax,
+        label="Power law",
+        linestyle="--",
+        linewidth=2
+    )
+
+    # Lognormal fit
+    usersposts_fit.lognormal.plot_ccdf(
+        ax=ax,
+        label="Lognormal",
+        linestyle=":",
+        linewidth=2
+    )
+
+    # Axis labels
+    ax.set_xlabel("Number of posts per user (k)")
+    ax.set_ylabel("P(Number of posts ≥ k)")
+
+    # Legend
+    ax.legend()
+
+    plt.tight_layout()
+    plt.show()
+
+def plot_posts_with_deleted_body(post_data: pd.DataFrame, byUser=True, byModerator=True):
+    if byUser and byModerator:
+        post_data["body_deleted"] = (post_data["BODY_TEXT"] == "[deleted]") | (post_data["BODY_TEXT"] == "[removed]")
+    elif byUser:
+        post_data["body_deleted"] = (post_data["BODY_TEXT"] == "[deleted]")
+    elif byModerator:
+        post_data["body_deleted"] = (post_data["BODY_TEXT"] == "[removed]")
+    else:
+        raise ValueError("byUser and byModerator cannot be both false.")
+    deleted_percentage = (post_data.groupby('SUBREDDIT')["body_deleted"].mean() * 100).sort_values(ascending=False)
+
+    plt.figure(figsize=(12, 6))
+    sns.barplot(x=deleted_percentage.index, hue=deleted_percentage.index, y=deleted_percentage.values, palette="mako")
+    plt.ylabel('Percentage of Posts with Deleted Body (%)')
+    plt.xlabel('Subreddit')
+    plt.title('Percentage of Deleted Posts per Subreddit')
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    plt.show()
