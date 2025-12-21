@@ -71,6 +71,6 @@ def plot_monthly_topic(collection, lexicon):
 
     fig.update_xaxes(tickangle=45)
 
-    fig.write_html('docs/assets/gaming_topics_monthly.html')
+    fig.write_html('docs/assets/gaming_topics_monthly.html',include_plotlyjs=False, full_html=False)
 
     fig.show()

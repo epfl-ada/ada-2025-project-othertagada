@@ -119,9 +119,15 @@ Posted on r/KiAChatroom
 
 <div class="center_div">
 
-<iframe src="assets/posts_per_day_gamerghazi.html" class="iframe_standard"></iframe>
+<div class="plotly-chart">
+  {% include_relative assets/posts_per_day_gamerghazi.html %}
+</div>
 
-<iframe src="assets/posts_per_day_kotakuinaction.html" class="iframe_standard"></iframe>
+
+<div class="plotly-chart">
+  {% include_relative assets/posts_per_day_kotakuinaction.html %}
+</div>
+
 </div>
 
 These two graphs show the number of posts in each of the subreddits created during the Gamer gate, we can see that peak activity was around the end of october. The post volume on r/GamerGhazi stayed elevated until march of 2015, where it declined and stabilized. r/KotakuInAction saw a rapid peak and decline, and subsequent stabilization after the initial burst of posting.
@@ -369,9 +375,6 @@ Automated readability still plays an important role in the decision of a positiv
 It's intriguing to notice LIWC_Swear has now a small positive weight. We have to remind ourselves that a positive link sentiment do not necessarily means that the post's text is friendly. It could also mean that it is neutral, it doesn't have any good or bad intentions. We could interpret that as a way of speaking and writing that is just more crude but not mean in our subreddits of interest.
 
 
-<div class="plotly-chart">
-  {% include_relative assets/feature_coef_hl_data.html %}
-</div>
 
 <div class="center_div">
 
@@ -405,4 +408,4 @@ It's intriguing to notice LIWC_Swear has now a small positive weight. We have to
 # Conclusion
 
 # References 
-- Cover image: [hhttps://spectrum.ieee.org/media-library/different-shades-of-blue-and-yellow-lines-with-bright-spots-of-light-curving-against-a-black-background.jpg?id=52552740&width=3600&height=2400](https://spectrum.ieee.org/media-library/different-shades-of-blue-and-yellow-lines-with-bright-spots-of-light-curving-against-a-black-background.jpg?id=52552740&width=3600&height=2400)
+- Cover image: [https://spectrum.ieee.org/media-library/different-shades-of-blue-and-yellow-lines-with-bright-spots-of-light-curving-against-a-black-background.jpg?id=52552740&width=3600&height=2400](https://spectrum.ieee.org/media-library/different-shades-of-blue-and-yellow-lines-with-bright-spots-of-light-curving-against-a-black-background.jpg?id=52552740&width=3600&height=2400)

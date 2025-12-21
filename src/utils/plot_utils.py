@@ -699,7 +699,7 @@ def plot_feature_coef_and_significance(log_reg, feature_columns, title, output_p
         yaxis_title='Feature'
     )
 
-    fig.write_html(output_path)
+    fig.write_html(output_path, include_plotlyjs = False, full_html = False)
 
     fig.show()
 
