@@ -241,6 +241,10 @@ As a hate compaign we expect subreddits involved in the conflict to be more nega
 #plot gamergate vs reddit negativity#
 {% include_relative assets/plot_out_neg_frac.html %}
 
+<div class="center_div">
+<iframe src="assets/feature_coef_hl_data.html" class="iframe_standard"></iframe>
+</div
+
 So much negativity... but yay our assumption was verfied!
 
 It can also be interesting to observe the negativity sent by a subreddit and compare it to the one it receives. With this analysis, we could determine in a naive way which subreddits are more aggressive in their speach and the one that are more victims of this aggressivity. Here we will simply classify the bullies and the bullied by observing which fraction is higher between the outgoing and incomig negative links for each subreddit.
