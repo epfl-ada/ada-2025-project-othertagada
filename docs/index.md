@@ -243,7 +243,7 @@ Some of these are pretty general subreddits that are involved in all sorts of in
 | **panichistory** | Political/Neutral |
 
 # How it played out
-Here is an overview of how the Gamergate events unraveled. Use the slider to navigate. Look at 2014-12-18 for a fun example, which gives a glimpse at the magnitude of the drama !
+Here is an overview of how the Gamergate events unraveled. Use the slider to navigate. Look at the week of Dec 15, 2014 for a fun example, which gives a glimpse at the magnitude of the drama just after its peak !
 
 <div class="center_div">
 
