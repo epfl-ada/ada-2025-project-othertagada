@@ -28,6 +28,6 @@ def plot_posts_per_day(subreddit_names, posts_per_day, rolling_window=10):
         fig = px.line(data, x='date', y='post_count', title=title,
                       labels={'date': 'Date', 'post_count': 'Number of Posts'})
         fig.update_layout(xaxis_title='Date', yaxis_title='Number of Posts')
-        fig.show()
+        fig.show("png", width=1000, height=600)
         # Export to HTML
         fig.write_html(f'docs/assets/posts_per_day_{subreddit_name}.html', include_plotlyjs = False, full_html = False)
