@@ -263,8 +263,8 @@ To detect negativity we train a model of logistic regression on the hyperlink da
 
 Logistic regression is a supervised ML algorithm used for binary classification problems that uses the sigmoid function to convert inputs into a probability between 0 and 1. The model transfrom the linear regression function continuous value output $y$ into categorical value. 
 The sigmoid function is defined as 
-$$ \sigma(y) = \frac{1}{1 + e^{-y}} $$
-where  $ y = \beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p $     is the output of the linear regression model with $\beta_1, \beta_2, \cdots, \beta_p $      representing the coefficients (weights) of the features $x_1, x_2, \cdots, x_p$         and $\beta_0$ the bias term known as intercept.
+$$\sigma(y) = \frac{1}{1 + e^{-y}}$$
+where  $y = \beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p$     is the output of the linear regression model with $\beta_1, \beta_2, \cdots, \beta_p$      representing the coefficients (weights) of the features $x_1, x_2, \cdots, x_p$ and $\beta_0$ the bias term known as intercept.
 
 
 For this analysis, we used the following text properties of the posts : 
@@ -337,6 +337,7 @@ But, to keep things a little bit more interesting, let's train an other model bu
 The overall accuracy is lower (0.742) than the previous one but the accuracy per subreddit shows a little improvement : only 4 are under 0.7 against 10 in the previous model.
 
 ### 3.3 What are signs of negativity on reddit?
+
 
 ##### Feature importance and significance
 
