@@ -239,13 +239,14 @@ As discussed before, this story is one of intense harassment, a huge part of man
 As a hate compaign we expect subreddits involved in the conflict to be more negative than reddit as a platform globally, but let's verify this assumption to make it a fact before going further. We compare the average negativity of the subreddits of interest against the one on Reddit in a global sense.
 
 #plot gamergate vs reddit negativity#
+
 {% include_relative assets/plot_out_neg_frac.html %}
 
 <div class="center_div">
 <iframe src="assets/feature_coef_hl_data.html" class="iframe_standard"></iframe>
 </div
 
-So much negativity... but yay our assumption was verfied!
+So much negativity... but yay our assumption was verified!
 
 It can also be interesting to observe the negativity sent by a subreddit and compare it to the one it receives. With this analysis, we could determine in a naive way which subreddits are more aggressive in their speach and the one that are more victims of this aggressivity. Here we will simply classify the bullies and the bullied by observing which fraction is higher between the outgoing and incomig negative links for each subreddit.
 
@@ -268,6 +269,8 @@ To detect negativity we train a model of logistic regression on the hyperlink da
 
 Logistic regression is a supervised ML algorithm used for binary classification problems that uses the sigmoid function to convert inputs into a probability between 0 and 1. The model transfrom the linear regression function continuous value output $y$ into categorical value. 
 The sigmoid function is defined as 
+
+![equation](https://latex.codecogs.com/png.latex?\sigma(x)=\frac{1}{1+e^{-x}})
 $$\sigma(y) = \frac{1}{1 + e^{-y}}$$
 where  $y = \beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p$     is the output of the linear regression model with $\beta_1, \beta_2, \cdots, \beta_p$      representing the coefficients (weights) of the features $x_1, x_2, \cdots, x_p$ and $\beta_0$ the bias term known as intercept.
 
