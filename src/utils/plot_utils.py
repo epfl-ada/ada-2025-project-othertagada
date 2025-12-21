@@ -10,6 +10,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.graph_objects import Figure, Table
 from matplotlib.ticker import PercentFormatter
+import powerlaw
 
 def plot_jaccard_similarity_user_heatmap(post_data):
 
@@ -408,6 +409,7 @@ def plot_histogram_nbposts_per_user(post_data: pd.DataFrame, subs_of_interest):
     plt.title("Histogram of Posts per User")
     plt.yscale("log")
     plt.xscale("log")
+    plt.savefig("docs/assets/histogram_nbposts_per_user.svg", format="svg", dpi=300)
     plt.show()
 
 def plot_posts_percent_positive_by_posts_per_user(post_data: pd.DataFrame, hl_data: pd.DataFrame, subs_of_interest):
@@ -791,3 +793,91 @@ def plot_out_pos_neg_link_per_subs(large_gamergate_df, gamergate_subs):
     )
 
     fig.show()
+
+
+def plot_userposts_ccdf(usersposts_fit: powerlaw.Fit):
+    fig, ax = plt.subplots(figsize=(6, 5))
+
+    # Empirical CCDF
+    usersposts_fit.plot_ccdf(ax=ax, label="Empirical data", linewidth=2)
+
+    # Power-law fit
+    usersposts_fit.power_law.plot_ccdf(
+        ax=ax,
+        label="Power law",
+        linestyle="--",
+        linewidth=2
+    )
+
+    # Lognormal fit
+    usersposts_fit.lognormal.plot_ccdf(
+        ax=ax,
+        label="Lognormal",
+        linestyle=":",
+        linewidth=2
+    )
+
+    # Axis labels
+    ax.set_xlabel("Number of posts per user (k)")
+    ax.set_ylabel("P(Number of posts ≥ k)")
+
+    # Legend
+    ax.legend()
+
+    plt.tight_layout()
+    plt.savefig("docs/assets/userposts_ccdf.svg", format="svg")
+    plt.show()
+
+def plot_posts_with_deleted_body(post_data: pd.DataFrame, byUser=True, byModerator=True):
+    if byUser and byModerator:
+        post_data["body_deleted"] = (post_data["BODY_TEXT"] == "[deleted]") | (post_data["BODY_TEXT"] == "[removed]")
+    elif byUser:
+        post_data["body_deleted"] = (post_data["BODY_TEXT"] == "[deleted]")
+    elif byModerator:
+        post_data["body_deleted"] = (post_data["BODY_TEXT"] == "[removed]")
+    else:
+        raise ValueError("byUser and byModerator cannot be both false.")
+    deleted_percentage = (post_data.groupby('SUBREDDIT')["body_deleted"].mean() * 100).sort_values(ascending=False)
+
+    # Non interactive plot in results notebook
+    plt.figure(figsize=(12, 6))
+    sns.barplot(x=deleted_percentage.index, hue=deleted_percentage.index, y=deleted_percentage.values, palette="mako")
+    plt.ylabel('Percentage of Posts with Deleted Body (%)')
+    plt.xlabel('Subreddit')
+    plt.title('Percentage of Deleted Posts per Subreddit')
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    plt.show()
+
+    # Interactive plot for website
+    subreddits = deleted_percentage.index.tolist()
+    values = deleted_percentage.values.tolist()
+    fig = go.Figure(
+        data=[
+            go.Bar(
+                x=subreddits,
+                y=values,
+                marker=dict(
+                    color=values,
+                    #colorscale="Mako"
+                ),
+                showlegend=False
+            )
+        ]
+    )
+
+    fig.update_layout(
+        title="Percentage of Deleted Posts per Subreddit",
+        xaxis_title="Subreddit",
+        yaxis_title="Percentage of Posts with Deleted Body (%)",
+        xaxis_tickangle=-45,
+        template="plotly_white",
+        margin=dict(b=120)
+    )
+
+    # Export to HTML (responsive by default)
+    fig.write_html(
+        "docs/assets/deleted_posts_per_subreddit.html",
+        include_plotlyjs=False,  # better for websites
+        full_html=False
+    )
