@@ -255,12 +255,12 @@ We can look into the interactions of these subreddits to see if they link toward
 
 We can clearly see that most subreddits send more links than they receive from KiA and Ghazi.  <br> 
 
-This also helps us better understand the nature of one of our actors. Gamerghazi presents much more links towards Kia than from them, which is in explained by its nature of G"counter-attack" to gamergate. They are not the direct target of the gamergaters, but more like an opposition. <br> <br>
+This also helps us better understand the nature of one of our actors. Gamerghazi presents much more links towards Kia than from them, which is in explained by its nature of "counter-attack" to gamergate. They are not the direct target of the gamergaters, but more like an opposition. <br> <br>
 
 
-Together, these two plots give us insights on which side of the conflict each subreddit stand.  <br> <br>
+Together, these two plots give us insights on which side of the conflict each subreddit stands.  <br> <br>
 
-Here is a parctical summary of where their "side". They are noted as either pro-gamergate or anti-gamergate. <br> <br>
+Here is a practical summary of who is on what "side". They are noted as either pro-gamergate or anti-gamergate. <br> <br>
 Some of these are pretty general subreddits that are involved in all sorts of interactions and are by no means exclusive to the gamergate drama. If they didn't strictly agree to one side, they were marked as neutral. <br> <br> <br>
   
 </div>
