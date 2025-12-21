@@ -376,21 +376,6 @@ It's intriguing to notice LIWC_Swear has now a small positive weight. We have to
 
 
 
-<div class="center_div">
-
-<iframe src="assets/feature_coef_hl_data.html" class="iframe_standard"></iframe>
-
-<iframe src="assets/feature_significance_hl_data.html" class="iframe_standard"></iframe>
-
-<iframe src="assets/pred_accuracy_per_subs_hl_data.html" class="iframe_standard"></iframe>
-
-<iframe src="assets/feature_coef_gamergate_subs.html" class="iframe_standard"></iframe>
-
-<iframe src="assets/feature_significance_gamergate_subs.html" class="iframe_standard"></iframe>
-
-<iframe src="assets/pred_accuracy_gamergate_subs.html" class="iframe_standard"></iframe>
-
-</div>
 
 # Gamergate users and the alt-right sphere
 GamerGate has been widely analysed post mortem and is now considered a text book exmaple of manifactured online outrage. Pushing communinities to more extrem views, more precisely more extrem political views. Gamergate is inherently political in its premice of harassement compagne agains women in gamer spaces.\
