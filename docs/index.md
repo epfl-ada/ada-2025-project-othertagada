@@ -404,7 +404,10 @@ It's intriguing to notice LIWC_Swear has now a small positive weight. We have to
 
 # Gamergate users and the alt-right sphere
 GamerGate has been widely analysed post mortem and is now considered a text book exmaple of manifactured online outrage. Pushing communinities to more extrem views, more precisely more extrem political views. Gamergate is inherently political in its premice of harassement compagne agains women in gamer spaces.\
-To this aim we look at users from what we consider 'attacker' subreddits and at users from political subreddits, in particular right to alt-right subreddits.
+As pointed out by numerous medias covering the drama, Gamergate was a conspiracy theory created by alt-right extremists to rally people to their cause. 
+As Donald Trump's former political advisor Steve Bannon [stated here](https://eu.usatoday.com/story/tech/talkingtech/2017/07/18/steve-bannon-learned-harness-troll-army-world-warcraft/489713001/) : “You can activate that army. They come in through Gamergate or whatever and then get turned onto politics and Trump.”  
+Let's see if that worked out.\
+We look at users from what we consider 'attacker' subreddits and at users from political subreddits, in particular right to alt-right subreddits.
 
 {% include_relative assets/gamergate_proportion_politics.html %}
 
