@@ -392,7 +392,9 @@ But is this high proportion really more elevated than for the communuty of a 're
 
 We also take a look at the relation between the users activity level and their activity in alt-right spaces. 
 
-{% include_relative assets/gaming_proportion_politics_multiple_lines.html %}
+{% include_relative assets/gamergate_proportion_politics_multiple_lines.html %}
+
+We observe a strong correlation between the number in Gamergate-related subreddits that a user makes and their subsequent activity in alt-right political subreddits. Users with stronger engagement in Gamergate communities (more posts in pro-gamergate subreddits) are consistently more likely to post in alt-right political subreddits, with this difference becoming especially pronounced during the 2016 US election period.
 
 
 # The aftermath
