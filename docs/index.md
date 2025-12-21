@@ -341,7 +341,7 @@ To go futher with this analysis we want to figure out which feature had the most
 
 But, to keep things a little bit more interesting, let's train an other model on only the data involving our subreddits of interest. 
 
-<iframe src="assets/pred_accuracy_per_subs_hl_data.html" class="iframe_standard"></iframe>
+<iframe src="assets/pred_accuracy_gamergate_subs.html" class="iframe_standard"></iframe>
 
 
 We seem to have a better prediction !
