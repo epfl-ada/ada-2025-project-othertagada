@@ -161,6 +161,18 @@ def top_connected(df, subreddit, n=10):
     return merged.sort_values('total', ascending=False).head(n)    #to sort by total interaction
 
 def get_large_and_restricted_df(hl_data, gamergate_subs) :
+    """
+    Restrict the data set to the selected subreddits
+
+    Parameters
+    ----------
+    hl_data : links dataset
+        
+    Returns
+    -------
+    large_gamergate_df: restricted to outgoing or incoming links subreddit in selected subreddits
+    restricted_gamergate_df : restricted to outgoing and incoming links subreddit in selected subreddits
+    """
 
     hl_data["source"] = hl_data["SOURCE_SUBREDDIT"].str.lower()
     hl_data["target"] = hl_data["TARGET_SUBREDDIT"].str.lower()
