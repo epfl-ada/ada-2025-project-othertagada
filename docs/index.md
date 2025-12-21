@@ -191,7 +191,7 @@ We chose to reduce our dataset to the subreddits that interact the most with eit
 
 
 # Look at the players
-
+We want to understand how users interact with the reddit platform to better analyze the gamergate. First let's look how strongly power users (users that posted a lot in the subreddits related to the gamergate) dominate the discourse. In the graph below we see the number of posts per user in the 15 subreddits of interest. The graph seems to follow a power law distribution.\
 In the plots below, we see that the the number posts per user diagram follows a lognormal distribution.
 
 <div class="svg-container">
@@ -211,6 +211,12 @@ This plot is very interesting. On the right side we see the subreddits that are 
 On the contrary, most strongly moderated subreddits e.g. r/shitredditsays, r/gamerghazi, r/againstgamersgate are on the side of the defenders. This makes lots of sense, as the subreddits who fight against harassment will moderate their own posts, while the attackers will not.
 
 <div class="center_div">
+
+To understand better how the selected subreddits interact we first need to understand how their communities of users overlap (or don't!) We compute the Jaccard Similarity between each subreddit to construct a heatmap of user similarity between subreddits in a very intuitive way.
+
+The Jaccard index measures the similarity between two sets by dividing the intersection of the sets by their union.
+$$J(A,B)= \frac{A\cap B}{A\cup B}$$
+So subreddits with a higher proportion of overlapping users will have a higer Jaccard index.
 
 <img src="assets/heatmap_users.png"/>
 
@@ -408,7 +414,7 @@ It's intriguing to notice LIWC_Swear has now a small positive weight. We have to
 
 </div>
 
-# Gamergate users and the alt-right sphere
+# Gamergate users and the alt-right sphere
 GamerGate has been widely analysed post mortem and is now considered a text book exmaple of manifactured online outrage. Pushing communinities to more extrem views, more precisely more extrem political views. Gamergate is inherently political in its premice of harassement compagne agains women in gamer spaces.\
 As pointed out by numerous medias covering the drama, Gamergate was a conspiracy theory created by alt-right extremists to rally people to their cause. 
 As Donald Trump's former political advisor Steve Bannon [stated here](https://eu.usatoday.com/story/tech/talkingtech/2017/07/18/steve-bannon-learned-harness-troll-army-world-warcraft/489713001/) : “You can activate that army. They come in through Gamergate or whatever and then get turned onto politics and Trump.”  
