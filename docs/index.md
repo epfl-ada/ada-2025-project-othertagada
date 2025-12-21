@@ -255,12 +255,12 @@ We can look into the interactions of these subreddits to see if they link toward
 
 We can clearly see that most subreddits send more links than they receive from KiA and Ghazi.  <br> 
 
-This also helps us better understand the nature of one of our actors. Gamerghazi presents much more links towards Kia than from them, which is in explained by its nature of G"counter-attack" to gamergate. They are not the direct target of the gamergaters, but more like an opposition. <br> <br>
+This also helps us better understand the nature of one of our actors. Gamerghazi presents much more links towards Kia than from them, which is in explained by its nature of "counter-attack" to gamergate. They are not the direct target of the gamergaters, but more like an opposition. <br> <br>
 
 
-Together, these two plots give us insights on which side of the conflict each subreddit stand.  <br> <br>
+Together, these two plots give us insights on which side of the conflict each subreddit stands.  <br> <br>
 
-Here is a parctical summary of where their "side". They are noted as either pro-gamergate or anti-gamergate. <br> <br>
+Here is a practical summary of who is on what "side". They are noted as either pro-gamergate or anti-gamergate. <br> <br>
 Some of these are pretty general subreddits that are involved in all sorts of interactions and are by no means exclusive to the gamergate drama. If they didn't strictly agree to one side, they were marked as neutral. <br> <br> <br>
   
 </div>
@@ -300,11 +300,11 @@ As mentioned before, this story is one of intense harassment, a huge part of man
 
 Gamergate led to a massive hate campaign so as we could expect, the subreddits involved in the conflict spreaded a lot of negativity compared to the the platform as a whole and the link sentiment confirms it very well. 
 
-
+{% include_relative assets/plot_out_neg_frac.html %}
 
 The two sides of the conflict confronted each other vividly on the subject but, like in almost every quarrel, some side can attack with more energy. We determined in a naive way which subreddits are more aggressive in their speach and the one that are more victims of this aggressivity. Here we simplify and classify the "bullies" and the "bullied" by observing which fraction is higher between the outgoing and incomig negative links for each subreddit.
 
-#plot in/out negative link per subs#
+{% include_relative assets/plot_in_and_out_neg_link_frac_per_subs.html %}
 
 The plot is clear : 
 - Bullies : r/amrsucks, r/circlebroke2, r/drama, r/srssucks, r/subredditdrama.
@@ -318,120 +318,56 @@ Obviously, it is never as simple as that but we still get a global picture of th
 ### Let's build our negativity detector
 
 Predicting the negativity of a post is the best way to moderate the content of a platform in a machine learning manner and it also tells us a lot about the content of the text, if you ask the write questions. The Gamergate involved, as already stated, a lot of hostility, but how exactly was this hostility expressed ? Do we see some patterns in hateful speech ? If so, whcih ones ? That's what we tried to figure out. So let's get to it !
-For this purpose, we used our good old logistic regression that will help us classify some link posts as positive or negative, given their attributes. The ones that we chose were related to the stylistic linguistic
 
-
-
-
-
-For this analysis, we used the following text properties of the posts : 
-
-"chars_no_ws", "frac_special","num_words","num_long_words",\
-"avg_word_len", "frac_stopwords", "num_sentences", "num_long_sentences", \
-"avg_chars_sentence","avg_words_sentence", "automated_readability"\
-"vader_pos","vader_neg",\
-"LIWC_Swear","LIWC_Affect","LIWC_Anger", "LIWC_Sexual"
-
-The first 11 stylistic linguistic features would help us show how relevant the structure of a speech is in the prediction of its sentiment. We could determine if a text with an attributed sentiment tend to follow a specific structure or to have a certain complexity.
-
-VADER values are used as well. Valence Aware Dictionary and sEntiment Reasoner is a sentiment analysis tool which is designed to analyze social media text and informal language. It is best at detecting sentiment in short pieces of text like tweets, product reviews or user comments which contain slang, emojis and abbreviations. 
-
-Linguistic Inquiry and Word Count (LIWC) Analysis is a computational method that categorizes text into validated linguistic and psychological dimensions. It offers 118 categories for which the statistical outputs of a text is represented as :  
-
-$$
-\text{Category Score} =
-\frac{\text{Number of words in category}}
-     {\text{Total number of words in text}}
-\times 100\%
-$$
-
-In our dataset, only 65 categories are available and we chose to select four of them which have the most potential to be indicators of a negative sentiment in our selected communities.
-
-Plotting pairwise relationships in the dataset to see if we can identify any correlation, the observation is as follow :
-
-We find the obvious correlation between features such as the number of words in a sentence with the number of characters in a sentence.
-But we notice one correlation between automated readability with the average number of characters in sentences and the average number of words in a sentence as well. It seems to tell that sentences with more words tend to be more complicated to understand and needs for someone to have a better level of language to comprehend the text.\
-The Automated Readability Index is indeed a readability test that that gauges the level of education needed to understand a piece of writing and looking at its formula :
-
-$$
-ARI = 4.71 \left( \frac{\text{characters}}{\text{words}} \right)
-+ 0.5 \left( \frac{\text{words}}{\text{sentences}} \right)
-- 21.43,
-$$
-
-it confirms our observation. We find the average number of words in a sentence and the average word length which is just an affine (linear) function of the average number of characters in a word.\
-Other than the ones we just discussed, we are not able to identify any other correlation clearly.
-
-
-
-Let's train our regression model and see how well we can predict the link sentiment of our dataset.
-
-#### Logistic Regression for link prediction
-
-
-Training on the whole dataset, we get an prediction accuracy of 0.807 which is pretty satisfying. Now let's see how well the model predict the outgoing link sentiment of each of our selected subreddits.
+For this purpose, we used our good old logistic regression that will help us classify some link posts as positive or negative, given their attributes. The ones that we chose were either related to the stylistic linguistic characteristic and or values indicating the amount of anger, swear or sexual content in the text.
 
 <iframe src="assets/pred_accuracy_per_subs_hl_data.html" class="iframe_standard"></iframe>
 
-It is clearly less satisfying... 
-The accuracy is less than 0.8 for all subreddits and even less than 0.5 for three of them. 
-Since we trained on the whole dataset, our model is not fitting all the data from the selected subreddits very well. It represents only a small fraction of the whole dataset.
+Even if we got a prediction accuracy of 0.807 which is pretty satisfying, the one for each of our subreddits is less satisfying and even less than 0.5 for three of them. 
+Clearly our model is not fitting all the data from the selected subreddits very well. It represents only a small fraction of the whole dataset.
 However, among the subreddits with the most accurate predictions, we can find drama, circlebroke2 and subredditdrama, the same that were classified as "bullies" in our previous analysis but were actually not in a particular side. Why is that ?
 
 Let's look at this next plot to get a better understanding.
 
-#plot of nb posts pos/neg#
+{% include_relative assets/plot_out_pos_neg_link_per_subs.html %}
 
 The answer is actually very simple. They are among the most active subreddits of our selection, which means that they will have more impact on the model that we trained than the other smaller subreddits with only a few posts on their account.
 
-
 To go futher with this analysis we want to figure out which feature had the most weight in the decision making of our model. This is where we introduce the feature coefficient of the model that will help us determine the importance of each feature and in which direction they lead us (positive or negative). 
-\
-\
-But, to keep things a little bit more interesting, let's train an other model but with only the large_gamergate_df. That way we can compare the importance of the features in the link sentiment prediction of our chosen gamergate-related subreddits and of Reddit as a whole.
-
-#plot accuracy per subs (gamergate_subs)#
-
-The overall accuracy is lower (0.742) than the previous one but the accuracy per subreddit shows a little improvement : only 4 are under 0.7 against 10 in the previous model.
-
-### 3.3 What are signs of negativity on reddit?
 
 
-##### Feature importance and significance
+But, to keep things a little bit more interesting, let's train an other model on only the data involving our subreddits of interest. 
+
+{% include_relative assets/pred_accuracy_per_subs_hl_data.html %} 
+
+We seem to have a better prediction !
+
+### What are signs of negativity on reddit?
+
 
 The logistic regression model is useful not only to classify a link as negative or positive but also to give us a glimpse into which features are the most useful in the classification and if their presence has a positive or negative impact on the link sentiment.
 
-#plot coef bar plot#
+Here is what the first prediction on the whole dataset tells us :
 
-#significance grid#
+{% include_relative assets/feature_coef_hl_data.html %} 
 
-Here we have the following :
+{% include_relative assets/feature_significance_hl_data.html %} 
 
-- A bar plot of the logistic regression feature coefficient in a descending order,
-- A grid of these coefficient also indicating the significance of the feature in the model.
+The automated readability is top 1 in the portance of positive prediction. The Automated Readability Index is indeed a readability test that gauges the level of education needed to understand a piece of writing. We could make the asssumption that links containing more "complicated" text tend to be classified as positive. 
+Texts written with negative intent are incline to be less elaborated and complex. Probably because the majority of the negatively classified posts contains insulting and aggressive speech with swears and are not negative in a constructive way like a negative review might be for example. Which explains the strong negative weight that the LIWC_Anger and LIWC_Swear features gained in the trained model, both indicators of the amount of anger and swear in a text.
 
-Among the most important features in a positive prediction we have : automated readability, num_words, vader_pos\
-For a negative prediction there are : LIWC_Anger, avg_words_sentence, LIWC_Swear
+The second model teaches us something else :
 
-Knowing the VADER indicator definition, it is not surprising to observe its weight in the positive top 3. The automated readability being top 1, we could make the asssumption that links containing more "complicated" text tend to be classified as positive. It could be that the texts written with negative intent are incline to be less elaborated and complex. Probably because the majority of the negatively classified posts contains insulting and aggressive speech with swears and are not negative in a constructive way like a negative review might be for example. This could explain the strong negative weight that the LIWC_Anger and LIWC_Swear features gained in the trained model. \
-Only 4 features are here considered to be insignificant (char_no_ws, num_long_sentences, num_sentences, avg_chars_sentence).
+{% include_relative assets/feature_coef_gamergate_subs.html %} 
 
-### 3.4 Linguistic characteristics of Gamergaters 
-
-Let's evaluate the features of our second model now.
-
-#plot coef bar plot#
-
-#significance grid#
-
-Among the most important features in a positive prediction we have : automated readability, avg_chars_sentence, num_words\
-For a negative prediction there are :  avg_words_sentence, avg_word_len, LIWC_Anger
+{% include_relative assets/feature_significance_gamergate_subs.html %} 
 
 Again without any surprise, anger is a good predictor of negative sentiment in a link. Gamergate involved a lot of threats and abuse as we previously stated. It triggered a very vivid reaction which was aggressive. The average number of words in a sentence appears as well once again in the negative prediction. It indicates a characteristic of the negative posts : the more words in a sentence, the more negative it gets.
 
 Automated readability still plays an important role in the decision of a positive link sentiment. As the positive link sentiment also include neutral posts, the large weight of automated readability could be explained by the role of some subreddits such as r/subredditdrama that might just report some drama that occurs on the platform without taking part. Just stating some facts and sharing the newest conflicts there might be which would be categorized as neutral posts.
 
 It's intriguing to notice LIWC_Swear has now a small positive weight. We have to remind ourselves that a positive link sentiment do not necessarily means that the post's text is friendly. It could also mean that it is neutral, it doesn't have any good or bad intentions. We could interpret that as a way of speaking and writing that is just more crude but not mean in our subreddits of interest.
+
 
 
 <div class="center_div">
@@ -488,10 +424,10 @@ The topic of gamergate are very high, this is explained by the fact that one of 
 
 
 # Conclusion
-Our story is one of successful manufactured outrage. A political agenda disguised as a simple 'gaming scandal'. 
-We trained a logistic regression model with the aim of better understanding what makes a message negative with the bigger goal of having better moderation on reddit. Better moderation to prevent such harassement and hate compaign from happening again, but not only.\
-With better moderation from the platforms that host these online communites, we could hope to see an improved responsiveness to the creation of extreme online communities.\
-Still we need to keep in mind that it is very often difficult to put in action, one cannot just apply a threshold to justify closing a subreddit, it is often a delicate situation. 
+Our story is one of successful manufactured outrage. A political agenda disguised as a simple 'gaming scandal', which involved big companies, political figures, governmental agencies ; powers that would seem completely beyond a community of online chatters.\
+We trained a logistic regression model with the aim of better understanding what makes a message negative with the bigger goal of having better moderation on reddit. Better moderation to prevent such harassment and hate campaign from happening again, but not only.\
+With better moderation from the platforms that host these online communities, we could hope to see an improved responsiveness to waves of online harassment, radicalization and political manipulation.\
+Still, we need to keep in mind that it is very often difficult to put in action, one cannot just apply a threshold to justify closing a subreddit. It is often a delicate situation that has real world repercussions when it comes to political ideas and to what is judged right and wrong. 
 
 # References 
 - Cover image: [https://thedailycougar.com/wp-content/uploads/2014/11/gamergate.jpg](https://thedailycougar.com/wp-content/uploads/2014/11/gamergate.jpg)
