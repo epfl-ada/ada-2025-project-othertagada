@@ -24,6 +24,12 @@ cover-img: assets/lights.webp
     border: none;
 }
 
+#topics-subreddit-iframe {
+    height: 1000px;
+    margin-left: max(calc(50% - 50vw), calc(50% - 610px));
+    width: min(99vw, 1300px);
+}
+
 .iframe_75{
     width: 100%;
     height: 1000px;
@@ -198,7 +204,7 @@ Look at 2014-12-18 for a few fun examples !
 
 <iframe src="assets/topics_monthly_mgtow.html" class="iframe_standard"></iframe>
 
-<iframe class="iframe_standard" src="assets/topics_subreddit.html"></iframe>
+<iframe class="iframe_standard" id="topics-subreddit-iframe" src="assets/topics_subreddit.html"></iframe>
 
 <iframe class="iframe_standard" src="assets/cluster_accuracy.html"></iframe>
 </div>
