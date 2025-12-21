@@ -488,10 +488,10 @@ The topic of gamergate are very high, this is explained by the fact that one of 
 
 
 # Conclusion
-Our story is one of successful manufactured outrage. A political agenda disguised as a simple 'gaming scandal'. 
-We trained a logistic regression model with the aim of better understanding what makes a message negative with the bigger goal of having better moderation on reddit. Better moderation to prevent such harassement and hate compaign from happening again, but not only.\
-With better moderation from the platforms that host these online communites, we could hope to see an improved responsiveness to the creation of extreme online communities.\
-Still we need to keep in mind that it is very often difficult to put in action, one cannot just apply a threshold to justify closing a subreddit, it is often a delicate situation. 
+Our story is one of successful manufactured outrage. A political agenda disguised as a simple 'gaming scandal', which involved big companies, political figures, governmental agencies ; powers that would seem completely beyond of a community of online chatters.\
+We trained a logistic regression model with the aim of better understanding what makes a message negative with the bigger goal of having better moderation on reddit. Better moderation to prevent such harassment and hate campaign from happening again, but not only.\
+With better moderation from the platforms that host these online communities, we could hope to see an improved responsiveness to waves of online harassment, radicalization and political manipulation.\
+Still, we need to keep in mind that it is very often difficult to put in action, one cannot just apply a threshold to justify closing a subreddit. It is often a delicate situation that has real world repercussions when it comes to political ideas and to what is judged right and wrong. 
 
 # References 
 - Cover image: [https://thedailycougar.com/wp-content/uploads/2014/11/gamergate.jpg](https://thedailycougar.com/wp-content/uploads/2014/11/gamergate.jpg)
