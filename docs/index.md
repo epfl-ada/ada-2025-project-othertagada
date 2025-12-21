@@ -240,6 +240,8 @@ As a hate compaign we expect subreddits involved in the conflict to be more nega
 
 #plot gamergate vs reddit negativity#
 
+{% include_relative assets/plot_out_neg_frac.html %}
+
 <div class="center_div">
 <iframe src="assets/feature_coef_hl_data.html" class="iframe_standard"></iframe>
 </div
