@@ -103,16 +103,44 @@ def train_test_set(data):
 
     train_set, test_set = train_test_split(data, test_size=0.2,random_state=42)
    
-    """
-    Other method :
-    train_set = hl_data.sample(frac=0.8, random_state=42)
-    # Dropping all those indexes from the dataframe that exists in the train_set
-    test_set = hl_data.drop(train_set.index)
-    """
 
     return train_set, test_set
 
 def data_scaling_for_training(train_set, test_set, feature_columns, feature_to_exclude):
+    """
+    Scales feature matrices for training and testing and prepares binary labels
+    for link sentiment classification.
+
+    Parameters
+    ----------
+    train_set : pandas.DataFrame
+        Training dataset containing feature columns and a 'LINK_SENTIMENT' column.
+
+    test_set : pandas.DataFrame
+        Test dataset containing feature columns and a 'LINK_SENTIMENT' column.
+
+    feature_columns : list of str
+        List of feature column names to be used for model training.
+
+    feature_to_exclude : str or None
+        Name of a feature to exclude from the feature set (used for ablation
+        or significance analysis). If None, all features are used.
+
+    Returns
+    -------
+    X_train : numpy.ndarray
+        Standardized feature matrix for the training set.
+
+    y_train : pandas.Series
+        Binary training labels (True if LINK_SENTIMENT == 1, False otherwise).
+
+    X_test : numpy.ndarray
+        Standardized feature matrix for the test set.
+
+    y_test : pandas.Series
+        Binary test labels (True if LINK_SENTIMENT == 1, False otherwise).
+    """
+
     
     new_feature_columns = feature_columns.copy()
 
@@ -123,23 +151,74 @@ def data_scaling_for_training(train_set, test_set, feature_columns, feature_to_e
     
 
     X_train = StandardScaler().fit_transform(train_set[new_feature_columns])
-    y_train = train_set["LINK_SENTIMENT"].map(lambda x : (x == 1)) ## enlever map  
+    y_train = train_set["LINK_SENTIMENT"].map(lambda x : (x == 1))  
     X_test = StandardScaler().fit_transform(test_set[new_feature_columns])
-    y_test = test_set["LINK_SENTIMENT"].map(lambda x : (x == 1)) ## enlever map 
+    y_test = test_set["LINK_SENTIMENT"].map(lambda x : (x == 1))
 
     return X_train, y_train, X_test, y_test 
 
-def logistic_regression(X_train, y_train, X_test, y_test): 
+def logistic_regression(X_train, y_train, X_test, y_test):
+    """
+    Trains a scikit-learn logistic regression model.
+
+    Parameters
+    ----------
+    X_train : numpy.ndarray
+        Feature matrix for training.
+
+    y_train : array-like
+        Binary training labels.
+
+    X_test : numpy.ndarray
+        Feature matrix for testing.
+
+    y_test : array-like
+        Binary test labels.
+
+    Returns
+    -------
+    logistic : sklearn.linear_model.LogisticRegression
+        Fitted logistic regression model.
+
+    link_prediction : numpy.ndarray
+        Predicted binary labels for the test set.
+    """
+
 
     logistic = LogisticRegression().fit(X_train, y_train)
 
     link_prediction = logistic.predict(X_test)
-    accuracy = logistic.score(X_test, y_test) #(prediction == test_val).mean()
-
 
     return logistic, link_prediction
 
-def sm_log_reg(X_train, y_train, X_test, y_test) :
+def sm_log_reg(X_train, y_train, X_test, y_test):
+    """
+    Fits a logistic regression model using statsmodels and evaluates its
+    predictive performance on a test set.
+
+    Parameters
+    ----------
+    X_train : numpy.ndarray
+        Feature matrix for training.
+
+    y_train : array-like
+        Binary training labels.
+
+    X_test : numpy.ndarray
+        Feature matrix for testing.
+
+    y_test : array-like
+        Binary test labels.
+
+    Returns
+    -------
+    log_reg : statsmodels.discrete.discrete_model.BinaryResults
+        Fitted statsmodels logistic regression object.
+
+    prediction : list of int
+        Binary predictions (0 or 1) for the test set.
+    """
+
 
     log_reg = sm.Logit(y_train, X_train).fit()
     yhat = log_reg.predict(X_test)
