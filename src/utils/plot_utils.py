@@ -300,7 +300,7 @@ def plot_interactions(links_dataset, subreddit, n=50):
             textposition='outside'
         )
     )
-    fig.show()
+    fig.show("png", width=1000, height=600)
 
 def plot_stacked_bar_chart(links_dataset, html_output=False):
     #count out links
@@ -374,7 +374,7 @@ def plot_stacked_bar_chart(links_dataset, html_output=False):
         xaxis_tickangle=-45,
     )
 
-    fig.show()
+    fig.show("png", width=1000, height=600)
     if html_output:
         fig.write_html("./docs/assets/stacked_bar_transition.html")
 
@@ -528,7 +528,7 @@ def plot_link_neg_frac(hl_data, large_gamergate_df):
         template="plotly_white"
     )
 
-    fig.show()
+    fig.show("png", width=1000, height=600)
 
 
 def plot_link_neg_frac_per_subs(gamergate_df, gamergate_subs):
@@ -577,7 +577,7 @@ def plot_link_neg_frac_per_subs(gamergate_df, gamergate_subs):
         template="plotly_white"
     )
 
-    fig.show()
+    fig.show("png", width=1000, height=600)
 
 def inter_plot_pred_accuracy_per_subs(test_set, link_prediction, gamergate_subs, title, output_path) :
 
@@ -628,7 +628,7 @@ def inter_plot_pred_accuracy_per_subs(test_set, link_prediction, gamergate_subs,
 
     fig.write_html(output_path)
 
-    fig.show()
+    fig.show("png", width=1000, height=600)
 
 def plot_feature_coef_and_significance(log_reg, feature_columns, title, output_path):
 
@@ -701,7 +701,7 @@ def plot_feature_coef_and_significance(log_reg, feature_columns, title, output_p
 
     fig.write_html(output_path, include_plotlyjs = False, full_html = False)
 
-    fig.show()
+    fig.show("png", width=1000, height=600)
 
     return coef_df
 
@@ -752,7 +752,7 @@ def feature_coef_significance_grid(coef_df, title, output_path):
     table.update_layout(title=title)
     table.write_html(output_path)
 
-    table.show()
+    table.show("png", width=1000, height=600)
 
 def plot_in_and_out_neg_link_frac_per_subs(large_gamergate_df, gamergate_subs):
     """
@@ -833,7 +833,7 @@ def plot_in_and_out_neg_link_frac_per_subs(large_gamergate_df, gamergate_subs):
         template="plotly_white"
     )
 
-    fig.show()
+    fig.show("png", width=1000, height=600)
 
 
 
@@ -915,7 +915,7 @@ def plot_out_pos_neg_link_per_subs(large_gamergate_df, gamergate_subs):
         template="plotly_white"
     )
 
-    fig.show()
+    fig.show("png", width=1000, height=600)
 
 
 def plot_userposts_ccdf(usersposts_fit: powerlaw.Fit):
