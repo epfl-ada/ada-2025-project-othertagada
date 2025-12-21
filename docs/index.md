@@ -69,7 +69,8 @@ mathjax: true
 
 
 body {
-    font: normal 15px Verdana, Arial, sans-serif;
+    font: normal 1rem Verdana, Arial, sans-serif;
+    color: black;
     text-align: justify;
 }
 
@@ -84,6 +85,10 @@ h2 {
 h3{
     font: Verdana, Arial, sans-serif;
     font-size: 18px;
+}
+
+table {
+    margin: 0 auto;
 }
 
 
@@ -242,6 +247,11 @@ So subreddits with a higher proportion of overlapping users will have a higer Ja
 We can look into the interactions of these subreddits to see if they link towards or get linked, by either gamerghazi or kotakuinaction, to better understand their relationships within the Gamergate network.
 <iframe src="assets/stacked_bar_transition.html" class="iframe_standard"></iframe>
 
+We can clearly see that most subreddits send more links than they receive from KiA and Ghazi.  <br> 
+
+This also helps us better understand the nature of one of our actors. Gamerghazi presents much more links towards Kia than from them, which is in explained by its nature of G"counter-attack" to gamergate. They are not the direct target of the gamergaters, but more like an opposition. <br> <br>
+
+
 Together, these two plots give us insights on which side of the conflict each subreddit stand.  <br> <br>
 
 Here is a parctical summary of where their "side". They are noted as either pro-gamergate or anti-gamergate. <br> <br>
@@ -276,50 +286,36 @@ Here is an overview of how the Gamergate events unraveled. Use the slider to nav
 
 </div>
 
-# Gamer speech pattern / hate speech pattern
+# Can negativity be predicted ?
 
-## Can negativity be predicted ?
+As mentioned before, this story is one of intense harassment, a huge part of managing these types of hate compaigns is content moderation. Nowadays content moderation relies mainly on models trained to detect hateful speach. Considering the cleaving topics discussed in gamergate, here we chose to consider a negative link from a subreddit to another as a sign of hate.
 
-As discussed before, this story is one of intense harassment, a huge part of managing these types of hate compaigns is content moderation. Nowadays content moderation relies mainly on models trained to detect hateful speach. Considering the cleaving topics discussed in gamergate, here we chose to consider a negative link from a subreddit to another as a sign of hate.
+### So much negativity...
 
-### 3.1 How negative is GamerGate ?
+Gamergate led to a massive hate campaign so as we could expect, the subreddits involved in the conflict spreaded a lot of negativity compared to the the platform as a whole and the link sentiment confirms it very well. 
 
-As a hate compaign we expect subreddits involved in the conflict to be more negative than reddit as a platform globally, but let's verify this assumption to make it a fact before going further. We compare the average negativity of the subreddits of interest against the one on Reddit in a global sense.
+#plot frac neg link# {% include_relative assets/file.html %}
 
-#plot gamergate vs reddit negativity#
-
-
-<div class="center_div">
-<iframe src="assets/feature_coef_hl_data.html" class="iframe_standard"></iframe>
-</div>
-
-So much negativity... but yay our assumption was verified!
-
-It can also be interesting to observe the negativity sent by a subreddit and compare it to the one it receives. With this analysis, we could determine in a naive way which subreddits are more aggressive in their speach and the one that are more victims of this aggressivity. Here we will simply classify the bullies and the bullied by observing which fraction is higher between the outgoing and incomig negative links for each subreddit.
+The two sides of the conflict confronted each other vividly on the subject but, like in almost every quarrel, some side can attack with more energy. We determined in a naive way which subreddits are more aggressive in their speach and the one that are more victims of this aggressivity. Here we simplify and classify the "bullies" and the "bullied" by observing which fraction is higher between the outgoing and incomig negative links for each subreddit.
 
 #plot in/out negative link per subs#
 
-Here we can observe the following looking at the difference between the incoming and outgoing negativity percentage :
+The plot is clear : 
+- Bullies : r/amrsucks, r/circlebroke2, r/drama, r/srssucks, r/subredditdrama.
+- Bullied : r/panichistory, r/shitredditsays, r/bestofoutrageculture, r/againstgamergate, r/gamerghazi.
 
-The more aggressive subreddits are : amrsucks, circlebroke2, drama, srssucks, subredditdrama.\
-Two of those subreddits are clearly pro-gamergate subreddits but the others are more subreddits that debate and reacted a lot about the gamergate movement without really being on one side or another.\
-The most "bullied" subreddits would be : panichistory, shitredditsays, bestofoutrageculture, againstgamergate, gamerghazi.\
-Four of them are anti-gamergate subreddits and the other is again more of a neutral one.
+Considering the bullies count among them two of clearly pro-gamergate subreddits i.e. r/amrsucks and r/srssucks and that we find among the bullied four anti-gamergater i.e. r/shitredditsays, r/bestofoutrageculture, r/againstgamergate, r/gamerghazi, it makes a lot of sense. The attackers leading a harassment campain would surely spread negativity in the communities the most and the defenders would also collect more of this negativity.
 
-So we can again see the two sides in separate categories and it makes a lot of sense. The attackers leading a harassment campain would surely spread negativity in the communities the most and the defenders would also collect more of this negativity. It can be explained by the moderation we talked about earlier as well, where we discovered that it is more common to moderate content on the defender side than on the attacker side.
+Obviously, it is never as simple as that but we still get a global picture of the most hostile groups involved.
 
-### 3.2 Predictions of link sentiment
 
-To detect negativity we train a model of logistic regression on the hyperlink dataset (the total dataset not the one of only the selected subreddits).
+### Let's build our negativity detector
 
-##### Logistic Regression
+Predicting the negativity of a post is the best way to moderate the content of a platform in a machine learning manner and it also tells us a lot about the content of the text, if you ask the write questions. The Gamergate involved, as already stated, a lot of hostility, but how exactly was this hostility expressed ? Do we see some patterns in hateful speech ? If so, whcih ones ? That's what we tried to figure out. So let's get to it !
+For this purpose, we used our good old logistic regression that will help us classify some link posts as positive or negative, given their attributes. The ones that we chose were related to the stylistic linguistic
 
-Logistic regression is a supervised ML algorithm used for binary classification problems that uses the sigmoid function to convert inputs into a probability between 0 and 1. The model transfrom the linear regression function continuous value output $y$ into categorical value. 
-The sigmoid function is defined as 
 
-![equation](https://latex.codecogs.com/png.latex?\sigma(x)=\frac{1}{1+e^{-x}})
-$$\sigma(y) = \frac{1}{1 + e^{-y}}$$
-where  $y = \beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p$     is the output of the linear regression model with $\beta_1, \beta_2, \cdots, \beta_p$      representing the coefficients (weights) of the features $x_1, x_2, \cdots, x_p$ and $\beta_0$ the bias term known as intercept.
+
 
 
 For this analysis, we used the following text properties of the posts : 
@@ -369,11 +365,7 @@ Let's train our regression model and see how well we can predict the link sentim
 
 Training on the whole dataset, we get an prediction accuracy of 0.807 which is pretty satisfying. Now let's see how well the model predict the outgoing link sentiment of each of our selected subreddits.
 
-#plot feature coef hl data#
-<div class="center_div">
-
-<iframe src="assets/feature_coef_hl_data.html" class="iframe_standard"></iframe>
-</div>
+{% include_relative assets/pred_accuracy_per_subs_hl_data.html %}
 
 It is clearly less satisfying... 
 The accuracy is less than 0.8 for all subreddits and even less than 0.5 for three of them. 
@@ -498,4 +490,4 @@ Still we need to keep in mind that it is very often difficult to put in action, 
 # References 
 - Cover image: [https://thedailycougar.com/wp-content/uploads/2014/11/gamergate.jpg](https://thedailycougar.com/wp-content/uploads/2014/11/gamergate.jpg)
 
-- \[2] Moderation in reddit [https://www.theguardian.com/technology/2015/dec/30/reddit-ellen-pao]
+- \[2] Moderation in reddit [https://www.theguardian.com/technology/2015/dec/30/reddit-ellen-pao](https://www.theguardian.com/technology/2015/dec/30/reddit-ellen-pao)
