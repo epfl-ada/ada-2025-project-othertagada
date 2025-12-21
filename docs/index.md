@@ -405,6 +405,10 @@ But is this high proportion really more elevated than for the communuty of a 're
 
 {% include_relative assets/gaming_proportion_politics.html %}
 
+We also take a look at the relation between the users activity level and their activity in alt-right spaces. 
+
+{% include_relative assets/gaming_proportion_politics_multiple_lines.html %}
+
 
 # The aftermath
 While r/kotakuinaction and r/gamerghazi where created expressively with the goal of discussing the subject of GamerGate, these subreddits (like many others) do not die down suddenly after the events. These subreddits continue posting years after the peak of the conflict. But what topics are still discussed in the aftermath of the main events, is the actual gamergate still the most important theme are do communities once united by a conflict build new interest?\
