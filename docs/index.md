@@ -242,6 +242,11 @@ So subreddits with a higher proportion of overlapping users will have a higer Ja
 We can look into the interactions of these subreddits to see if they link towards or get linked, by either gamerghazi or kotakuinaction, to better understand their relationships within the Gamergate network.
 <iframe src="assets/stacked_bar_transition.html" class="iframe_standard"></iframe>
 
+We can clearly see that most subreddits send more links than they receive from KiA and Ghazi.  <br> 
+
+This also helps us better understand the nature of one of our actors. Gamerghazi presents much more links towards Kia than from them, which is in explained by its nature of G"counter-attack" to gamergate. They are not the direct target of the gamergaters, but more like an opposition. <br> <br>
+
+
 Together, these two plots give us insights on which side of the conflict each subreddit stand.  <br> <br>
 
 Here is a parctical summary of where their "side". They are noted as either pro-gamergate or anti-gamergate. <br> <br>
