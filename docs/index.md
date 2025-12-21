@@ -381,7 +381,6 @@ Automated readability still plays an important role in the decision of a positiv
 It's intriguing to notice LIWC_Swear has now a small positive weight. We have to remind ourselves that a positive link sentiment do not necessarily means that the post's text is friendly. It could also mean that it is neutral, it doesn't have any good or bad intentions. We could interpret that as a way of speaking and writing that is just more crude but not mean in our subreddits of interest.
 
 
-
 <div class="center_div">
 
 <iframe src="assets/feature_coef_hl_data.html" class="iframe_standard"></iframe>
@@ -398,20 +397,45 @@ It's intriguing to notice LIWC_Swear has now a small positive weight. We have to
 
 </div>
 
-# Topics
-<div class="center_div">
-<iframe src="assets/topics_monthly_kia.html" class="iframe_standard"></iframe>
+# Gamergate users and the alt-right sphere
+GamerGate has been widely analysed post mortem and is now considered a text book exmaple of manifactured online outrage. Pushing communinities to more extrem views, more precisely more extrem political views. Gamergate is inherently political in its premice of harassement compagne agains women in gamer spaces.\
+To this aim we look at users from what we consider 'attacker' subreddits and at users from political subreddits, in particular right to alt-right subreddits.
 
-<iframe src="assets/topics_monthly_gia.html" class="iframe_standard"></iframe>
+{% include_relative assets/gamergate_proportion_politics.html %}
 
-<iframe src="assets/topics_monthly_mgtow.html" class="iframe_standard"></iframe>
+But is this high proportion really more elevated than for the communuty of a 'regular' subredit. We decided to test the proportion of alt-right users in r/gaming, a less polarizing subreddit.
 
-<iframe class="iframe_standard" id="topics-subreddit-iframe" src="assets/topics_subreddit.html"></iframe>
+{% include_relative assets/gaming_proportion_politics.html %}
 
-<iframe class="iframe_standard" src="assets/cluster_accuracy.html"></iframe>
-</div>
+
+# What Happens in the aftermath ?
+While r/kotakuinaction and r/gamerghazi where created expressively with the goal of discussing the subject of GamerGate, these subreddits (like many others) do not die down suddenly after the events. These subreddits continue posting years after the peak of the conflict. But what topics are still discussed in the aftermath of the main events, is the actual gamergate still the most important theme are do communities once united by a conflict build new interest?\
+To try to respond to these interrogations we utilized [Empath](https://arxiv.org/pdf/1602.06979) a NLP tool that relies on deep learning to infer lexicon from some given seed words. Here we created 4 topic categories: 
+* Gamergate : Everything related to the actual events that sparked gamergate
+* Mysogyny : Signs of mysogyny, sexims and violence against women.
+* Legal : Legal speech, trial 
+* Incel : Incel retoric
+
+{% include_relative assets/kia_topics_monthly.html %}
+
+For the topic of 'gamergate' we can see a high starting point that slowly goes down as time passes and the drama looses relevance, we have a real decline in interest in main topic. From the start misogyny is quite high and slowly goes up. The topic of 'incel' and 'legal' start quite low and also go up with time. These last two topics are way more precise than the two others we analyze so it is not surpising that they have lower value overall. 
+
+{% include_relative assets/gia_topics_monthly.html %}
+
+R/gamerghazi tells a different story, the topic of 'gamergate' is from the start not as relevant and 'misogyny' is globally higher. The subreddit r/gamergahzi is not as much invested in tha actual events but more on discussing what came of the hate compaign. These is even more seen in the aftermath, where r/gamerghazi is mostly used to discuss the incel movement that has come up from the events. Legal picks up significantly in importance as the legal ramifications of GamerGate slowly surface.
+
+Just to be sure that our technic using Empath is working properly, let's see what happens when we compute the same values for a subreddit that is not part of the gamergate drama. We chose the very active r/gaming subreddit.
+
+{% include_relative assets/gaming_topics_monthly.html %}
+
+The topic of gamergate are very high, this is explained by the fact that one of the seed word given for this category was 'gaming', which is a word that is most certainly well found in r/gaming. In contrast, the other topics look almost irrelevant for this subreddit, this confirm that the sudreddits r/kotakuinaction and r/gamerghazi have a high value for the topic of misogyny and incel behaviour than a subreddit not linked to the events. 
+
 
 # Conclusion
+Our story is one of successful manufactured outrage. A political agenda disguised as a simple 'gaming scandal'. 
+We trained a logistic regression model with the aim of better understanding what makes a message negative with the bigger goal of having better moderation on reddit. Better moderation to prevent such harassement and hate compaign from happening again, but not only.\
+With better moderation from the platforms that host these online communites, we could hope to see an improved responsiveness to the creation of extreme online communities.\
+Still we need to keep in mind that it is very often difficult to put in action, one cannot just apply a threshold to justify closing a subreddit, it is often a delicate situation. 
 
 # References 
 - Cover image: [https://spectrum.ieee.org/media-library/different-shades-of-blue-and-yellow-lines-with-bright-spots-of-light-curving-against-a-black-background.jpg?id=52552740&width=3600&height=2400](https://spectrum.ieee.org/media-library/different-shades-of-blue-and-yellow-lines-with-bright-spots-of-light-curving-against-a-black-background.jpg?id=52552740&width=3600&height=2400)
