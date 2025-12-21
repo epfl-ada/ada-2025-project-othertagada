@@ -80,6 +80,9 @@ To understand what was being discussed:**
 - Extracting posts per day per subreddit dataset and plot posts per day for a few subreddits.
 
 **Maguette Diouf:**
+- Prediction of link sentiment
+- Analysis of feature importance in logistic regresion
+- Analysis of Gamergate Speech
 
 **Katia Häfliger:**
 - Writing structure of results notebook 
