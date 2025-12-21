@@ -369,23 +369,6 @@ Automated readability still plays an important role in the decision of a positiv
 It's intriguing to notice LIWC_Swear has now a small positive weight. We have to remind ourselves that a positive link sentiment do not necessarily means that the post's text is friendly. It could also mean that it is neutral, it doesn't have any good or bad intentions. We could interpret that as a way of speaking and writing that is just more crude but not mean in our subreddits of interest.
 
 
-
-<div class="center_div">
-
-<iframe src="assets/feature_coef_hl_data.html" class="iframe_standard"></iframe>
-
-<iframe src="assets/feature_significance_hl_data.html" class="iframe_standard"></iframe>
-
-<iframe src="assets/pred_accuracy_per_subs_hl_data.html" class="iframe_standard"></iframe>
-
-<iframe src="assets/feature_coef_gamergate_subs.html" class="iframe_standard"></iframe>
-
-<iframe src="assets/feature_significance_gamergate_subs.html" class="iframe_standard"></iframe>
-
-<iframe src="assets/pred_accuracy_gamergate_subs.html" class="iframe_standard"></iframe>
-
-</div>
-
 # Gamergate users and the alt-right sphere
 GamerGate has been widely analysed post mortem and is now considered a text book exmaple of manifactured online outrage. Pushing communinities to more extrem views, more precisely more extrem political views. Gamergate is inherently political in its premice of harassement compagne agains women in gamer spaces.\
 As pointed out by numerous medias covering the drama, Gamergate was a conspiracy theory created by alt-right extremists to rally people to their cause. 
