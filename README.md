@@ -1,5 +1,5 @@
 # Gamer gate: Hate in gamer communities, the case of the kiA subreddit
-**The datastory:** https://epfl-ada.github.io/teaching/fall2025/cs401/projects/
+**The datastory:** https://epfl-ada.github.io/ada-2025-project-othertagada/
 
 # Abstract
 The aim of this project will be to understand the events and mechanisms in and around the "Gamer gate", an online harassement campaign against feminism, diversity, and progressivism in video game culture, that was present on multiple online platforms, including reddit. We chose this topic because "Gamer gate" functions as a "model", i.e., a blueprint for the coordinated, polarized hate campaigns we see on social media today. More specifically, we want to examine the evolution of the campaign, using data to uncover how the event unfolded across the platform and how various communities responded, interacted, and influenced each other during the escalation. The goal of our project is to be able to better understand hate on the internet and maybe find mitigation strategies.
